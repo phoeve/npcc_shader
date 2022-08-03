@@ -311,7 +311,7 @@ function resetButtonsNLabels()
             skaarhoj.buttonColor(cameraMap[buttonMap[buttonLive].camera].presetButton, 3);       //  Green is 3
     }
     skaarhoj.buttonLabel(25, 'Preset ALL Cams');
-    skaarhoj.buttonLabel(16, 'Reset Panel');            // Force program to exit
+    skaarhoj.buttonLabel(16, 'Reboot Panel');            // Force program to exit
 
     if (!buttonLive){    // We just started up - no camera selected
         allCamerasPresetLEDs(0);     // Clear "All Camera" preset buttons

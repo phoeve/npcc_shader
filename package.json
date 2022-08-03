@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "NPCC Shader Control Panel",
+  "author": "Peter Hoeve <peter@hoeve.us>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "restart": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "node-xml-stream": "^1.0.2",
+    "xml2js-preserve-spaces": "^0.0.1"
+  }
+}

@@ -1,4 +1,4 @@
-var buttonMap=[];
+var buttonMap=[];  // Globals
 var sliderMap=[];
 var cameraMap=[];
 var buttonLive = 0;

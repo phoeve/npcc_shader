@@ -35,7 +35,14 @@ var outBuf16 = new Uint32Array(outBuf); // treat buffer as a sequence of 16-bit 
 // Step Gain - 0x8060
 
 
-var seqNum = 0;
+var seqNum = 10000;
+
+function pp16(arr, num)
+{
+    console.log('....................... ' + pp16.caller.name +'()');
+    for (i=0; i<num; i++)
+        console.log(i + '\t0x' +swap16(arr[i]).toString(16) +'\t' +swap16(arr[i])); 
+}
 
 function sendIrisValue(camera, relative, value){
 
@@ -46,21 +53,22 @@ function sendIrisValue(camera, relative, value){
     outBuf16[4] = swap16(0x0000);       // 1/2 ...
     outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
     outBuf16[6] = swap16(0x0100);       // Group ID
-    outBuf16[7] = swap16(0x0100);       // Device ID
+    outBuf16[7] = swap16(camera);       // Device ID
     outBuf16[8] = swap16(0x0100);       // SubDevice ID
     outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
     outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
-    outBuf16[11] = swap16(0x0000);      // Message length
+    outBuf16[11] = swap16(0x0006);      // Message length
 
 
     outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
     outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
     outBuf16[14] = swap16(value);       // Data
 
-    for (i=0; i<outBuf16.length; i++)
-        console.log(swap16(outBuf16[i]));
+    pp16(outBuf16, 15);
 
-    socket.write(outBuf16);        
+    console.dir((swap16(outBuf16[14]) << 16) >> 16);     // Just testing signed int encoding :)
+
+    //socket.write(outBuf16);        
 }
 
 function sendPresetRecall(camera, value){
@@ -259,3 +267,10 @@ socket.on('data', function(data) {
 
 
 connect();
+sendIrisValue(6, 'true', 40);
+sendIrisValue(10, 'true', 80);
+
+sendIrisValue(2, 'true', -40);
+sendIrisValue(3, 'true', -1);
+
+

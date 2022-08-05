@@ -57,82 +57,110 @@ function sendIrisValue(camera, relative, value){
     outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
     outBuf16[14] = swap16(value);       // Data
 
+    for (i=0; i<outBuf16.length; i++)
+        console.log(swap16(outBuf16[i]));
 
-    console.dir (outBuf16);
     socket.write(outBuf16);        
 }
 
 function sendPresetRecall(camera, value){
+                                        // HEADER
+    outBuf16[0] = swap16(0x0F10);       // Protocol Type
+    outBuf16[1] = swap16(0x0100);       // Protocol Version
+    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
+    outBuf16[4] = swap16(0x0000);       // 1/2 ...
+    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
+    outBuf16[6] = swap16(0x0100);       // Group ID
+    outBuf16[7] = swap16(0x0100);       // Device ID
+    outBuf16[8] = swap16(0x0100);       // SubDevice ID
+    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
+    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
+    outBuf16[11] = swap16(0x0000);      // Message length
 
-    var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"4098"},"value":[{"_":value,"$":{"relative":'false'}}]}]}]}};
 
-    var xml = builder.buildObject(setJson);
-    console.log(sendPresetRecall);
-    console.dir (xml);
-    socket.write(xml);        
+    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
+    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[14] = swap16(value);       // Data
+
+
+    console.dir (outBuf16);
+    socket.write(outBuf16);  
+    
 }
 
 function sendGainValue(camera, relative, value){
 
-    var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"8392"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
+                                            // HEADER
+    outBuf16[0] = swap16(0x0F10);       // Protocol Type
+    outBuf16[1] = swap16(0x0100);       // Protocol Version
+    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
+    outBuf16[4] = swap16(0x0000);       // 1/2 ...
+    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
+    outBuf16[6] = swap16(0x0100);       // Group ID
+    outBuf16[7] = swap16(0x0100);       // Device ID
+    outBuf16[8] = swap16(0x0100);       // SubDevice ID
+    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
+    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
+    outBuf16[11] = swap16(0x0000);      // Message length
 
-    var xml = builder.buildObject(setJson);
-    console.log('********** sendGainValue()');
-    console.dir (xml);
-    socket.write(xml);        
+
+    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
+    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[14] = swap16(value);       // Data
+
+
+    console.dir (outBuf16);
+    socket.write(outBuf16);  
 }
 
 function sendNDFilterValue(camera, relative, value){
+                                        // HEADER
+    outBuf16[0] = swap16(0x0F10);       // Protocol Type
+    outBuf16[1] = swap16(0x0100);       // Protocol Version
+    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
+    outBuf16[4] = swap16(0x0000);       // 1/2 ...
+    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
+    outBuf16[6] = swap16(0x0100);       // Group ID
+    outBuf16[7] = swap16(0x0100);       // Device ID
+    outBuf16[8] = swap16(0x0100);       // SubDevice ID
+    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
+    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
+    outBuf16[11] = swap16(0x0000);      // Message length
 
-    var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"1030"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
-    var xml = builder.buildObject(setJson);
-    console.log(sendNDFilterValue);
-    console.dir (xml);
-    socket.write(xml);        
+    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
+    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[14] = swap16(value);       // Data
+
+
+    console.dir (outBuf16);
+    socket.write(outBuf16);  
+   
 }
 
 function subscribe2Camera(camera){
 
-    console.log('+++++++++++++++++++' + 'subscribe2Camera');
-
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    'function': {$:{'id': '1039'}},
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.log(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);        
-
-
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    'function': {$:{'id': '8392'}},
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);        
+                                        // HEADER
+    outBuf16[0] = swap16(0x0F10);       // Protocol Type
+    outBuf16[1] = swap16(0x0100);       // Protocol Version
+    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
+    outBuf16[4] = swap16(0x0000);       // 1/2 ...
+    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
+    outBuf16[6] = swap16(0x0100);       // Group ID
+    outBuf16[7] = swap16(0x0100);       // Device ID
+    outBuf16[8] = swap16(0x0100);       // SubDevice ID
+    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
+    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
+    outBuf16[11] = swap16(0x0000);      // Message length
 
 
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    'function': {$:{'id': '1030'}},
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);        
+    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
+    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[14] = swap16(value);       // Data
 
-    console.log('+++++++++++++++++++' + 'subscribe2Camera');
+
+    console.dir (outBuf16);
+    socket.write(outBuf16);  
 }
 
 
@@ -217,7 +245,8 @@ socket.on('data', function(data) {
                                 // ORDER ACTION
                 case 0x0230:    // Answer
                     console.log('Got Order Action Answer')
-                    console.dir(message16)
+                    for (i=0; i<message16.length; i++)
+                        console.log(swap16(outBuf16[i]));
                 break;
                 case 0x0230:    // Notify
                 break;
@@ -227,7 +256,6 @@ socket.on('data', function(data) {
     }    
    
 });
-
 
 
 connect();

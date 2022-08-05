@@ -8,35 +8,58 @@ var socket = socketlib.Socket();
 
 const iupControlPort = 55100;
 const iupDataPort = 55110;
-const host = '10.1.44.xxx';
+const host = '10.2.43.101';
 
 exports.sendIrisValue = sendIrisValue;
 exports.sendGainValue = sendGainValue;
 exports.sendNDFilterValue = sendNDFilterValue;
-exports.ocpSetCamera = ocpSetCamera;
+//exports.ocpSetCamera = ocpSetCamera;
 exports.subscribe2Camera = subscribe2Camera;
 exports.sendPresetRecall = sendPresetRecall;
 exports.connect = connect;
 
 
-function ocpSetCamera(camera){
-    var temp;
-
-    temp = {'function-value-change': {device: {deviceid: '045NRN', 'function': {$:{'id': '8466'}, value: camera}}}};
-
-    var xml = builder.buildObject(temp);
-    console.dir (xml);
-    socket.write(xml);        
+            // Convert 16 bit endeanness
+function swap16(val) {
+    return ((val & 0xFF) << 8) | ((val >> 8) & 0xFF);
 }
 
 
+var outBuf = new ArrayBuffer(128); // create a buffer of length 128
+var outBuf16 = new Uint32Array(outBuf); // treat buffer as a sequence of 16-bit integers
+
+// Variable Control - 0x0130
+// Iris sub-code - 0x80B2
+// Gain sub code - 0x8249
+// ND Filter - 0x806A
+// Step Gain - 0x8060
+
+
+var seqNum = 0;
+
 function sendIrisValue(camera, relative, value){
 
-    var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"542"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
+                                        // HEADER
+    outBuf16[0] = swap16(0x0F10);       // Protocol Type
+    outBuf16[1] = swap16(0x0100);       // Protocol Version
+    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
+    outBuf16[4] = swap16(0x0000);       // 1/2 ...
+    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
+    outBuf16[6] = swap16(0x0100);       // Group ID
+    outBuf16[7] = swap16(0x0100);       // Device ID
+    outBuf16[8] = swap16(0x0100);       // SubDevice ID
+    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
+    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
+    outBuf16[11] = swap16(0x0000);      // Message length
 
-    var xml = builder.buildObject(setJson);
-    //console.dir (xml);
-    socket.write(xml);        
+
+    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
+    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[14] = swap16(value);       // Data
+
+
+    console.dir (outBuf16);
+    socket.write(outBuf16);        
 }
 
 function sendPresetRecall(camera, value){
@@ -116,21 +139,21 @@ function subscribe2Camera(camera){
 
 // Functions to handle socket events
 function connect() {
-    console.log('Connecting to GrassValley ' + host + ':' + port + '...');
-    socket.connect(port, host);
+    console.log('Connecting to Ikegami Gateway ' + host + ':' + iupControlPort + '...');
+    socket.connect(iupControlPort, host);
 
     return myEmitter;
 }
 
 socket.on('connect', function () {
     socket.write('auth???');          // Authenticate the connection
-    console.log('GrassValley connected!');
+    console.log('Ikegami connected!');
 });
 socket.on('end', function () {
     console.log('end');
 });
 socket.on('timeout', function () {
-    console.log('GrassValley timeout');
+    console.log('Ikegami timeout');
 });
 socket.on('drain', function () {
     console.log('drain');
@@ -146,130 +169,65 @@ socket.on('close', function () {
 
 
 socket.on('data', function(data) {
-    
-    const splitStr = '</function-value-indication>\n';    // Closing tag indicator
-    var arr = [];
 
-    console.log('\n******************************\nRaw from GV: \n' + data);
-        
-    data = data.toString();
-    arr=data.split(splitStr);    // If multiple responses arrive, let's split them up
+    console.log('\n******************************\nRaw from Ikegami: \n' + data);            
 
-    arr.forEach(function(xmlBuf){
+    inBuf += data;  // keep buffering ...
+    var idx;
+                                                                // Look for start of Header 0x0F20
+    if ((idx=inBuf16.indexOf(swap16(0x0F20), 0)) > 0){           // FF over garbage to first Header
+        inBuf16 = inBuf16.slice(idx);
+    }
 
-        if (xmlBuf == '')           // getting nth null message from split?
-            return;
+    while (inBuf.length > 24){                                  // More than a header!
+        msgLen = swap16(inBuf16[11]);                           // 2 byte message length
 
-        var parser = new xml2js.Parser();
+        if (inBuf.length >= 24 + msgLen){                       // We have a full message or more !
+            message = inBuf.slice(0, 24 + msgLen -1);           // Copy message from buffer
+            inBuf = inBuf.slice(24 + msgLen -1);                // Delete message from buffer
+                        // Process message!
 
-        parser.parseString(xmlBuf +splitStr, function (err, result) {       // Replace split string
+            var message16 = new Uint16Array(message);       // Create 2 byte uint16 view
 
-            console.dir(result);
-            console.dir(Object.keys(result)[0]);
-        
-            switch (Object.keys(result)[0]){
-                
-                case 'request-response':
-                    console.log('Got request-response');
-        
-                    break;
-        
-                case 'application-authentication-indication':
-                    console.log('Got application-authentication-indication');
-        
-                    break;
-        
-                case 'function-information-indication':
-                    console.log('Unknown Message Type ' +Object.keys(result)[0]);
-                    break;
+            switch (swap16(message16[9])){           // Offset 18 (9 in Uint16) is "Command ID"
 
-                case 'function-value-indication':
-
-                    switch(result['function-value-indication'].device[0].function[0]['$'].id){
-
-                        case '1039':        // Iris
-                            var fstop = 
-                                MapIris2Fstop( parseInt(result['function-value-indication'].device[0].function[0]['value']));
-                            var position = 
-                                MapIris2FstopPosition( parseInt(result['function-value-indication'].device[0].function[0]['value']));
-                            myEmitter.emit('iris', result['function-value-indication'].device[0].name, fstop, position);
-                        break;
-
-                        case '8392':        //  Gain
-                            var gain = 
-                                result['function-value-indication'].device[0].function[0]['value'];
-                            myEmitter.emit('gain', result['function-value-indication'].device[0].name, gain);
-                        break;
-                        case '1030':        //  ND
-                            var nd = 
-                                result['function-value-indication'].device[0].function[0]['value'];
-                            myEmitter.emit('ndFilter', result['function-value-indication'].device[0].name, nd);
-                        break;
-                }
-
+                                // DEVICE INFORMATION
+                case 0x0200:    // Answer
                 break;
-    
-                default:
-                    console.log('Unknown Message Type ' +Object.keys(result)[0]);
-        
+                case 0x0300:    // Notify
+                break;
+                                // SERVICE INFORMATION (CODE)
+                case 0x0210:    // Answer
+                break;
+                                // SERVICE INFORMATION (SUB CODE)
+                case 0x0211:    // Answer
+                break;
+                                // SERVICE INFORMATION (DATA)
+                case 0x0212:    // Answer
+                break;
+                                // QUERY PARAMETER
+                case 0x0220:    // Answer
+                break;
+                                // CHANGE PARAMETER
+                case 0x0221:    // Answer
+                break;
+                                // UPDATE PARAMETER
+                case 0x0322:    // Notify
+                break;
+                                // ORDER ACTION
+                case 0x0230:    // Answer
+                    console.log('Got Order Action Answer')
+                    console.dir(message16)
+                break;
+                case 0x0230:    // Notify
+                break;
+
             }
-        
-        });
-    });
-    
+        }
+    }    
+   
 });
 
 
-let table = [
-      {34: '---'},
-      {31: '25.'},
-      {51: '22.'},
-      {30: '21.'},
-      {50: '19.'},
-      {49: '17.'},
-      {29: '16.'},
-      {28: '15.'},
-      {48: '13.'},
-      {27: '12.'},
-      {26: '11.'},
-      {25: '10.'},
-      {47: '9.5'},
-      {24: '8.7'},
-      {23: '8.0'},
-      {22: '7.3'},
-      {46: '6.7'},
-      {21: '6.2'},
-      {20: '5.6'},
-      {19: '5.2'},
-      {45: '4.8'},
-      {18: '4.4'},
-      {17: '4.0'},
-      {16: '3.7'},
-      {44: '3.4'},
-      {15: '3.1'},
-      {14: '2.8'},
-      {13: '2.6'},
-      {43: '2.4'},
-      {12: '2.2'},
-      {11: '2.0'},
-      {9:  '1.8'},
-      {8:  '1.7'},
-      {6:  '1.5'},
-      {5:  '1.4'} ];
 
-function MapIris2Fstop(value){
-
-
-    for (i=0;i<table.length;i++)
-        if (value == Object.keys(table[i]))
-            return table[i][value];
-
-    return ('undef');
-}
-
-function MapIris2FstopPosition(value){
-    for (i=0;i<table.length;i++)
-        if (value == Object.keys(table[i]))
-            return parseInt((i+1)/(table.length +1) *1000);
-}
-
+connect();

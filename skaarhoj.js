@@ -1,94 +1,98 @@
 socketlib = require('net');
-var socket = socketlib.Socket();
-
 const EventEmitter = require('events');
-class MyEmitter extends EventEmitter {}
-const myEmitter = new MyEmitter();
 
-exports.buttonColor = buttonColor;
-exports.buttonLabel = buttonLabel;
-exports.moveSlider = moveSlider;
-exports.connect = connect;
+class Skaarhoj extends EventEmitter{
 
-var ipAddress = '';
-const port = 9923;
+    socket = socketlib.Socket();
 
-function buttonColor(button, color)
-{
-    var str = 'HWC#' +button +'=' +color +'\n'; 
-    console.log('buttonColor()' +str);
-    socket.write(str); 
-}
+    constructor(host) {
+        super();
 
-function buttonLabel(button, label)
-{
-    var str = 'HWCt#' +button +'=|||||' +label +'\n';
-    console.log('buttonLabel()' +str);
-    socket.write(str);
-}
+        let myHost = host;
+        let port = 9923;
+        let self = this;        // set target or our "emit's"
 
-function moveSlider(slider, position)
-{
-    var str = 'HWCx#' +slider +'=' +(parseInt(position)+4096) +'\n';
-    console.log('moveSlider()' +str);
-    socket.write(str);
-}
 
-// Functions to handle socket events
-function connect(host) {
-    
-    if (ipAddress == '')
-        ipAddress = host;
-    console.log('Connecting to Skaarhoj ' + ipAddress + ':' + port + '...');
-    socket.connect(port, ipAddress);
+        console.log('Connecting to Skaarhoj ' + host + ':' + port + '...');
+        this.socket.connect(port, host);
 
-    return myEmitter;
-}
+        this.socket.on('connect', function () {
+            console.log('skaarhoj connected!');
+            self.emit('connect');
+        });
+        this.socket.on('end', function () {
+            console.log('end');
+            self.emit('end');
+        });
+        this.socket.on('timeout', function () {
+            console.log('skaarhoj timeout');
+            self.emit('timeout');
+        });
+        this.socket.on('drain', function () {
+            console.log('drain');
+            self.emit('drain');
+        });
+        this.socket.on('error', function () {
+            console.log('error');
+            self.emit('error');
+            console.log('ReConnecting to Skaarhoj ' + host + ':' + port + '...');
+            socket.connect(port, host);
+        });
+        this.socket.on('close', function () {
+            console.log('close');
+            self.emit('close');
+        });
 
-socket.on('connect', function () {
-    console.log('skaarhoj connected!');
 
-});
-socket.on('end', function () {
-    console.log('end');
-});
-socket.on('timeout', function () {
-    console.log('skaarhoj timeout');
-});
-socket.on('drain', function () {
-    console.log('drain');
-});
-socket.on('error', function () {
-    console.log('error');
-    connect();
-});
-socket.on('close', function () {
-    console.log('close');
-});
+        this.socket.on('data', function(data) {
 
-socket.on('data', function(data) {
+            if (data.includes('Down')){
 
-    if (data.includes('Down')){
+                var button = data.toString().split('\n')[0].split('.')[0].split('#')[1];
+                var value = data.toString().split('\n')[0].split(':')[1];
 
-        var button = data.toString().split('\n')[0].split('.')[0].split('#')[1];
-        var value = data.toString().split('\n')[0].split(':')[1];
+                self.emit('button', parseInt(button), 'Down');
 
-        myEmitter.emit('button', parseInt(button), 'Down');
+            }else if (data.includes('Abs')){
 
-    }else if (data.includes('Abs')){
+                var slider = data.toString().split('=')[0].split('#')[1];
+                var position = data.toString().split('\n')[0].split(':')[1];
 
-        var slider = data.toString().split('=')[0].split('#')[1];
-        var position = data.toString().split('\n')[0].split(':')[1];
+                self.emit('slider', parseInt(slider), parseInt(position));
+            }
+            else if (data.includes('Enc')){
 
-        myEmitter.emit('slider', parseInt(slider), parseInt(position));
+                var dial = data.toString().split('=')[0].split('#')[1];
+                var movement = data.toString().split('\n')[0].split(':')[1];
+
+        //        console.log('dial', parseInt(dial), parseInt(movement));
+                self.emit('dial', parseInt(dial), parseInt(movement));
+            }
+        });
     }
-    else if (data.includes('Enc')){
 
-        var dial = data.toString().split('=')[0].split('#')[1];
-        var movement = data.toString().split('\n')[0].split(':')[1];
 
-//        console.log('dial', parseInt(dial), parseInt(movement));
-        myEmitter.emit('dial', parseInt(dial), parseInt(movement));
+    buttonColor(button, color)
+    {
+        var str = 'HWC#' +button +'=' +color +'\n'; 
+        console.log('buttonColor()' +str);
+        this.socket.write(str); 
     }
-});
 
+    buttonLabel(button, label)
+    {
+        var str = 'HWCt#' +button +'=|||||' +label +'\n';
+        console.log('buttonLabel()' +str);
+        this.socket.write(str);
+    }
+
+    moveSlider(slider, position)
+    {
+        var str = 'HWCx#' +slider +'=' +(parseInt(position)+4096) +'\n';
+        console.log('moveSlider()' +str);
+        this.socket.write(str);
+    }
+
+}
+
+module.exports = Skaarhoj;

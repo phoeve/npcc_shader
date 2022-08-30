@@ -21,6 +21,7 @@ const host = '10.1.44.210';
 
 exports.sendIrisValue = sendIrisValue;
 exports.sendGainValue = sendGainValue;
+exports.sendSkinValue = sendSkinValue;
 exports.sendNDFilterValue = sendNDFilterValue;
 exports.ocpSetCamera = ocpSetCamera;
 exports.subscribe2Camera = subscribe2Camera;
@@ -80,6 +81,16 @@ function sendGainValue(camera, relative, value){
     socket.write(xml);        
 }
 
+function sendSkinValue(camera, relative, value){
+
+    var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"524"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
+
+    var xml = builder.buildObject(setJson);
+    console.log('********** sendSkinValue()');
+    console.dir (xml);
+    socket.write(xml);        
+}
+
 function sendNDFilterValue(camera, relative, value){
 
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"1030"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
@@ -128,7 +139,18 @@ function subscribe2Camera(camera){
             }};
     var xml = builder.buildObject(sub2Cam);
     console.dir (xml);
-    socket.write(xml);        
+    socket.write(xml);  
+
+    var sub2Cam = {'function-value-request': 
+            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
+                            device:{
+                                    name: camera, 
+                                    'function': {$:{'id': '524'}},     // Skin Detail
+                            }
+            }};
+    var xml = builder.buildObject(sub2Cam);
+    console.dir (xml);
+    socket.write(xml);       
 
     console.log('+++++++++++++++++++' + 'subscribe2Camera');
 }
@@ -227,6 +249,11 @@ socket.on('data', function(data) {
                             var nd = 
                                 result['function-value-indication'].device[0].function[0]['value'];
                             myEmitter.emit('ndFilter', result['function-value-indication'].device[0].name, nd);
+                        break;
+                        case '524':        //  Skin Detail
+                            var skin = 
+                                result['function-value-indication'].device[0].function[0]['value'];
+                            myEmitter.emit('skin', result['function-value-indication'].device[0].name, skin);
                         break;
                 }
 

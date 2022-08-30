@@ -3,6 +3,8 @@ var sliderMap=[];
 var cameraMap=[];
 var buttonLive = 0;
 
+var RcpPageMap=[];
+
 birch = require('./birch.js');
 console.log('Calling birch.init()');
 birchEmitter = birch.init();
@@ -18,26 +20,19 @@ grassValley = require('./grass.js');
 grassValleyEmitter = grassValley.connect();
 
 
-skaarhoj = require('./skaarhoj.js');
-//skaarhojEmitter = skaarhoj.connect('10.1.45.58');
-skaarhojEmitter = skaarhoj.connect('10.1.43.37');
+const Skaarhoj = require('./skaarhoj.js');
+skaarhojF1 = new Skaarhoj('10.1.43.37');
+skaarhojRCP = new Skaarhoj('10.1.45.54');
 
-function intervalFunc()
-{
-    console.log('ACK Skaarhoj');
-    skaarhoj.buttonColor(0, 0);  // Keep Skaarhoj form going to sleep
-}
 
-setInterval(intervalFunc, 1000*60*15);    // every 15 min
-
-skaarhojEmitter.on('slider', (slider, position) => {
+skaarhojF1.on('slider', (slider, position) => {
 
     if (!buttonLive)
         return;
 
     const scale = 2;
 
-    console.log(skaarhojEmitter +slider +' ' +position);
+    console.log(skaarhojF1 +slider +' ' +position);
 
     if (!sliderMap[slider]){
         sliderMap[slider] = new Map();
@@ -52,12 +47,22 @@ skaarhojEmitter.on('slider', (slider, position) => {
 
                             // Save slider position and timestamp
     sliderMap[slider].position = position;
-    cameraMap[buttonMap[liveButton].camera].sliderPosition = position;  // Allowws us to position slider when this camera is selected
-    cameraMap[buttonMap[liveButton].camera].sliderTimestamp = Date.now();  // Allowws us to position slider when this camera is selected
+    cameraMap[buttonMap[liveButton].camera].sliderPosition = position;  // Allows us to position slider when this camera is selected
+    cameraMap[buttonMap[liveButton].camera].sliderTimestamp = Date.now();  // Allows us to position slider when this camera is selected
 
 });
 
-skaarhojEmitter.on('dial', (dial, movement) => {
+
+                        //
+                        //  Fusion 1
+                        //
+
+const irisDialF1 = 53;
+const irisDialCoarseF1 = 54;
+const gainDialF1 = 55;
+const ndFilterF1 = 56;
+
+skaarhojF1.on('dial', (dial, movement) => {
 
     const fineScale = 10;
     const coarseScale = 100;
@@ -67,27 +72,23 @@ skaarhojEmitter.on('dial', (dial, movement) => {
 
     switch(dial){
 
-//        case '9':                                // Iris dial
-        case 53:                                // Iris dial
+        case irisDialF1:                                // Iris dial
             grassValley.sendIrisValue(buttonMap[buttonLive].camera, 'true', movement * fineScale);   
 
                         // Move slider correspondingly
             break;
 
-//        case '10':                                // coarse Iris dial
-        case 54:                                // coarse Iris dial
+        case irisDialCoarseF1:                                // coarse Iris dial
             grassValley.sendIrisValue(buttonMap[buttonLive].camera, 'true', movement * coarseScale);   
 
                         // Move slider correspondingly
             break;
 
-//        case '11':                                // Gain dial
-        case 55:                                // Gain dial
+        case gainDialF1:                                // Gain dial
             grassValley.sendGainValue(buttonMap[buttonLive].camera, 'true', movement);   
             break;
 
-//        case '12':                                // ND filter dial
-        case 56:                                // ND filter dial
+        case ndFilterF1:                                // ND filter dial
             console.log('ndFilter');
             console.log(cameraMap[buttonMap[buttonLive].camera].ndFilter);
 
@@ -97,7 +98,6 @@ skaarhojEmitter.on('dial', (dial, movement) => {
             else if (cameraMap[buttonMap[buttonLive].camera].ndFilter > 4)
                     cameraMap[buttonMap[buttonLive].camera].ndFilter = 1;
 
-
             console.log(cameraMap[buttonMap[buttonLive].camera].ndFilter);
             grassValley.sendNDFilterValue(buttonMap[buttonLive].camera, 'false', cameraMap[buttonMap[buttonLive].camera].ndFilter);
             break;
@@ -105,7 +105,69 @@ skaarhojEmitter.on('dial', (dial, movement) => {
     }
 });
 
-skaarhojEmitter.on('button', (pressed, position) => {
+
+                        //
+                        //  RCP
+                        //
+
+const irisDialRCP = 56;
+const gainDialRCP = 31;
+const ndFilterRCP = 15;
+
+skaarhojRCP.on('dial', (dial, movement) => {
+
+    const fineScale = 7;        // 7 per Brendon
+
+    if (!buttonLive)    // No camera selected ?
+        return;
+
+    switch(dial){
+
+        case irisDialRCP:                                // Iris dial
+            grassValley.sendIrisValue(buttonMap[buttonLive].camera, 'true', movement * fineScale);   
+
+            break;
+
+        case gainDialRCP:                                // Gain dial
+            grassValley.sendGainValue(buttonMap[buttonLive].camera, 'true', movement);   
+            break;
+
+        case 10:                                // Skin Detail dial
+            grassValley.sendSkinValue(buttonMap[buttonLive].camera, 'true', movement);   
+            break;
+
+        case ndFilterRCP:                                // ND filter dial
+            console.log('ndFilter');
+            console.log(cameraMap[buttonMap[buttonLive].camera].ndFilter);
+
+            cameraMap[buttonMap[buttonLive].camera].ndFilter = cameraMap[buttonMap[buttonLive].camera].ndFilter +parseInt(movement);
+            if (cameraMap[buttonMap[buttonLive].camera].ndFilter < 1)
+                cameraMap[buttonMap[buttonLive].camera].ndFilter = 4;
+            else if (cameraMap[buttonMap[buttonLive].camera].ndFilter > 4)
+                    cameraMap[buttonMap[buttonLive].camera].ndFilter = 1;
+
+            console.log(cameraMap[buttonMap[buttonLive].camera].ndFilter);
+            grassValley.sendNDFilterValue(buttonMap[buttonLive].camera, 'false', cameraMap[buttonMap[buttonLive].camera].ndFilter);
+            break;
+
+
+        default:
+            console.log('Unmapped Dial truned: ' +dial);
+
+    }
+});
+
+
+                        //
+                        //  Fusion 1
+                        //
+
+
+const recallSinglePresetF1 = 49;
+const recallAllPresetF1 = 28;
+const rebootF1 = 18;
+
+skaarhojF1.on('button', (pressed, position) => {
 
 
 
@@ -122,8 +184,9 @@ skaarhojEmitter.on('button', (pressed, position) => {
         birch.take(cameraMap[buttonMap[pressed].camera].birchObj, birch.destinations[0]);
 
             // Set button colors   red=2, green=3
+        skaarhojF1.buttonColor(pressed, '3');          // set "pushed" to green
 
-        skaarhoj.buttonColor(pressed, '3');          // set "pushed" to green
+        skaarhojRCP.buttonLabel(99, buttonMap[pressed].camera);     // Display camera # on RCP
 
         grassValley.subscribe2Camera(buttonMap[pressed].camera);        // Subscribe to camera changes in iris, gain, nd, ...
     }
@@ -131,25 +194,25 @@ skaarhojEmitter.on('button', (pressed, position) => {
     {
         switch (pressed){          
                                 // Recall Single Camera Preset
-            case 49:
+            case recallSinglePresetF1:
                 if (buttonLive){
                     grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 2);      // 2 => File 1
                     cameraPresetLEDs(pressed);
                 }
                 break;
-            case 50:
+            case recallSinglePresetF1 +1:
                 if (buttonLive){
                     grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 3);      // 3 => File 2
                     cameraPresetLEDs(pressed);
                 }
                 break;
-            case 51:
+            case recallSinglePresetF1 +2:
                 if (buttonLive){
                     grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 4);      // 4 => File 3
                     cameraPresetLEDs(pressed);
                 }
                 break;
-            case 52:
+            case recallSinglePresetF1 +3:
                 if (buttonLive){
                     grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 5);      // 5 => File 4
                     cameraPresetLEDs(pressed);
@@ -157,28 +220,28 @@ skaarhojEmitter.on('button', (pressed, position) => {
                 break;
 
                                 // Recall All CamerasPreset
-            case 28:
+            case recallAllPresetF1:
                 cameraMap.forEach(function(obj){
                     grassValley.sendPresetRecall(obj.cameraNum, 2);   // 2 => File 1
                     obj.presetButton = 0;                           // Clear the camera's individual Preset
                 });
                 allCamerasPresetLEDs(pressed)
                 break;
-            case 29:
+            case recallAllPresetF1 +1:
                 cameraMap.forEach(function(obj){
                     grassValley.sendPresetRecall(obj.cameraNum, 3);   // 3 => File 2
                     obj.presetButton = 0;
                 });
                 allCamerasPresetLEDs(pressed)
                 break;
-            case 30:
+            case recallAllPresetF1 +2:
                 cameraMap.forEach(function(obj){
                     grassValley.sendPresetRecall(obj.cameraNum, 4);   // 4 => File 3
                     obj.presetButton = 0;
                 });
                 allCamerasPresetLEDs(pressed)
                 break;
-            case 31:
+            case recallAllPresetF1 +3:
                 cameraMap.forEach(function(obj){
                     grassValley.sendPresetRecall(obj.cameraNum, 5);   // 5 => File 4
                     obj.presetButton = 0;
@@ -186,7 +249,7 @@ skaarhojEmitter.on('button', (pressed, position) => {
                 allCamerasPresetLEDs(pressed)
                 break;
 
-            case 18:            // RESET ALL ... exit()
+            case rebootF1:            // RESET ALL ... exit()
                 process.exit(1);    // program exit will cause docker to restart this
                 break;
 
@@ -197,36 +260,92 @@ skaarhojEmitter.on('button', (pressed, position) => {
     }
 });
 
+
+
+                        //
+                        //  RCP
+                        //
+
+skaarhojRCP.on('button', (pressed, position) => {
+
+    switch (pressed){ 
+
+        case 99:            // Home Key 
+        break;
+
+        case 99:            // Shift Key 
+        break;
+
+        case 99:            // Gain/Gamma Key 
+        break;
+
+        case 99:            // Flare/PED Key 
+        break;
+
+        case 99:            // Matrix Key 
+        break;
+
+        case 99:            // Color Key 
+        break;
+
+        case 99:            // Color 2 Key 
+        break;
+
+        case 99:            // HDR Key 
+        break;
+
+        case 99:            // HDR 2 Key 
+        break;
+
+
+        default:
+            console.log('Unmapped button pressed: ' +pressed);
+    }
+
+});
+
+
+
+
 grassValleyEmitter.on('iris', (camera, value) => {
     console.log('iris camera: ' +camera +' fstop: ' +value);
 
+    if (buttonLive && camera == buttonMap[buttonLive].camera){          // new fstop for live camera?
+        skaarhojF1.buttonLabel(53, 'F ' +value);                        //fine
+        skaarhojRCP.buttonLabel(29, 'F ' +value);
 
-    if (buttonLive){
-        if (camera == buttonMap[buttonLive].camera){      // new fstop for live camera?
-//            skaarhoj.buttonLabel(9, 'F ' +value); //fine
-            skaarhoj.buttonLabel(53, 'F ' +value); //fine
-
-                        // Move slider correspondingly
-        }
     }
 });
 
 grassValleyEmitter.on('gain', (camera, value) => {
     console.log('gain camera: ' +camera +' gain: ' +value);
 
-
-    skaarhoj.buttonLabel(55, 'Gain ' +value);
+    if (buttonLive && camera == buttonMap[buttonLive].camera){
+        skaarhojF1.buttonLabel(55, 'Gain ' +value);
+        skaarhojRCP.buttonLabel(31, 'Gain ' +value);
+    }
 });
 
 grassValleyEmitter.on('ndFilter', (camera, value) => {
     console.log('ndFilter camera: ' +camera +' ND Filter: ' +value);
 
-    cameraMap[camera].ndFilter = parseInt(value);
+    if (buttonLive && camera == buttonMap[buttonLive].camera){
+        skaarhojF1.buttonLabel(56, 'ND ' +parseInt(value));
+        skaarhojRCP.buttonLabel(15, 'ND ' +parseInt(value));
+    }
 
-    skaarhoj.buttonLabel(56, 'ND ' +parseInt(value));
+    cameraMap[camera].ndFilter = parseInt(value);
 });
 
+grassValleyEmitter.on('skin', (camera, value) => {
+    console.log('skinDetail camera: ' +camera +' Value: ' +value);
 
+    if (buttonLive && camera == buttonMap[buttonLive].camera){
+     //   skaarhojF1.buttonLabel(56, 'SKN ' +parseInt(value));
+        skaarhojRCP.buttonLabel(10, 'SKN ' +parseInt(value));
+    }
+
+});
 
 function serverInit()
 {
@@ -297,35 +416,38 @@ function resetButtonsNLabels()
 {
     for(i=0;i<buttonMap.length;i++){
         if(buttonMap[i]){
-            skaarhoj.buttonColor(i, '0');      // set all to green
-            skaarhoj.buttonColor(i+6, '0');      // set flags to off
-            skaarhoj.buttonLabel(i, buttonMap[i].name);
+            skaarhojF1.buttonColor(i, '0');      // set all to green
+            skaarhojF1.buttonColor(i+6, '0');      // set flags to off
+            skaarhojF1.buttonLabel(i, buttonMap[i].name);
         }
     }
-    skaarhoj.buttonLabel(54, 'Coarse');
-    skaarhoj.buttonLabel(47, 'Preset');
+    skaarhojF1.buttonLabel(54, 'Coarse');
+    skaarhojF1.buttonLabel(47, 'Preset');
     if (buttonLive){
         cameraPresetLEDs(0);    // Clear all 4 then light single below
-        skaarhoj.buttonLabel(48, buttonMap[buttonLive].name);
+        skaarhojF1.buttonLabel(48, buttonMap[buttonLive].name);
         if (cameraMap[buttonMap[buttonLive].camera].presetButton)
-            skaarhoj.buttonColor(cameraMap[buttonMap[buttonLive].camera].presetButton, 3);       //  Green is 3
+            skaarhojF1.buttonColor(cameraMap[buttonMap[buttonLive].camera].presetButton, 3);       //  Green is 3
     }
-    skaarhoj.buttonLabel(25, 'Preset ALL Cams');
-    skaarhoj.buttonLabel(18, 'Reset Panel');            // Force program to exit
+    skaarhojF1.buttonLabel(25, 'Preset ALL Cams');
+    skaarhojF1.buttonLabel(18, 'Reset Panel');            // Force program to exit
 
     if (!buttonLive){    // We just started up - no camera selected
         allCamerasPresetLEDs(0);     // Clear "All Camera" preset buttons
         cameraPresetLEDs(0);        // Clear individual camera preset buttons
+    }
+    else{
+        skaarhojRCP.buttonLabel(38, buttonMap[buttonLive].name)
     }
 }
 
 function cameraPresetLEDs(pressed)
 {
     for (i=49;i<53;i++)                 // Individual Camera Preset LEDs
-        skaarhoj.buttonColor(i, 0);
+        skaarhojF1.buttonColor(i, 0);
 
     if (pressed){
-        skaarhoj.buttonColor(pressed, 3);       //  Green is 3
+        skaarhojF1.buttonColor(pressed, 3);       //  Green is 3
         cameraMap[buttonMap[buttonLive].camera].presetButton = pressed;
     }
 }
@@ -333,11 +455,23 @@ function cameraPresetLEDs(pressed)
 function allCamerasPresetLEDs(pressed)
 {
     for (i=28;i<32;i++){                 // All Cameras Preset LEDs
-        skaarhoj.buttonColor(i, 0);
+        skaarhojF1.buttonColor(i, 0);
     }
 
     if (pressed)
-        skaarhoj.buttonColor(pressed, 3);
+        skaarhojF1.buttonColor(pressed, 3);
 
     cameraPresetLEDs(0);   // All cameras Profile ... clear this cameras individual Profile LEDs
 }
+
+
+
+
+
+// function intervalFunc()
+// {
+//     console.log('ACK Skaarhoj');
+//     skaarhoj.buttonColor(0, 0);  // Keep Skaarhoj form going to sleep
+// }
+
+// setInterval(intervalFunc, 1000*60*15);    // every 15 min

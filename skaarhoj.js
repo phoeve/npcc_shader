@@ -52,8 +52,15 @@ class Skaarhoj extends EventEmitter{
                 var value = data.toString().split('\n')[0].split(':')[1];
 
                 self.emit('button', parseInt(button), 'Down');
+            }
+            else if (data.includes('Up')){
 
-            }else if (data.includes('Abs')){
+                var button = data.toString().split('\n')[0].split('.')[0].split('#')[1];
+                var value = data.toString().split('\n')[0].split(':')[1];
+
+                self.emit('button', parseInt(button), 'Up');
+            }
+            else if (data.includes('Abs')){
 
                 var slider = data.toString().split('=')[0].split('#')[1];
                 var position = data.toString().split('\n')[0].split(':')[1];
@@ -72,17 +79,17 @@ class Skaarhoj extends EventEmitter{
     }
 
 
-    buttonColor(button, color)
+    hwcColor(button, color)
     {
         var str = 'HWC#' +button +'=' +color +'\n'; 
-        console.log('buttonColor()' +str);
+        console.log('hwcColor()' +str);
         this.socket.write(str); 
     }
 
-    buttonLabel(button, label)
+    hwcLabel(button, label)
     {
         var str = 'HWCt#' +button +'=|||||' +label +'\n';
-        console.log('buttonLabel()' +str);
+        console.log('hwcLabel()' +str);
         this.socket.write(str);
     }
 

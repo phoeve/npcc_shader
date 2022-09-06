@@ -1,0 +1,47 @@
+var screenLayouts = {
+
+    17:             // Home Button
+    {               // GrassValley Function 1038 => Skaarhoj LED 28   LED is also corresponding Dial :)
+        1038: {dial: 30, label: 'Iris'},   
+        542:  {dial: 30, label: 'Iris'},
+        455:  {dial: 30, label: 'Iris'},
+        345:  {dial: 30, label: 'Iris'},
+        565:  {dial: 30, label: 'Iris'},
+        878:  {dial: 30, label: 'Iris'},
+        'sub1': {
+            455:  {dial: 30, label: 'Iris'},
+            345:  31,
+            565:  32,
+            878:  33,
+        }
+
+    },
+
+    18:             // Gain/Gamma
+    {
+        444: 28,
+        555:  29
+    },
+
+    19:             // Flare / PED
+    {
+        444: 28,
+        555:  29
+    },
+
+};
+
+//console.dir(screenLayouts);
+
+//console.dir(screenLayouts[19]);
+
+Object.keys(screenLayouts[17]).forEach(key => {
+  console.log(key, screenLayouts[17][key]);
+});
+
+
+screenLayouts[17].foreach(hwc)
+{
+    console.dir(hwc);
+}
+

@@ -44,9 +44,9 @@ function pp16(arr, num)
         console.log(i + '\t0x' +swap16(arr[i]).toString(16) +'\t' +swap16(arr[i])); 
 }
 
-function sendIrisValue(camera, relative, value){
-
-                                        // HEADER
+function ikegamiHeader (camera, command, msgLen)
+{
+                                           // HEADER
     outBuf16[0] = swap16(0x0F10);       // Protocol Type
     outBuf16[1] = swap16(0x0100);       // Protocol Version
     outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
@@ -56,119 +56,85 @@ function sendIrisValue(camera, relative, value){
     outBuf16[7] = swap16(camera);       // Device ID
     outBuf16[8] = swap16(0x0100);       // SubDevice ID
     outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
-    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
-    outBuf16[11] = swap16(0x0006);      // Message length
+    outBuf16[10] = swap16(command);     // Command ID  0x0130=Order Action
+    outBuf16[11] = swap16(msgLen);      // Message length 
+}
 
+
+function subscribe2Camera(camera)
+{
+    ikegamiHeader (camera, 0x0100, 6);  // 0x0100=Device Information
 
     outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
     outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
     outBuf16[14] = swap16(value);       // Data
 
     pp16(outBuf16, 15);
+    //socket.write(outBuf16);     
+}
 
-    console.dir((swap16(outBuf16[14]) << 16) >> 16);     // Just testing signed int encoding :)
+function sendIrisValue(camera, relative, value)
+{
+    ikegamiHeader (camera, 0x0130, 6);  // 0x0130=Order Action
 
+    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
+    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[14] = swap16(value);       // Data
+
+    pp16(outBuf16, 15);
     //socket.write(outBuf16);        
 }
 
-function sendPresetRecall(camera, value){
-                                        // HEADER
-    outBuf16[0] = swap16(0x0F10);       // Protocol Type
-    outBuf16[1] = swap16(0x0100);       // Protocol Version
-    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
-    outBuf16[4] = swap16(0x0000);       // 1/2 ...
-    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
-    outBuf16[6] = swap16(0x0100);       // Group ID
-    outBuf16[7] = swap16(0x0100);       // Device ID
-    outBuf16[8] = swap16(0x0100);       // SubDevice ID
-    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
-    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
-    outBuf16[11] = swap16(0x0000);      // Message length
+function sendPresetRecall(camera, value)
+{
+    ikegamiHeader (camera, 0x0130, 6);  // 0x0130=Order Action
 
+    outBuf16[12] = swap16(0x0330);      // Service Code  0x0330=Recall Preset File
+    outBuf16[13] = swap16(value+9);     // Service Sub Code  0x0010, 0x0011, 0x0012, ox0013
+    outBuf16[14] = swap16(0x0001);      // 0x0001 = Start
 
-    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
-    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
-    outBuf16[14] = swap16(value);       // Data
-
-
-    console.dir (outBuf16);
-    socket.write(outBuf16);  
-    
+    pp16(outBuf16, 15);
+    //socket.write(outBuf16);  
 }
 
-function sendGainValue(camera, relative, value){
-
-                                            // HEADER
-    outBuf16[0] = swap16(0x0F10);       // Protocol Type
-    outBuf16[1] = swap16(0x0100);       // Protocol Version
-    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
-    outBuf16[4] = swap16(0x0000);       // 1/2 ...
-    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
-    outBuf16[6] = swap16(0x0100);       // Group ID
-    outBuf16[7] = swap16(0x0100);       // Device ID
-    outBuf16[8] = swap16(0x0100);       // SubDevice ID
-    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
-    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
-    outBuf16[11] = swap16(0x0000);      // Message length
-
+function sendGainValue(camera, relative, value)
+{
+    ikegamiHeader (camera, 0x0130, 6);  // 0x0130=Order Action
 
     outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
-    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
+    outBuf16[13] = swap16(0x8060);      // Service Sub Code  0x8060=Step Gain
     outBuf16[14] = swap16(value);       // Data
 
+            //    0x0020 -6 dB
+            //    0x0021 -3 dB
+            //    0x0022  0 dB
+            //    0x0023  3 dB
+            //    0x0024  6 dB
+            //    0x0025  9 dB
+            //    0x0026 12 dB
+            //    0x0027 18 dB
+            //    0x0028 24 dB
+            //    0x0029 30 dB
+            //    0x002A 36 dB
+            //    0x002B 42 dB
+            //    0x002C 48 dB
+            //    0x002D 54 dB
 
-    console.dir (outBuf16);
-    socket.write(outBuf16);  
+    pp16(outBuf16, 15);
+    //socket.write(outBuf16);        
 }
 
-function sendNDFilterValue(camera, relative, value){
-                                        // HEADER
-    outBuf16[0] = swap16(0x0F10);       // Protocol Type
-    outBuf16[1] = swap16(0x0100);       // Protocol Version
-    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
-    outBuf16[4] = swap16(0x0000);       // 1/2 ...
-    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
-    outBuf16[6] = swap16(0x0100);       // Group ID
-    outBuf16[7] = swap16(0x0100);       // Device ID
-    outBuf16[8] = swap16(0x0100);       // SubDevice ID
-    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
-    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
-    outBuf16[11] = swap16(0x0000);      // Message length
+function sendNDFilterValue(camera, relative, value)
+{
+    ikegamiHeader (camera, 0x0130, 6);  // 0x0130=Order Action
 
+    outBuf16[12] = swap16(0x806A);      // Service Code  0x806A=ND Filter
+    outBuf16[13] = swap16(value+9);     // Service Sub Code  0x0010, 0x0011, 0x0012, 0x0013, 0x0014
+    outBuf16[14] = swap16(0x0001);      // 0x0001 = Start
 
-    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
-    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
-    outBuf16[14] = swap16(value);       // Data
+    pp16(outBuf16, 15);
+    //socket.write(outBuf16);  
 
-
-    console.dir (outBuf16);
-    socket.write(outBuf16);  
-   
-}
-
-function subscribe2Camera(camera){
-
-                                        // HEADER
-    outBuf16[0] = swap16(0x0F10);       // Protocol Type
-    outBuf16[1] = swap16(0x0100);       // Protocol Version
-    outBuf16[3] = swap16(0x0000);       // 1/2 or Reserved
-    outBuf16[4] = swap16(0x0000);       // 1/2 ...
-    outBuf16[5] = swap16(0x0001);       // Device Type 0x0001=Camera Head
-    outBuf16[6] = swap16(0x0100);       // Group ID
-    outBuf16[7] = swap16(0x0100);       // Device ID
-    outBuf16[8] = swap16(0x0100);       // SubDevice ID
-    outBuf16[9] = swap16(++seqNum);     // Seq num to be echoed back by Ikegami
-    outBuf16[10] = swap16(0x0130);      // Command ID  0x0130=Order Action
-    outBuf16[11] = swap16(0x0000);      // Message length
-
-
-    outBuf16[12] = swap16(0x0130);      // Service Code  0x0130=Variable Control / Minimum Value=-2048, Maximum Value=2047
-    outBuf16[13] = swap16(0x80B2);      // Service Sub Code  0x80B2=Iris
-    outBuf16[14] = swap16(value);       // Data
-
-
-    console.dir (outBuf16);
-    socket.write(outBuf16);  
 }
 
 
@@ -182,7 +148,6 @@ function connect() {
 }
 
 socket.on('connect', function () {
-    socket.write('auth???');          // Authenticate the connection
     console.log('Ikegami connected!');
 });
 socket.on('end', function () {
@@ -273,4 +238,5 @@ sendIrisValue(10, 'true', 80);
 sendIrisValue(2, 'true', -40);
 sendIrisValue(3, 'true', -1);
 
+    // console.dir((swap16(outBuf16[14]) << 16) >> 16);     // Just testing signed int encoding :)
 

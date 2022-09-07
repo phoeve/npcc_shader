@@ -17,14 +17,14 @@ var rcpLayouts = {
         1809:   {led:  30, color: 2},                               // Tally  Skaarhoj 2=red
 
 
-        523:    {dial:  9, display: 10, label: 'Dtl ',    func: 523},
-        524:    {dial: 10, display: 10, label: 'Skn ',    func: 524},
+        1056:    {dial:  9, display:  9, label: 'Dtl ',    func: 1056},
+        1025:    {dial: 10, display: 10, label: 'Skn ',    func: 762},
         615:    {dial: 11, display: 11, label: 'Sat ',    func: 615},
-        608:    {dial: 12, display: 12, label: 'Temp ',   relative:false, range:8000 ,func: 608},
-        524:    {dial: 13, display: 13, label: '',        func: 0},
+        608:    {dial: 12, display: 12, label: 'Temp ',   func: 608},
+        'L009': {dial: 13, display: 13, label: '',        func: 0},
         8321:   {dial: 14, display: 14, label: 'Sens ',   func: 8321},
         1030:   {dial: 15, display: 15, label: 'ND ',     relative:false, range:4,    func: 1030},
-        8200:   {dial: 16, display: 16, label: 'Scene ',  relative:false, range:5,    func: 4098},
+        8200:   {dial: 16, display: 16, label: 'Scene ',  func: 4098},
 
 
     },
@@ -45,14 +45,14 @@ var rcpLayouts = {
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        1026:   {dial:  9, display: 10, label: 'M',     func: 1026},
-        513:    {dial: 10, display: 10, label: 'R',     func: 513},
-        514:    {dial: 11, display: 11, label: 'G',     func: 514},
-        515:    {dial: 12, display: 12, label: 'B',     func: 515},
-        584:    {dial: 13, display: 13, label: 'M',     func: 584},
-        583:    {dial: 14, display: 14, label: 'R',     func: 583},
-        586:    {dial: 15, display: 15, label: 'G',     func: 586},
-        585:    {dial: 16, display: 16, label: 'B',     func: 585},
+        1026:   {dial:  9, display: 9,  label: 'M ',     func: 1026},
+        513:    {dial: 10, display: 10, label: 'R ',     func: 513},
+        514:    {dial: 11, display: 11, label: 'G ',     func: 514},
+        515:    {dial: 12, display: 12, label: 'B ',     func: 515},
+        584:    {dial: 13, display: 13, label: 'M ',     func: 584},
+        583:    {dial: 14, display: 14, label: 'R ',     func: 583},
+        586:    {dial: 15, display: 15, label: 'G ',     func: 586},
+        585:    {dial: 16, display: 16, label: 'B ',     func: 585},
 
     },
 
@@ -71,14 +71,14 @@ var rcpLayouts = {
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        969:    {dial:  9, display: 10, label: 'M',     func: 969},
-        519:    {dial: 10, display: 10, label: 'R',     func: 519},
-        520:    {dial: 11, display: 11, label: 'G',     func: 520},
-        521:    {dial: 12, display: 12, label: 'B',     func: 521},
-        524:    {dial: 13, display: 13, label: 'M',     func: 0},
-        524:    {dial: 14, display: 14, label: 'R',     func: 524},     // **************
-        524:    {dial: 15, display: 15, label: 'G',     func: 524},
-        524:    {dial: 16, display: 16, label: 'B',     func: 524},
+        969:    {dial:  9, display:  9, label: 'M ',     func: 969},
+        519:    {dial: 10, display: 10, label: 'R ',     func: 519},
+        520:    {dial: 11, display: 11, label: 'G ',     func: 520},
+        521:    {dial: 12, display: 12, label: 'B ',     func: 521},
+        9999:    {dial: 13, display: 13, label: 'M ',     func: 0},
+        9998:    {dial: 14, display: 14, label: 'R ',     func: 524},     // **************
+        9997:    {dial: 15, display: 15, label: 'G ',     func: 524},
+        9996:    {dial: 16, display: 16, label: 'B' ,     func: 524},
 
     },
 
@@ -97,12 +97,12 @@ var rcpLayouts = {
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        533:    {dial:  9, display: 10, label: 'R-G',     func: 533},
-        534:    {dial: 10, display: 10, label: 'R-B',     func: 534},
-        535:    {dial: 11, display: 11, label: 'G-R',     func: 535},
-        536:    {dial: 12, display: 12, label: 'G-B',     func: 536},
-        537:    {dial: 13, display: 13, label: 'B-R',     func: 537},
-        538:    {dial: 14, display: 14, label: 'B-G',     func: 538},
+        533:    {dial:  9, display:  9, label: 'R-G ',     func: 533},
+        534:    {dial: 10, display: 10, label: 'R-B ',     func: 534},
+        535:    {dial: 11, display: 11, label: 'G-R ',     func: 535},
+        536:    {dial: 12, display: 12, label: 'G-B ',     func: 536},
+        537:    {dial: 13, display: 13, label: 'B-R ',     func: 537},
+        538:    {dial: 14, display: 14, label: 'B-G ',     func: 538},
         'L009': {dial: 15, display: 15, label: ''},
         'L010': {dial: 16, display: 16, label: ''},
 
@@ -124,31 +124,33 @@ var rcpLayouts = {
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        524:    {dial:  9, display: 10, label: 'SAT',     func: 524},
-        524:    {dial: 10, display: 10, label: 'PHASE',     func: 524},
-        524:    {dial: 11, display: 11, label: 'SAT',     func: 524},
-        524:    {dial: 12, display: 12, label: 'PHASE',     func: 524}, //**********************
-        524:    {dial: 13, display: 13, label: 'SAT',     func: 0},
-        524:    {dial: 14, display: 14, label: 'PHASE',     func: 524},
-        524:    {dial: 15, display: 15, label: 'SAT',       func: 524},
-        524:    {dial: 16, display: 16, label: 'PHASE',       func: 524},   
+        9999:    {dial:  9, display:  9, label: 'SAT ',     func: 524},
+        9998:    {dial: 10, display: 10, label: 'PHASE ',     func: 524},
+        9997:    {dial: 11, display: 11, label: 'SAT ',     func: 524},
+        9996:    {dial: 12, display: 12, label: 'PHASE ',     func: 524}, //**********************
+        9995:    {dial: 13, display: 13, label: 'SAT ',     func: 0},
+        9994:    {dial: 14, display: 14, label: 'PHASE ',     func: 524},
+        9993:    {dial: 15, display: 15, label: 'SAT ',       func: 524},
+        9992:    {dial: 16, display: 16, label: 'PHASE ',       func: 524},   
         'sub': {
-            'L001': {display: 17, label: 'S1'},
-            'L002': {display: 18, label: 'S2'},
-            'L003': {display: 19, label: 'S3'},
-            'L004': {display: 20, label: 'S4'},
-            'L005': {display: 21, label: 'S5'},
-            'L006': {display: 22, label: 'S6'},
+            'L001': {display: 17, label: 'Home'},
+            'L002': {display: 18, label: 'Gain/Gamma'},
+            'L003': {display: 19, label: 'Flare/Ped'},
+            'L004': {display: 20, label: 'Matrix'},
+            'L005': {display: 21, label: 'Color/Corr'},
+            'L006': {display: 22, label: 'HDR'},
+            'L007': {display: 25, label: 'Menu'},
+        'L008': {display: 26, label: ''},
 
             1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
             8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
             1809:   {led:  30, color: 2},                               // Tally
 
-            524:    {dial:  9, display: 10, label: 'SAT',    func: 524},
-            524:    {dial: 10, display: 10, label: 'PHASE',    func: 524},      //**************
+            9999:    {dial:  9, display: 10, label: 'SAT ',    func: 524},
+            9998:    {dial: 10, display: 10, label: 'PHASE ',    func: 524},      //**************
 
-            524:    {dial: 13, display: 13, label: 'SAT',        func: 0},
-            524:    {dial: 14, display: 14, label: 'PHASE ',   func: 524},
+            9997:    {dial: 13, display: 13, label: 'SAT ',        func: 0},
+            9996:    {dial: 14, display: 14, label: 'PHASE ',   func: 524},
             'L009': {dial: 15, display: 15, label: ''},
             'L010': {dial: 16, display: 16, label: ''},
 
@@ -174,14 +176,14 @@ var rcpLayouts = {
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        524:    {dial:  9, display: 10, label: 'HDR Std',    func: 524},
-        524:    {dial: 10, display: 10, label: 'HDR Out ',    func: 524},
-        524:    {dial: 11, display: 11, label: '% Hi',    func: 524},
-        524:    {dial: 12, display: 12, label: 'Point Hi',   func: 524},        //********************
-        524:    {dial: 13, display: 13, label: '',        func: 0},
-        524:    {dial: 14, display: 14, label: 'HDR Clip',   func: 524},
-        524:    {dial: 15, display: 15, label: '% Low',     func: 524},
-        524:    {dial: 16, display: 16, label: 'Point Low',  func: 524},
+        9999:    {dial:  9, display:  9, label: 'HDR Std',    func: 524},
+        9998:    {dial: 10, display: 10, label: 'HDR Out ',    func: 524},
+        9997:    {dial: 11, display: 11, label: '% Hi',    func: 524},
+        9996:    {dial: 12, display: 12, label: 'Point Hi',   func: 524},        //********************
+        9995:    {dial: 13, display: 13, label: '',        func: 0},
+        9994:    {dial: 14, display: 14, label: 'HDR Clip',   func: 524},
+        9993:    {dial: 15, display: 15, label: '% Low',     func: 524},
+        9992:    {dial: 16, display: 16, label: 'Point Low',  func: 524},
 
         'sub': {
 
@@ -197,8 +199,8 @@ var rcpLayouts = {
             1809:   {led:  30, color: 2},                               // Tally
 
 
-            524:    {dial: 13, display: 13, label: 'SDR Level',        func: 0},    // ********************
-            524:    {dial: 14, display: 14, label: 'SDR Clip',   func: 524},
+            524:    {dial: 13, display: 13, label: 'SDR Level ',        func: 0},    // ********************
+            524:    {dial: 14, display: 14, label: 'SDR Clip ',   func: 524},
             'L009': {dial: 15, display: 15, label: ''},
             'L010': {dial: 16, display: 16, label: ''},
 
@@ -215,8 +217,8 @@ var rcpLayouts = {
         'L004': {display: 20, label: 'S4'},
         'L005': {display: 21, label: 'S5'},
         'L006': {display: 22, label: 'S6'},
-        'L007': {display: 25, label: 'AWB'},
-        'L008': {display: 26, label: 'ABB'},
+        'L007': {display: 25, label: 'AWB', func: 9999},
+        'L008': {display: 26, label: 'ABB', func: 9999},
         'L009': {led: 25, color: 3},                // 3 = green
         'L010': {led: 26, color: 3},
     },
@@ -339,7 +341,7 @@ skaarhojF1.on('dial', (dial, movement) => {
                         newValue=1;
                     else if (newValue < 1)
                         newValue=entry[1].range;
-
+                    console.log('range', entry[1].func, buttonMap[buttonLive].camera, newValue);
                     grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', newValue);   
                 }
             }
@@ -541,11 +543,13 @@ skaarhojRCP.on('button', (pressed, position) => {
         case 1:             // Screen change Key ??
             if (position == 'Down' && rcpLayouts[rcpLay['super']])
                 rcpLay = rcpLayouts[rcpLay['super']]; // Display parent screen
+            paintRCP();
         break;
 
         case 2:             // SubScreen 
-            if (position == 'Down' && rcpLay[2])
+            if (position == 'Down' && rcpLay['sub'])
                 rcpLay = rcpLay['sub']; // Display subscreen
+            paintRCP();
         break;
 
         case 38:            // Shift Key 
@@ -556,6 +560,7 @@ skaarhojRCP.on('button', (pressed, position) => {
             else{
                 rcpLay = lastRcpLayout;             // Display previous screen
             }
+            paintRCP();
         break;
 
         case 17:            // Home mode 
@@ -564,17 +569,41 @@ skaarhojRCP.on('button', (pressed, position) => {
         case 20:            // Matrix 1,2
         case 21:            // Color 1,2
         case 22:            // HDR 1,2 
-            if (position == 'Down')
+
+
+
+            if (rcpLay == rcpLayouts[38]){
+                console.log('*** sendPresetRecall ');
+                grassValley.sendPresetRecall(buttonMap[buttonLive].camera, parseInt(pressed) -15);
+            }
+
+            else if (position == 'Down'){       
+                skaarhojRCP.hwcColor(17, '0');      // set to off
+                skaarhojRCP.hwcColor(18, '0');      // set to off
+                skaarhojRCP.hwcColor(19, '0');      // set to off
+                skaarhojRCP.hwcColor(20, '0');      // set to off
+                skaarhojRCP.hwcColor(21, '0');      // set to off
+                skaarhojRCP.hwcColor(22, '0');      // set to off
+
                 rcpLay = rcpLayouts[pressed];
+                skaarhojRCP.hwcColor(pressed, '3');      // set to green
+
+                paintRCP();
+            }
+
             break;
 
         case 25:            // AWB=8193  State=809
-            if (position == 'Down')
+            if (position == 'Down' && rcpLay == rcpLayouts[38])      // Shift depressed?
+                console.log('AWB sent');
                 grassValley.sendFunctionValue(8193, buttonMap[buttonLive].camera, 'true', 'true');   
+                paintRCP();
             break;
         case 26:            // ABB=8198  State=???
-            if (position == 'Down')
-                grassValley.sendFunctionValue(8198, buttonMap[buttonLive].camera, 'true', 'true');   
+            if (position == 'Down' && rcpLay == rcpLayouts[38])
+                console.log('ABB sent');
+                grassValley.sendFunctionValue(8198, buttonMap[buttonLive].camera, 'true', 'true'); 
+                paintRCP();  
             break;
 
         default:
@@ -582,7 +611,6 @@ skaarhojRCP.on('button', (pressed, position) => {
     }
 
 
-    paintRCP();
 });
 
 
@@ -664,7 +692,8 @@ function serverInit()
         buttonMap[button].camera = camera;
         buttonMap[button].name = birch.sources[i].name;
 
-        //grassValley.subscribe2Camera(camera);        // Subscribe to camera changes in iris, gain, nd, ...
+        grassValley.subscribe2Camera(camera);        // Subscribe to camera changes in iris, gain, nd, ...
+
 
     } // for loop
 
@@ -679,7 +708,7 @@ function resetButtonsNLabels()
 {
     for(i=0;i<buttonMap.length;i++){
         if(buttonMap[i]){
-            skaarhojF1.hwcColor(i, '0');      // set all to green
+            skaarhojF1.hwcColor(i, '0');      // set all to off
             skaarhojF1.hwcColor(i+6, '0');      // set flags to off
             skaarhojF1.hwcLabel(i, buttonMap[i].name);
         }

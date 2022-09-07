@@ -82,21 +82,21 @@ class Skaarhoj extends EventEmitter{
     hwcColor(button, color)
     {
         var str = 'HWC#' +button +'=' +color +'\n'; 
-        console.log('hwcColor()' +str);
+        // console.log('hwcColor()' +str);
         this.socket.write(str); 
     }
 
     hwcLabel(button, label)
     {
         var str = 'HWCt#' +button +'=|||||' +label +'\n';
-        console.log('hwcLabel()' +str);
+        // console.log('hwcLabel()' +str);
         this.socket.write(str);
     }
 
     moveSlider(slider, position)
     {
         var str = 'HWCx#' +slider +'=' +(parseInt(position)+4096) +'\n';
-        console.log('moveSlider()' +str);
+        // console.log('moveSlider()' +str);
         this.socket.write(str);
     }
 

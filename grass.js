@@ -80,7 +80,7 @@ var subCodes = [1039, 8392, 1030, 524, 1809, 523, 615, 608, 8321, 8200, 1026, 51
 ];
 
 
-var unSubCodes = [ 
+var unSubCodes = [8895,8894, 739,
 ];
 function subscribe2Camera(camera){
 
@@ -89,7 +89,7 @@ function subscribe2Camera(camera){
 
     console.log('+++++++++++++++++++' + 'subscribe2Camera');
 
-    subCodes.foreach(code){
+    subCodes.forEach(function(code){
 
                 // Subscribe to each that we want to get on connect
         sub2Cam = {'function-value-request': 
@@ -101,7 +101,7 @@ function subscribe2Camera(camera){
                 }};
         xml = builder.buildObject(sub2Cam);
         socket.write(xml);    
-    }    
+    });  
 
                 // Subscribe to all !!   This only sends on changes in values
     sub2Cam = {'function-value-request': 
@@ -114,7 +114,7 @@ function subscribe2Camera(camera){
     socket.write(xml);    
 
 
-    unSubCodes.foreach(code){
+    unSubCodes.forEach(function(code){
 
                 // Subscribe to each that we want to get on connect
         sub2Cam = {'function-value-request': 
@@ -126,7 +126,7 @@ function subscribe2Camera(camera){
                 }};
         xml = builder.buildObject(sub2Cam);
         socket.write(xml);    
-    }   
+    });
 
     console.log('+++++++++++++++++++' + 'subscribe2Camera');
 
@@ -224,17 +224,10 @@ socket.on('data', function(data) {
             switch (Object.keys(result)[0]){
                 
                 case 'request-response':
-                    console.log('Got request-response');
-        
-                    break;
-        
                 case 'application-authentication-indication':
-                    console.log('Got application-authentication-indication');
-        
-                    break;
-        
                 case 'function-information-indication':
-                    console.log('Unknown Message Type ' +Object.keys(result)[0]);
+                    console.dir(Object.keys(result));
+
                     break;
 
                 case 'function-value-indication':

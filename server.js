@@ -103,6 +103,9 @@ var rcpLayouts = {
         536:    {dial: 12, display: 12, label: 'G-B',     func: 536},
         537:    {dial: 13, display: 13, label: 'B-R',     func: 537},
         538:    {dial: 14, display: 14, label: 'B-G',     func: 538},
+        'L009': {dial: 15, display: 15, label: ''},
+        'L010': {dial: 16, display: 16, label: ''},
+
 
     },
 
@@ -146,6 +149,9 @@ var rcpLayouts = {
 
             524:    {dial: 13, display: 13, label: 'SAT',        func: 0},
             524:    {dial: 14, display: 14, label: 'PHASE ',   func: 524},
+            'L009': {dial: 15, display: 15, label: ''},
+            'L010': {dial: 16, display: 16, label: ''},
+
 
             'super': 21, 
         }
@@ -193,6 +199,9 @@ var rcpLayouts = {
 
             524:    {dial: 13, display: 13, label: 'SDR Level',        func: 0},    // ********************
             524:    {dial: 14, display: 14, label: 'SDR Clip',   func: 524},
+            'L009': {dial: 15, display: 15, label: ''},
+            'L010': {dial: 16, display: 16, label: ''},
+
 
             'super': 22,
         },

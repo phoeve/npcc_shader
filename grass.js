@@ -33,7 +33,6 @@ function ocpSetCamera(camera){
     temp = {'function-value-change': {device: {deviceid: '045NRN', 'function': {$:{'id': '8466'}, value: camera}}}};
 
     var xml = builder.buildObject(temp);
-    // console.dir (xml);
     socket.write(xml);        
 }
 
@@ -43,7 +42,6 @@ function sendIrisValue(camera, relative, value){
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"542"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
     var xml = builder.buildObject(setJson);
-    //console.dir (xml);
     socket.write(xml);        
 }
 
@@ -64,8 +62,6 @@ function sendPresetRecall(camera, value){
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"4098"},"value":[{"_":value,"$":{"relative":'false'}}]}]}]}};
 
     var xml = builder.buildObject(setJson);
-    console.log(sendPresetRecall);
-    console.dir (xml);
     socket.write(xml);        
 }
 
@@ -76,63 +72,82 @@ function sendFunctionValue(func, camera, relative, value)
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":func},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
     var xml = builder.buildObject(setJson);
-    // console.log('********** sendFunctionValue()');
-    // console.dir (xml);
     socket.write(xml);  
 }
 
+var subCodes = [1039, 8392, 1030, 524, 1809, 523, 615, 608, 8321, 8200, 1026, 513, 514, 515, 584, 583, 586, 585,
+                969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 538, 
+];
+
 function subscribe2Camera(camera){
 
-    console.log('+++++++++++++++++++' + 'subscribe2Camera');
-
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    'function': {$:{'id': '1039'}},
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.log(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);        
-
-
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    'function': {$:{'id': '8392'}},
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);        
-
-
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    'function': {$:{'id': '1030'}},
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);  
-
-    var sub2Cam = {'function-value-request': 
-            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
-                            device:{
-                                    name: camera, 
-                                    // 'function': {$:{'id': '524'}},     // Skin Detail
-                            }
-            }};
-    var xml = builder.buildObject(sub2Cam);
-    console.dir (xml);
-    socket.write(xml);       
+    var sub2Cam;
+    var xml;
 
     console.log('+++++++++++++++++++' + 'subscribe2Camera');
+
+    subCodes.foreach(code){
+
+                // Subscribe to each that we want to get on connect
+        sub2Cam = {'function-value-request': 
+                {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
+                                device:{
+                                        name: camera, 
+                                        'function': {$:{'id': code}},
+                                }
+                }};
+        xml = builder.buildObject(sub2Cam);
+        socket.write(xml);    
+    }    
+
+                // Subscribe to all !!   This only sends on changes in values
+    sub2Cam = {'function-value-request': 
+            {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
+                            device:{
+                                    name: camera, 
+                            }
+            }};
+    xml = builder.buildObject(sub2Cam);
+    socket.write(xml);    
+
+
+    console.log('+++++++++++++++++++' + 'subscribe2Camera');
+
+
+    // var sub2Cam = {'function-value-request': 
+    //         {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
+    //                         device:{
+    //                                 name: camera, 
+    //                                 'function': {$:{'id': '8392'}},
+    //                         }
+    //         }};
+    // var xml = builder.buildObject(sub2Cam);
+    // console.dir (xml);
+    // socket.write(xml);        
+
+
+    // var sub2Cam = {'function-value-request': 
+    //         {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
+    //                         device:{
+    //                                 name: camera, 
+    //                                 'function': {$:{'id': '1030'}},
+    //                         }
+    //         }};
+    // var xml = builder.buildObject(sub2Cam);
+    // console.dir (xml);
+    // socket.write(xml);  
+
+    // var sub2Cam = {'function-value-request': 
+    //         {$:{'subscribe': "true", 'response-level': 'ErrorOnly'}, 
+    //                         device:{
+    //                                 name: camera, 
+    //                                 // 'function': {$:{'id': '524'}},     // Skin Detail
+    //                         }
+    //         }};
+    // var xml = builder.buildObject(sub2Cam);
+    // console.dir (xml);
+    // socket.write(xml);       
+
 }
 
 
@@ -189,9 +204,6 @@ socket.on('data', function(data) {
 
         parser.parseString(xmlBuf +splitStr, function (err, result) {       // Replace split string
 
-            // console.dir(result);
-            // console.dir(Object.keys(result)[0]);
-        
             switch (Object.keys(result)[0]){
                 
                 case 'request-response':
@@ -210,7 +222,7 @@ socket.on('data', function(data) {
 
                 case 'function-value-indication':
 
-                    console.log('# of functions: ' +result['function-value-indication'].device[0].function.length)
+                    // console.log('# of functions: ' +result['function-value-indication'].device[0].function.length)
 
                     switch(result['function-value-indication'].device[0].function[0]['$'].id){
 
@@ -229,11 +241,6 @@ socket.on('data', function(data) {
                             //myEmitter.emit('gain', result['function-value-indication'].device[0].name, gain);
                             myEmitter.emit('func', result['function-value-indication'].device[0].function[0]['$'].id,
                                                         result['function-value-indication'].device[0].name, val);
-
-                            // console.log('Unhandled function code ' +result['function-value-indication'].device[0].function[0]['$'].id);
-                            // console.log('Camera ' +result['function-value-indication'].device[0].name);
-                            // console.log('Value ' +result['function-value-indication'].device[0].function[0]['value']);
-
                         break;
                     }
 

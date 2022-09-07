@@ -9,6 +9,8 @@ var rcpLayouts = {
         'L005': {display: 21, label: 'Color/Corr'},
         'L006': {display: 22, label: 'HDR'},
         'L007': {display: 25, label: 'Menu'},
+        'L008': {display: 26, label: ''},
+
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -18,40 +20,13 @@ var rcpLayouts = {
         523:    {dial:  9, display: 10, label: 'Dtl ',    func: 523},
         524:    {dial: 10, display: 10, label: 'Skn ',    func: 524},
         615:    {dial: 11, display: 11, label: 'Sat ',    func: 615},
-        1050:   {dial: 12, display: 12, label: 'Temp ',   func: 1050},
+        608:    {dial: 12, display: 12, label: 'Temp ',   relative:false, range:8000 ,func: 608},
         524:    {dial: 13, display: 13, label: '',        func: 0},
         8321:   {dial: 14, display: 14, label: 'Sens ',   func: 8321},
-        1030:   {dial: 15, display: 15, label: 'ND ',     func: 1030},
-        8200:   {dial: 16, display: 16, label: 'Scene ',  func: 4098},
-
-        'shift': {
-            'L001': {display: 17, label: 'S1'},
-            'L002': {display: 18, label: 'S2'},
-            'L003': {display: 19, label: 'S3'},
-            'L004': {display: 20, label: 'S4'},
-            'L005': {display: 21, label: 'S5'},
-            'L006': {display: 22, label: 'S6'},
-            'L007': {display: 25, label: 'AWB'},
-            'L008': {display: 26, label: 'ABB'},
-            'L009': {led: 25, color: 3},                // 3 = green
-            'L010': {led: 26, color: 3},
+        1030:   {dial: 15, display: 15, label: 'ND ',     relative:false, range:4,    func: 1030},
+        8200:   {dial: 16, display: 16, label: 'Scene ',  relative:false, range:5,    func: 4098},
 
 
-            1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
-            8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-            1809:   {led:  30, color: 2},                               // Tally
-
-            523:    {dial:  9, display: 10, label: 'Dtl ',    func: 523},
-            524:    {dial: 10, display: 10, label: 'Skn ',    func: 524},
-            615:    {dial: 11, display: 11, label: 'Sat ',    func: 615},
-            1050:   {dial: 12, display: 12, label: 'Temp ',   func: 1050},
-            524:    {dial: 13, display: 13, label: '',        func: 0},
-            8321:   {dial: 14, display: 14, label: 'Sens ',   func: 8321},
-            1030:   {dial: 15, display: 15, label: 'ND ',     func: 1030},
-            8200:   {dial: 16, display: 16, label: 'Scene ',  func: 4098},
-
-            'super': 17,
-        },
     },
 
     18:             // Gain/Gamma
@@ -63,6 +38,7 @@ var rcpLayouts = {
         'L005': {display: 21, label: 'Color/Corr'},
         'L006': {display: 22, label: 'HDR'},
         'L007': {display: 25, label: 'Menu'},
+        'L008': {display: 26, label: ''},
 
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
@@ -82,14 +58,14 @@ var rcpLayouts = {
 
     19:             // Flare / PED
     {
-        'L001': {display: 99, label: 'Home'},
-        'L002': {display: 99, label: 'Gain/Gamma'},
-        'L003': {display: 99, label: 'Flare/Ped'},
-        'L004': {display: 99, label: 'Matrix'},
-        'L005': {display: 99, label: 'Color/Corr'},
-        'L006': {display: 99, label: 'HDR'},
+        'L001': {display: 17, label: 'Home'},
+        'L002': {display: 18, label: 'Gain/Gamma'},
+        'L003': {display: 19, label: 'Flare/Ped'},
+        'L004': {display: 20, label: 'Matrix'},
+        'L005': {display: 21, label: 'Color/Corr'},
+        'L006': {display: 22, label: 'HDR'},
         'L007': {display: 25, label: 'Menu'},
-
+        'L008': {display: 26, label: ''},
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -100,7 +76,7 @@ var rcpLayouts = {
         520:    {dial: 11, display: 11, label: 'G',     func: 520},
         521:    {dial: 12, display: 12, label: 'B',     func: 521},
         524:    {dial: 13, display: 13, label: 'M',     func: 0},
-        524:    {dial: 14, display: 14, label: 'R',     func: 524},
+        524:    {dial: 14, display: 14, label: 'R',     func: 524},     // **************
         524:    {dial: 15, display: 15, label: 'G',     func: 524},
         524:    {dial: 16, display: 16, label: 'B',     func: 524},
 
@@ -108,14 +84,14 @@ var rcpLayouts = {
 
     20:             // Matrix
     {
-        'L001': {display: 99, label: 'Home'},
-        'L002': {display: 99, label: 'Gain/Gamma'},
-        'L003': {display: 99, label: 'Flare/Ped'},
-        'L004': {display: 99, label: 'Matrix'},
-        'L005': {display: 99, label: 'Color/Corr'},
-        'L006': {display: 99, label: 'HDR'},
+        'L001': {display: 17, label: 'Home'},
+        'L002': {display: 18, label: 'Gain/Gamma'},
+        'L003': {display: 19, label: 'Flare/Ped'},
+        'L004': {display: 20, label: 'Matrix'},
+        'L005': {display: 21, label: 'Color/Corr'},
+        'L006': {display: 22, label: 'HDR'},
         'L007': {display: 25, label: 'Menu'},
-
+        'L008': {display: 26, label: ''},
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -132,15 +108,14 @@ var rcpLayouts = {
 
     21:             // Color / Correction
     {
-        'L001': {display: 99, label: 'Home'},
-        'L002': {display: 99, label: 'Gain/Gamma'},
-        'L003': {display: 99, label: 'Flare/Ped'},
-        'L004': {display: 99, label: 'Matrix'},
-        'L005': {display: 99, label: 'Color/Corr'},
-        'L006': {display: 99, label: 'HDR'},
+        'L001': {display: 17, label: 'Home'},
+        'L002': {display: 18, label: 'Gain/Gamma'},
+        'L003': {display: 19, label: 'Flare/Ped'},
+        'L004': {display: 20, label: 'Matrix'},
+        'L005': {display: 21, label: 'Color/Corr'},
+        'L006': {display: 22, label: 'HDR'},
         'L007': {display: 25, label: 'Menu'},
-
-
+        'L008': {display: 26, label: ''},
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -149,7 +124,7 @@ var rcpLayouts = {
         524:    {dial:  9, display: 10, label: 'SAT',     func: 524},
         524:    {dial: 10, display: 10, label: 'PHASE',     func: 524},
         524:    {dial: 11, display: 11, label: 'SAT',     func: 524},
-        524:    {dial: 12, display: 12, label: 'PHASE',     func: 524},
+        524:    {dial: 12, display: 12, label: 'PHASE',     func: 524}, //**********************
         524:    {dial: 13, display: 13, label: 'SAT',     func: 0},
         524:    {dial: 14, display: 14, label: 'PHASE',     func: 524},
         524:    {dial: 15, display: 15, label: 'SAT',       func: 524},
@@ -167,7 +142,7 @@ var rcpLayouts = {
             1809:   {led:  30, color: 2},                               // Tally
 
             524:    {dial:  9, display: 10, label: 'SAT',    func: 524},
-            524:    {dial: 10, display: 10, label: 'PHASE',    func: 524},
+            524:    {dial: 10, display: 10, label: 'PHASE',    func: 524},      //**************
 
             524:    {dial: 13, display: 13, label: 'SAT',        func: 0},
             524:    {dial: 14, display: 14, label: 'PHASE ',   func: 524},
@@ -186,6 +161,7 @@ var rcpLayouts = {
         'L005': {display: 21, label: 'Color/Corr'},
         'L006': {display: 22, label: 'HDR'},
         'L007': {display: 25, label: 'Menu'},
+        'L008': {display: 26, label: ''},
 
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
@@ -195,7 +171,7 @@ var rcpLayouts = {
         524:    {dial:  9, display: 10, label: 'HDR Std',    func: 524},
         524:    {dial: 10, display: 10, label: 'HDR Out ',    func: 524},
         524:    {dial: 11, display: 11, label: '% Hi',    func: 524},
-        524:    {dial: 12, display: 12, label: 'Point Hi',   func: 524},
+        524:    {dial: 12, display: 12, label: 'Point Hi',   func: 524},        //********************
         524:    {dial: 13, display: 13, label: '',        func: 0},
         524:    {dial: 14, display: 14, label: 'HDR Clip',   func: 524},
         524:    {dial: 15, display: 15, label: '% Low',     func: 524},
@@ -215,15 +191,29 @@ var rcpLayouts = {
             1809:   {led:  30, color: 2},                               // Tally
 
 
-            524:    {dial: 13, display: 13, label: 'SDR Level',        func: 0},
+            524:    {dial: 13, display: 13, label: 'SDR Level',        func: 0},    // ********************
             524:    {dial: 14, display: 14, label: 'SDR Clip',   func: 524},
 
             'super': 22,
         },
     },
+
+    38:
+    {
+        'L001': {display: 17, label: 'S1'},
+        'L002': {display: 18, label: 'S2'},
+        'L003': {display: 19, label: 'S3'},
+        'L004': {display: 20, label: 'S4'},
+        'L005': {display: 21, label: 'S5'},
+        'L006': {display: 22, label: 'S6'},
+        'L007': {display: 25, label: 'AWB'},
+        'L008': {display: 26, label: 'ABB'},
+        'L009': {led: 25, color: 3},                // 3 = green
+        'L010': {led: 26, color: 3},
+    },
 };
 
-
+var rcpLay;
 
 grassValley = require('./grass.js');
 grassValleyEmitter = grassValley.connect();
@@ -234,7 +224,9 @@ var f1Lay = {
     1039: {dial: 53, display: 53, label: 'F ',      func: 542, scale: 10},      // Iris fine
     'L1039': {dial: 54, display: 54, label: 'Coarse', func: 542, scale: 100 },     // Iris Coarse
     8392: {dial: 55, display: 55, label: 'Gain ',   func: 8392},                // Gain
-    1030: {dial: 56, display: 56, label: 'ND ',     func: 1030},                // ND Filter
+    // 1030: {dial: 56, display: 56, label: 'ND ',     func: 1030},                // ND Filter
+    1030: {dial: 56, display: 56, label: 'ND ',     relative:false, range:4,    func: 1030},
+
 }
 
 
@@ -322,17 +314,36 @@ skaarhojF1.on('dial', (dial, movement) => {
 
     if (!buttonLive)    // No camera selected ?
         return;
-                // Preprocess special functions
 
-    entry = dial2func(f1Lay, dial);
-    if (entry.scale)
-        mult = entry.scale;
-    else
-        mult = 1;
+    Object.entries(f1Lay).forEach(entry => {
 
-    grassValley.sendFunctionValue(entry.func, buttonMap[buttonLive].camera, 'true', movement *mult ); 
+        if (dial == entry[1].dial){
+            if (entry[1].scale === undefined)
+                mult = 1;
+            else
+                mult = entry[1].scale;
+
+            if (entry[1].relative === false){
+                if (grassValues[buttonMap[buttonLive].camera][entry[1].func] != undefined){
+                    var newValue = parseInt(grassValues[buttonMap[buttonLive].camera][entry[1].func]) +movement;
+                    if (newValue > entry[1].range)
+                        newValue=1;
+                    else if (newValue < 1)
+                        newValue=entry[1].range;
+
+                    grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', newValue);   
+                }
+            }
+            else{
+                grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', movement *mult );   
+
+            }
+
+        }
+    });
 
 });
+
 
 
 const recallSinglePresetF1 = 49;
@@ -445,43 +456,60 @@ skaarhojRCP.on('dial', (dial, movement) => {
 
                 // Preprocess special functions
 
-    entry = dial2func(rcpLay, dial);
-    if (entry.scale)
-        mult = entry.scale;
-    else
-        mult = 1;
+    Object.entries(rcpLay).forEach(entry => {
+        // console.dir(entry);
+        // console.dir(dial);
+        if (dial == entry[1].dial){
+            // console.dir(entry);
+            if (entry[1].scale === undefined)
+                mult = 1;
+            else
+                mult = entry[1].scale;
 
-    grassValley.sendFunctionValue(entry.func, buttonMap[buttonLive].camera, 'true', movement *mult );   
+            if (entry[1].relative === false){
+                if (grassValues[buttonMap[buttonLive].camera][entry[1].func] != undefined){
+                    var newValue = parseInt(grassValues[buttonMap[buttonLive].camera][entry[1].func]) +movement;
+                    if (newValue > entry[1].range)
+                        newValue=1;
+                    else if (newValue < 1)
+                        newValue=entry[1].range;
+
+                    grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', newValue);   
+                }
+            }
+            else{
+                grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', movement *mult );   
+
+            }
+  
+        }
+    });
 
 });
 
 
 
-function dial2func(layout, dial)
-{
-    layout.foreach(entry => {
-        if (dial == entry.dial)
-            return entry;
-    });
-}
-
 function paintRCP()
 {
 
-    skaarhojRCP.hwcLabel(38, buttonMap[pressed].camera);     // Display camera # on RCP
-
+    if (rcpLay === undefined)
+        rcpLay = rcpLayouts[17];
+ 
     Object.entries(rcpLay).forEach(hwc => {
+
         if(hwc[0] == 'sub' || hwc[0] == 'shift')
             return;
 
         if (hwc[1].led){            // Just light up an LED (not a display w/label)
-            if (grassValues[buttonMap[buttonLive].camera][hwc[0]] == 'true')
+            if (grassValues[buttonMap[buttonLive].camera] != undefined &&
+                                                grassValues[buttonMap[buttonLive].camera][hwc[0]] == 'true')
                 skaarhojRCP.hwcColor(hwc[1].led, hwc[1].color); 
             else
                 skaarhojRCP.hwcColor(hwc[1].led, 0); 
         }
         else{
-            if (isNaN(hwc[0]))                                  // Does this have a GV function value?
+            if (grassValues[buttonMap[buttonLive].camera] === undefined ||
+                                                       grassValues[buttonMap[buttonLive].camera][hwc[0]] === undefined)      // Does this have a GV function value?
                 skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label);    // Just a label :)
             else
                 skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label +grassValues[buttonMap[buttonLive].camera][hwc[0]]);
@@ -491,8 +519,13 @@ function paintRCP()
                         //
                         //  RCP
                         //
+var lastRcpLayout;
 
 skaarhojRCP.on('button', (pressed, position) => {
+
+    // if (position == 'Up')
+        // console.log(pressed +' is Up');                 // F1 pabel doesn't care about the buttons' "Up" movement
+
 
     switch (pressed){ 
 
@@ -503,16 +536,17 @@ skaarhojRCP.on('button', (pressed, position) => {
 
         case 2:             // SubScreen 
             if (position == 'Down' && rcpLay[2])
-                rcpLay = rcpLay[2]; // Display subscreen
+                rcpLay = rcpLay['sub']; // Display subscreen
         break;
 
         case 38:            // Shift Key 
-            if (position == 'Down')  
-                if (rcpLay['shift'])
-                    rcpLay = rcpLay['shift']; // Display shift subscreen
-            else
-                if (position == 'Up' && rcpLayouts[rcpLay['super']])
-                    rcpLay = rcpLayouts[rcpLay['super']]; // Display parent screen
+            if (position == 'Down'){  
+                lastRcpLayout = rcpLay;
+                rcpLay = rcpLayouts[pressed];
+            }
+            else{
+                rcpLay = lastRcpLayout;             // Display previous screen
+            }
         break;
 
         case 17:            // Home mode 
@@ -538,14 +572,18 @@ skaarhojRCP.on('button', (pressed, position) => {
             console.log('Unmapped button pressed: ' +pressed +' ' +position);
     }
 
+
     paintRCP();
 });
 
 
-var grassValues;
+var grassValues=[];
 
 grassValleyEmitter.on('func', (func, camera, value) => {
     console.log('camera: ' +camera +' func: ' +func + ' value:' +value);
+
+    if (grassValues[camera] === undefined)
+        grassValues[camera] = [];
 
     grassValues[camera][func] = value;          // Save latest value by camera/func
 
@@ -553,8 +591,11 @@ grassValleyEmitter.on('func', (func, camera, value) => {
 
                 // Special function handling here ...
 
-        skaarhojF1.hwcLabel(f1Lay[func].display, rcpLay[func].label +value);
-        skaarhojRCP.hwcLabel(rcpLay[func].display, rcpLay[func].label +value);
+        if (f1Lay[func] != undefined)
+            skaarhojF1.hwcLabel(f1Lay[func].display, f1Lay[func].label +value);
+
+        if (rcpLay[func] != undefined)
+            skaarhojRCP.hwcLabel(rcpLay[func].display, rcpLay[func].label +value);
     }
 });
 

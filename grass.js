@@ -79,6 +79,9 @@ var subCodes = [1039, 8392, 1030, 524, 1809, 523, 615, 608, 8321, 8200, 1026, 51
                 969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 538, 
 ];
 
+
+var unSubCodes = [ 
+];
 function subscribe2Camera(camera){
 
     var sub2Cam;
@@ -110,6 +113,20 @@ function subscribe2Camera(camera){
     xml = builder.buildObject(sub2Cam);
     socket.write(xml);    
 
+
+    unSubCodes.foreach(code){
+
+                // Subscribe to each that we want to get on connect
+        sub2Cam = {'function-value-request': 
+                {$:{'subscribe': "false", 'response-level': 'ErrorOnly'}, 
+                                device:{
+                                        name: camera, 
+                                        'function': {$:{'id': code}},
+                                }
+                }};
+        xml = builder.buildObject(sub2Cam);
+        socket.write(xml);    
+    }   
 
     console.log('+++++++++++++++++++' + 'subscribe2Camera');
 

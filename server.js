@@ -1,124 +1,129 @@
 var rcpLayouts = {
 
+
     17:             // Home               
     {               
-        'L001': {display: 17, label: 'Home'},
-        'L002': {display: 18, label: 'Gain/Gamma'},
-        'L003': {display: 19, label: 'Flare/Ped'},
-        'L004': {display: 20, label: 'Matrix'},
-        'L005': {display: 21, label: 'Color/Corr'},
-        'L006': {display: 22, label: 'HDR'},
-        'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
-
+        'L001': {display: 17, label: 'Home', color:130},
+        'L002': {display: 18, label: 'Gain/Gamma', color:129},
+        'L003': {display: 19, label: 'Flare/Ped', color:129},
+        'L004': {display: 20, label: 'Matrix', color:129},
+        'L005': {display: 21, label: 'Color/Corr', color:129},
+        'L006': {display: 22, label: 'HDR', color:129},
+        'L007': {display: 25, label: 'Menu', color:129},
+        'L008': {display: 26, label: '', color:129},
+        // 'L009': {button:  17, color: 130},
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally  Skaarhoj 2=red
 
 
-        1056:    {dial:  9, display:  9, label: 'Dtl ',    func: 1056},
-        1025:    {dial: 10, display: 10, label: 'Skn ',    func: 762},
+        1056:   {dial:  9, display:  9, label: 'Dtl ',    func: 1056},
+        1025:   {dial: 10, display: 10, label: 'Skn ',    func: 762},
         615:    {dial: 11, display: 11, label: 'Sat ',    func: 615},
         608:    {dial: 12, display: 12, label: 'Temp ',   func: 608},
-        'L009': {dial: 13, display: 13, label: '',        func: 0},
+        'L101': {dial: 13, display: 13, label: '',        func: 0},
         8321:   {dial: 14, display: 14, label: 'Sens ',   func: 8321},
         1030:   {dial: 15, display: 15, label: 'ND ',     relative:false, range:4,    func: 1030},
         8200:   {dial: 16, display: 16, label: 'Scene ',  func: 4098},
-
-
     },
 
     18:             // Gain/Gamma
     {
-        'L001': {display: 17, label: 'Home'},
-        'L002': {display: 18, label: 'Gain/Gamma'},
-        'L003': {display: 19, label: 'Flare/Ped'},
-        'L004': {display: 20, label: 'Matrix'},
-        'L005': {display: 21, label: 'Color/Corr'},
-        'L006': {display: 22, label: 'HDR'},
-        'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
-
+        'L001': {display: 17, label: 'Home', color:129},
+        'L002': {display: 18, label: 'Gain/Gamma', color:130},
+        'L003': {display: 19, label: 'Flare/Ped', color:129},
+        'L004': {display: 20, label: 'Matrix', color:129},
+        'L005': {display: 21, label: 'Color/Corr', color:129},
+        'L006': {display: 22, label: 'HDR', color:129},
+        'L007': {display: 25, label: 'Menu', color:129},
+        'L008': {display: 26, label: '', color:129},
+        'L009': {button:  18, color: 130},
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        1026:   {dial:  9, display: 9,  label: 'M ',     func: 1026},
-        513:    {dial: 10, display: 10, label: 'R ',     func: 513},
-        514:    {dial: 11, display: 11, label: 'G ',     func: 514},
-        515:    {dial: 12, display: 12, label: 'B ',     func: 515},
-        584:    {dial: 13, display: 13, label: 'M ',     func: 584},
-        583:    {dial: 14, display: 14, label: 'R ',     func: 583},
-        586:    {dial: 15, display: 15, label: 'G ',     func: 586},
-        585:    {dial: 16, display: 16, label: 'B ',     func: 585},
+        1026:   {dial:  9, display: 9,  label: 'M ',  color:130,    func: 1026},
+        513:    {dial: 10, display: 10, label: 'R ',  color:132,    func: 513},
+        514:    {dial: 11, display: 11, label: 'G ',  color:143,    func: 514},
+        515:    {dial: 12, display: 12, label: 'B ',  color:138,    func: 515},
+        584:    {dial: 13, display: 13, label: 'M ',  color:130,    func: 584},
+        583:    {dial: 14, display: 14, label: 'R ',  color:132,    func: 583},
+        586:    {dial: 15, display: 15, label: 'G ',  color:143,    func: 586},
+        585:    {dial: 16, display: 16, label: 'B ',  color:138,    func: 585},
 
     },
 
     19:             // Flare / PED
     {
-        'L001': {display: 17, label: 'Home'},
-        'L002': {display: 18, label: 'Gain/Gamma'},
-        'L003': {display: 19, label: 'Flare/Ped'},
-        'L004': {display: 20, label: 'Matrix'},
-        'L005': {display: 21, label: 'Color/Corr'},
-        'L006': {display: 22, label: 'HDR'},
-        'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
+        'L001': {display: 17, label: 'Home', color:129},
+        'L002': {display: 18, label: 'Gain/Gamma', color:129},
+        'L003': {display: 19, label: 'Flare/Ped', color:130},
+        'L004': {display: 20, label: 'Matrix', color:129},
+        'L005': {display: 21, label: 'Color/Corr', color:129},
+        'L006': {display: 22, label: 'HDR', color:129},
+        'L007': {display: 25, label: 'Menu', color:129},
+        'L008': {display: 26, label: '', color:129},
+        'L009': {button:  19, color: 130},
+
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        969:    {dial:  9, display:  9, label: 'M ',     func: 969},
-        519:    {dial: 10, display: 10, label: 'R ',     func: 519},
-        520:    {dial: 11, display: 11, label: 'G ',     func: 520},
-        521:    {dial: 12, display: 12, label: 'B ',     func: 521},
-        9999:    {dial: 13, display: 13, label: 'M ',     func: 0},
-        9998:    {dial: 14, display: 14, label: 'R ',     func: 524},     // **************
-        9997:    {dial: 15, display: 15, label: 'G ',     func: 524},
-        9996:    {dial: 16, display: 16, label: 'B' ,     func: 524},
+        969:    {dial:  9, display:  9,  label: 'M ',  color:130,   func: 969},
+        519:    {dial: 10, display: 10,  label: 'R ',  color:132,   func: 519},
+        520:    {dial: 11, display: 11,  label: 'G ',  color:143,   func: 520},
+        521:    {dial: 12, display: 12,  label: 'B ',  color:138,   func: 521},
+        9999:    {dial: 13, display: 13, label: 'M ',  color:130,   func: 0},
+        9998:    {dial: 14, display: 14, label: 'R ',  color:132,   func: 524},     // **************
+        9997:    {dial: 15, display: 15, label: 'G ',  color:143,   func: 524},
+        9996:    {dial: 16, display: 16, label: 'B' ,  color:138,   func: 524},
 
     },
 
     20:             // Matrix
     {
-        'L001': {display: 17, label: 'Home'},
-        'L002': {display: 18, label: 'Gain/Gamma'},
-        'L003': {display: 19, label: 'Flare/Ped'},
-        'L004': {display: 20, label: 'Matrix'},
-        'L005': {display: 21, label: 'Color/Corr'},
-        'L006': {display: 22, label: 'HDR'},
-        'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
+        'L001': {display: 17, label: 'Home', color:129},
+        'L002': {display: 18, label: 'Gain/Gamma', color:129},
+        'L003': {display: 19, label: 'Flare/Ped', color:129},
+        'L004': {display: 20, label: 'Matrix', color:130},
+        'L005': {display: 21, label: 'Color/Corr', color:129},
+        'L006': {display: 22, label: 'HDR', color:129},
+        'L007': {display: 25, label: 'Menu', color:129},
+        'L008': {display: 26, label: '', color:129},
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
         1809:   {led:  30, color: 2},                               // Tally
 
-        533:    {dial:  9, display:  9, label: 'R-G ',     func: 533},
-        534:    {dial: 10, display: 10, label: 'R-B ',     func: 534},
-        535:    {dial: 11, display: 11, label: 'G-R ',     func: 535},
-        536:    {dial: 12, display: 12, label: 'G-B ',     func: 536},
-        537:    {dial: 13, display: 13, label: 'B-R ',     func: 537},
-        538:    {dial: 14, display: 14, label: 'B-G ',     func: 538},
-        'L009': {dial: 15, display: 15, label: ''},
-        'L010': {dial: 16, display: 16, label: ''},
+        533:    {dial:  9, display:  9, label: 'R-G ',  color:132,   func: 533},
+        534:    {dial: 10, display: 10, label: 'R-B ',  color:132,   func: 534},
+        535:    {dial: 11, display: 11, label: 'G-R ',  color:143,   func: 535},
+        536:    {dial: 12, display: 12, label: 'G-B ',  color:143,   func: 536},
+        537:    {dial: 13, display: 13, label: 'B-R ',  color:138,   func: 537},
+        538:    {dial: 14, display: 14, label: 'B-G ',  color:138,   func: 538},
+        'L101': {dial: 15, display: 15, label: ''},
+        'L102': {dial: 16, display: 16, label: ''},
 
 
     },
 
     21:             // Color / Correction
     {
-        'L001': {display: 17, label: 'Home'},
-        'L002': {display: 18, label: 'Gain/Gamma'},
-        'L003': {display: 19, label: 'Flare/Ped'},
-        'L004': {display: 20, label: 'Matrix'},
-        'L005': {display: 21, label: 'Color/Corr'},
-        'L006': {display: 22, label: 'HDR'},
-        'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
+        'L001': {display: 17, label: 'Home', color:129},
+        'L002': {display: 18, label: 'Gain/Gamma', color:129},
+        'L003': {display: 19, label: 'Flare/Ped', color:129},
+        'L004': {display: 20, label: 'Matrix', color:129},
+        'L005': {display: 21, label: 'Color/Corr', color:130},
+        'L006': {display: 22, label: 'HDR', color:129},
+        'L007': {display: 25, label: 'Menu', color:129},
+        'L008': {display: 26, label: '', color:129},
+        'L009': {button:  21, color: 130},
+        'L010': {button:  1, color: 130},
+        'L011': {button:  2, color: 129},
+
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -133,14 +138,18 @@ var rcpLayouts = {
         9993:    {dial: 15, display: 15, label: 'SAT ',       func: 524},
         9992:    {dial: 16, display: 16, label: 'PHASE ',       func: 524},   
         'sub': {
-            'L001': {display: 17, label: 'Home'},
-            'L002': {display: 18, label: 'Gain/Gamma'},
-            'L003': {display: 19, label: 'Flare/Ped'},
-            'L004': {display: 20, label: 'Matrix'},
-            'L005': {display: 21, label: 'Color/Corr'},
-            'L006': {display: 22, label: 'HDR'},
-            'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
+            'L001': {display: 17, label: 'Home', color:129},
+            'L002': {display: 18, label: 'Gain/Gamma', color:129},
+            'L003': {display: 19, label: 'Flare/Ped', color:129},
+            'L004': {display: 20, label: 'Matrix', color:129},
+            'L005': {display: 21, label: 'Color/Corr', color:130},
+            'L006': {display: 22, label: 'HDR', color:129},
+            'L007': {display: 25, label: 'Menu', color:129},
+            'L008': {display: 26, label: '', color:129},
+            'L010': {button:  1, color: 129},
+            'L011': {button:  2, color: 130},
+
+
 
             1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
             8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -151,8 +160,8 @@ var rcpLayouts = {
 
             9997:    {dial: 13, display: 13, label: 'SAT ',        func: 0},
             9996:    {dial: 14, display: 14, label: 'PHASE ',   func: 524},
-            'L009': {dial: 15, display: 15, label: ''},
-            'L010': {dial: 16, display: 16, label: ''},
+            'L101': {dial: 15, display: 15, label: ''},
+            'L102': {dial: 16, display: 16, label: ''},
 
 
             'super': 21, 
@@ -162,14 +171,20 @@ var rcpLayouts = {
 
     22:             // HDR
     {
-        'L001': {display: 17, label: 'Home'},
-        'L002': {display: 18, label: 'Gain/Gamma'},
-        'L003': {display: 19, label: 'Flare/Ped'},
-        'L004': {display: 20, label: 'Matrix'},
-        'L005': {display: 21, label: 'Color/Corr'},
-        'L006': {display: 22, label: 'HDR'},
-        'L007': {display: 25, label: 'Menu'},
-        'L008': {display: 26, label: ''},
+        'L001': {display: 17, label: 'Home', color:129},
+        'L002': {display: 18, label: 'Gain/Gamma', color:129},
+        'L003': {display: 19, label: 'Flare/Ped', color:129},
+        'L004': {display: 20, label: 'Matrix', color:129},
+        'L005': {display: 21, label: 'Color/Corr', color:129},
+        'L006': {display: 22, label: 'HDR', color:130},
+        'L007': {display: 25, label: 'Menu', color:129},
+        'L008': {display: 26, label: '', color:129},
+        'B009': {button:  22, color: 130},
+        'B010': {button:  1, color: 130},
+        'B011': {button:  2, color: 129},
+
+
+
 
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
@@ -187,12 +202,18 @@ var rcpLayouts = {
 
         'sub': {
 
-            'L001': {display: 17, label: 'Home'},
-            'L002': {display: 18, label: 'Gain/Gamma'},
-            'L003': {display: 19, label: 'Flare/Ped'},
-            'L004': {display: 20, label: 'Matrix'},
-            'L005': {display: 21, label: 'Color/Corr'},
-            'L006': {display: 22, label: 'HDR'},
+            'L001': {display: 17, label: 'Home', color:129},
+            'L002': {display: 18, label: 'Gain/Gamma', color:129},
+            'L003': {display: 19, label: 'Flare/Ped', color:129},
+            'L004': {display: 20, label: 'Matrix', color:129},
+            'L005': {display: 21, label: 'Color/Corr', color:129},
+            'L006': {display: 22, label: 'HDR', color:130},
+            'L007': {display: 25, label: 'Menu', color:129},
+            'L008': {display: 26, label: '', color:129},
+            'B009': {button:  22, color: 130},
+            'L010': {button:  1, color: 129},
+            'L011': {button:  2, color: 130},
+
 
             1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
             8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
@@ -201,8 +222,8 @@ var rcpLayouts = {
 
             524:    {dial: 13, display: 13, label: 'SDR Level ',        func: 0},    // ********************
             524:    {dial: 14, display: 14, label: 'SDR Clip ',   func: 524},
-            'L009': {dial: 15, display: 15, label: ''},
-            'L010': {dial: 16, display: 16, label: ''},
+            'L101': {dial: 15, display: 15, label: ''},
+            'L102': {dial: 16, display: 16, label: ''},
 
 
             'super': 22,
@@ -211,16 +232,16 @@ var rcpLayouts = {
 
     38:
     {
-        'L001': {display: 17, label: 'S1'},
-        'L002': {display: 18, label: 'S2'},
-        'L003': {display: 19, label: 'S3'},
-        'L004': {display: 20, label: 'S4'},
-        'L005': {display: 21, label: 'S5'},
-        'L006': {display: 22, label: 'S6'},
-        'L007': {display: 25, label: 'AWB', func: 9999},
-        'L008': {display: 26, label: 'ABB', func: 9999},
-        'L009': {led: 25, color: 3},                // 3 = green
-        'L010': {led: 26, color: 3},
+        'L001': {display: 17, label: 'S1', color:129},
+        'L002': {display: 18, label: 'S2', color:129},
+        'L003': {display: 19, label: 'S3', color:129},
+        'L004': {display: 20, label: 'S4', color:129},
+        'L005': {display: 21, label: 'S5', color:129},
+        'L006': {display: 22, label: 'S6', color:129},
+        'L007': {display: 25, label: 'AWB', color:129, func: 9999},
+        'L008': {display: 26, label: 'ABB', color:129, func: 9999},
+        'L009': {led: 25, color: 129},                // 3 = green
+        'L010': {led: 26, color: 129},
     },
 };
 
@@ -373,13 +394,14 @@ skaarhojF1.on('button', (pressed, position) => {
         resetButtonsNLabels(); 
 
             // Send GV OCP camera name to shade
+        console.log('GV OCP ' +buttonMap[pressed].camera);
         grassValley.ocpSetCamera(buttonMap[pressed].camera);
 
             // Send birch request route camera to shader monitor
         birch.take(cameraMap[buttonMap[pressed].camera].birchObj, birch.destinations[0]);
 
             // Set button colors   red=2, green=3
-        skaarhojF1.hwcColor(pressed, '3');          // set "pushed" to green
+        skaarhojF1.hwcMode(pressed, '4');          // set "pushed" to white
 
         paintRCP();
 
@@ -505,7 +527,8 @@ function paintRCP()
 
     if (rcpLay === undefined)
         rcpLay = rcpLayouts[17];
- 
+
+
     Object.entries(rcpLay).forEach(hwc => {
 
         if(hwc[0] == 'sub' || hwc[0] == 'shift')
@@ -514,18 +537,37 @@ function paintRCP()
         if (hwc[1].led){            // Just light up an LED (not a display w/label)
             if (grassValues[buttonMap[buttonLive].camera] != undefined &&
                                                 grassValues[buttonMap[buttonLive].camera][hwc[0]] == 'true')
-                skaarhojRCP.hwcColor(hwc[1].led, hwc[1].color); 
+                skaarhojRCP.hwcMode(hwc[1].led, hwc[1].color); 
             else
-                skaarhojRCP.hwcColor(hwc[1].led, 0); 
+                skaarhojRCP.hwcMode(hwc[1].led, 0); 
         }
-        else{
+        else if(hwc[1].dial){
             if (grassValues[buttonMap[buttonLive].camera] === undefined ||
                                                        grassValues[buttonMap[buttonLive].camera][hwc[0]] === undefined)      // Does this have a GV function value?
-                skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label);    // Just a label :)
+                skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label);    // Just a label - no value:)
             else
                 skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label +grassValues[buttonMap[buttonLive].camera][hwc[0]]);
+            
+            if (hwc[1].color){
+                console.log('calling hwcColor ' +hwc[1].dial +' ' +hwc[1].color +' ' +hwc[1].label);
+                skaarhojRCP.hwcColor(hwc[1].dial, hwc[1].color);
+            }
+            else{
+                console.log("calling hwcColor w/default color");
+                skaarhojRCP.hwcColor(hwc[1].dial, 128 +' ' +hwc[1].label); // 128 = default
+            }
+        }
+        else if(hwc[1].display){
+            skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label);    // Just a label - no value:)
+            skaarhojRCP.hwcColor(hwc[1].display, hwc[1].color);
+        }
+        else if(hwc[1].button){
+            skaarhojRCP.hwcColor(hwc[1].button, hwc[1].color);
         }
     });
+
+    skaarhojRCP.hwcLabel(38, buttonMap[buttonLive].name)
+
 }
                         //
                         //  RCP
@@ -543,16 +585,19 @@ skaarhojRCP.on('button', (pressed, position) => {
         case 1:             // Screen change Key ??
             if (position == 'Down' && rcpLayouts[rcpLay['super']])
                 rcpLay = rcpLayouts[rcpLay['super']]; // Display parent screen
+            // skaarhojRCP.clear();
             paintRCP();
         break;
 
         case 2:             // SubScreen 
             if (position == 'Down' && rcpLay['sub'])
                 rcpLay = rcpLay['sub']; // Display subscreen
+            // skaarhojRCP.clear();
             paintRCP();
         break;
 
         case 38:            // Shift Key 
+            console.log('Shift Key ' +position);
             if (position == 'Down'){  
                 lastRcpLayout = rcpLay;
                 rcpLay = rcpLayouts[pressed];
@@ -578,16 +623,9 @@ skaarhojRCP.on('button', (pressed, position) => {
             }
 
             else if (position == 'Down'){       
-                skaarhojRCP.hwcColor(17, '0');      // set to off
-                skaarhojRCP.hwcColor(18, '0');      // set to off
-                skaarhojRCP.hwcColor(19, '0');      // set to off
-                skaarhojRCP.hwcColor(20, '0');      // set to off
-                skaarhojRCP.hwcColor(21, '0');      // set to off
-                skaarhojRCP.hwcColor(22, '0');      // set to off
-
                 rcpLay = rcpLayouts[pressed];
-                skaarhojRCP.hwcColor(pressed, '3');      // set to green
-
+                skaarhojRCP.clear();
+                skaarhojRCP.hwcColor(pressed, 130);        // white
                 paintRCP();
             }
 
@@ -679,6 +717,21 @@ function serverInit()
                 button=13;
                 camera=10;
                 break;
+
+                        // Not yet in Birch ??
+            case 'NP CAM 11i':
+                button=14;
+                camera=11;
+                break;
+            case 'NP CAM 12i':
+                button=15;
+                camera=12;
+                break;
+            case 'NP CAM 13i':
+                button=16;
+                camera=13;
+                break;
+
         }
 
         cameraMap[camera] = new Object();
@@ -697,6 +750,7 @@ function serverInit()
 
     } // for loop
 
+
     console.dir(buttonMap);
     console.dir(cameraMap);
 
@@ -708,8 +762,8 @@ function resetButtonsNLabels()
 {
     for(i=0;i<buttonMap.length;i++){
         if(buttonMap[i]){
-            skaarhojF1.hwcColor(i, '0');      // set all to off
-            skaarhojF1.hwcColor(i+6, '0');      // set flags to off
+            skaarhojF1.hwcMode(i, '0');      // set all to off
+            skaarhojF1.hwcMode(i+6, '0');      // set flags to off
             skaarhojF1.hwcLabel(i, buttonMap[i].name);
         }
     }
@@ -719,7 +773,7 @@ function resetButtonsNLabels()
         cameraPresetLEDs(0);    // Clear all 4 then light single below
         skaarhojF1.hwcLabel(48, buttonMap[buttonLive].name);
         if (cameraMap[buttonMap[buttonLive].camera].presetButton)
-            skaarhojF1.hwcColor(cameraMap[buttonMap[buttonLive].camera].presetButton, 3);       //  Green is 3
+            skaarhojF1.hwcMode(cameraMap[buttonMap[buttonLive].camera].presetButton, 4);       //  White is 4
     }
     skaarhojF1.hwcLabel(25, 'Preset ALL Cams');
     skaarhojF1.hwcLabel(18, 'Reset Panel');            // Force program to exit
@@ -736,10 +790,10 @@ function resetButtonsNLabels()
 function cameraPresetLEDs(pressed)
 {
     for (i=49;i<53;i++)                 // Individual Camera Preset LEDs
-        skaarhojF1.hwcColor(i, 0);
+        skaarhojF1.hwcMode(i, 0);
 
     if (pressed){
-        skaarhojF1.hwcColor(pressed, 3);       //  Green is 3
+        skaarhojF1.hwcMode(pressed, 4);       //  Green is 3
         cameraMap[buttonMap[buttonLive].camera].presetButton = pressed;
     }
 }
@@ -747,11 +801,11 @@ function cameraPresetLEDs(pressed)
 function allCamerasPresetLEDs(pressed)
 {
     for (i=28;i<32;i++){                 // All Cameras Preset LEDs
-        skaarhojF1.hwcColor(i, 0);
+        skaarhojF1.hwcMode(i, 0);
     }
 
     if (pressed)
-        skaarhojF1.hwcColor(pressed, 3);
+        skaarhojF1.hwcMode(pressed, 4);
 
     cameraPresetLEDs(0);   // All cameras Profile ... clear this cameras individual Profile LEDs
 }

@@ -36,7 +36,7 @@ async function getBirchSources() {
                     if (response.data.data[i].index == lastIndex)       // de-dup
                         continue;
 
-                    if (response.data.data[i].index >= 300)
+                    if (response.data.data[i].index >= 100)
                         tempArray.push(response.data.data[i]);
 
                     lastIndex = response.data.data[i].index;

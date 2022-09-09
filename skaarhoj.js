@@ -18,6 +18,8 @@ class Skaarhoj extends EventEmitter{
 
         this.socket.on('connect', function () {
             console.log('skaarhoj connected!');
+            self.clear();
+            self.socket.write('SleepTimer=0\n');
             self.emit('connect');
         });
         this.socket.on('end', function () {
@@ -78,10 +80,22 @@ class Skaarhoj extends EventEmitter{
         });
     }
 
+    clear()
+    {
+        this.socket.write('Clear\n');
+    }
+
+    hwcMode(button, mode)
+    {
+        var str = 'HWC#' +button +'=' +mode +'\n'; 
+        // console.log('hwcColor()' +str);
+        this.socket.write(str); 
+    }
+
 
     hwcColor(button, color)
     {
-        var str = 'HWC#' +button +'=' +color +'\n'; 
+        var str = 'HWCc#' +button +'=' +color +'\n' +'HWC#' +button +'=4\n'; 
         // console.log('hwcColor()' +str);
         this.socket.write(str); 
     }

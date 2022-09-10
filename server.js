@@ -15,7 +15,7 @@ var rcpLayouts = {
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-        1809:   {led:  30, color: 2},                               // Tally  Skaarhoj 2=red
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
 
         1056:   {dial:  9, display:  9, label: 'Dtl ',    func: 1056},
@@ -42,7 +42,7 @@ var rcpLayouts = {
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-        1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
         1026:   {dial:  9, display: 9,  label: 'M ',  color:130,    func: 1026},
         513:    {dial: 10, display: 10, label: 'R ',  color:132,    func: 513},
@@ -70,7 +70,7 @@ var rcpLayouts = {
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-        1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
         969:    {dial:  9, display:  9,  label: 'M ',  color:130,   func: 969},
         519:    {dial: 10, display: 10,  label: 'R ',  color:132,   func: 519},
@@ -96,7 +96,7 @@ var rcpLayouts = {
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-        1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
         533:    {dial:  9, display:  9, label: 'R-G ',  color:132,   func: 533},
         534:    {dial: 10, display: 10, label: 'R-B ',  color:132,   func: 534},
@@ -127,7 +127,7 @@ var rcpLayouts = {
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-        1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
         9999:    {dial:  9, display:  9, label: 'SAT ',     func: 524},
         9998:    {dial: 10, display: 10, label: 'PHASE ',     func: 524},
@@ -153,7 +153,7 @@ var rcpLayouts = {
 
             1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
             8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-            1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
             9999:    {dial:  9, display: 10, label: 'SAT ',    func: 524},
             9998:    {dial: 10, display: 10, label: 'PHASE ',    func: 524},      //**************
@@ -189,7 +189,7 @@ var rcpLayouts = {
 
         1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
         8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-        1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
         9999:    {dial:  9, display:  9, label: 'HDR Std',    func: 524},
         9998:    {dial: 10, display: 10, label: 'HDR Out ',    func: 524},
@@ -217,7 +217,7 @@ var rcpLayouts = {
 
             1039:   {dial: 56, display: 29, label: 'F ',      func: 542, scale: 7}, 
             8392:   {dial: 31, display: 31, label: 'Gain ',   func: 8392},
-            1809:   {led:  30, color: 2},                               // Tally
+        1809:   {led:  30, color_1: 129, color_1: 132},           // Tally  on=red=132  off=black=129
 
 
             524:    {dial: 13, display: 13, label: 'SDR Level ',        func: 0},    // ********************

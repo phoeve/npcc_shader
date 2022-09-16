@@ -36,7 +36,7 @@ class Skaarhoj extends EventEmitter{
         });
         this.socket.on('error', function () {
             console.log('error');
-            self.emit('error');
+            // self.emit('error');
             console.log('ReConnecting to Skaarhoj ' + host + ':' + port + '...');
             socket.connect(port, host);
         });

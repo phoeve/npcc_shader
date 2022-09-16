@@ -69,14 +69,16 @@ function sendPresetRecall(camera, value){
             //
 function sendFunctionValue(func, camera, relative, value)
 {
+    // console.log ('sendFunctionValue', func, camera, relative, value);
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":func},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
     var xml = builder.buildObject(setJson);
     socket.write(xml);  
 }
 
-var subCodes = [1039, 8392, 1030, 524, 1809, 523, 615, 608, 8321, 8200, 1026, 513, 514, 515, 584, 583, 586, 585,
-                969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 538, 
+var subCodes = [1025, 1027, 1039, 1041, 1042, 8392, 1030, 524, 1809, 523, 615, 608, 8321, 8200, 1026, 513, 514, 515, 516, 517, 518, 
+                584, 583, 586, 585,
+                969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 538, 540,969, 8369, 8378, 8385, 8386, 8901, 8392
 ];
 
 

@@ -1,5 +1,3 @@
-//****************************************************************************************************
-
     //
     // Connect to Grass Valley Gateway to control OCP
     //
@@ -37,13 +35,13 @@ function ocpSetCamera(camera){
 }
 
 
-function sendIrisValue(camera, relative, value){
+// function sendIrisValue(camera, relative, value){
 
-    var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"542"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
+//     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"542"},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
-    var xml = builder.buildObject(setJson);
-    socket.write(xml);        
-}
+//     var xml = builder.buildObject(setJson);
+//     socket.write(xml);        
+// }
 
 //<function id="4098" access="w" blocked="false">
 //  <type>Mode</type>
@@ -59,6 +57,8 @@ function sendIrisValue(camera, relative, value){
 
 function sendPresetRecall(camera, value){
 
+    console.log ('\nsend GV ==> function: ', 4098, 'camera: ', camera, 'value: ', value);
+
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"4098"},"value":[{"_":value,"$":{"relative":'false'}}]}]}]}};
 
     var xml = builder.buildObject(setJson);
@@ -69,21 +69,26 @@ function sendPresetRecall(camera, value){
             //
 function sendFunctionValue(func, camera, relative, value)
 {
-    // console.log ('sendFunctionValue', func, camera, relative, value);
+    console.log ('\nsend GV ==> function: ', func, 'camera: ', camera, 'value: ', value);
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":func},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
+    console.log(setJson);
+
     var xml = builder.buildObject(setJson);
+    console.log(xml);
+
     socket.write(xml);  
 }
 
-var subCodes = [1025, 1027, 1039, 1041, 1042, 8392, 1030, 524, 1809, 523, 615, 608, 8321, 8200, 1026, 513, 514, 515, 516, 517, 518, 
-                584, 583, 586, 585,
-                969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 538, 540,969, 8369, 8378, 8385, 8386, 8901, 8392
+var subCodes = [524, 523, 615, 513, 514, 515, 516, 517, 518, 584, 583, 586, 585, 608,
+                969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 654, 538, 540, 776, 969, 
+                1025, 1026,1027, 1039, 1041, 1042, 1056, 8392, 1030, 1809,  
+                8306, 8321, 8200, 8369, 8378, 8385, 8386, 8387, 8388, 8901, 8392,
 ];
 
 
-var unSubCodes = [8895,8894, 739,
-];
+var unSubCodes = [8895, 8894, 739,];
+
 function subscribe2Camera(camera){
 
     var sub2Cam;
@@ -216,19 +221,30 @@ socket.on('data', function(data) {
 
     arr.forEach(function(xmlBuf){
 
-        if (xmlBuf == '')           // getting nth null message from split?
+        if (xmlBuf == ''){           // getting nth null message from split?
+            console.log('skipping null xmlBuf from GV: ', xmlBuf);
             return;
+        }
 
         var parser = new xml2js.Parser();
 
+        try {
+
         parser.parseString(xmlBuf +splitStr, function (err, result) {       // Replace split string
+
+            if (err){
+                console.log('skipping xmlBuf b/c of error: ', err, xmlBuf);
+                return;     // Just skip this xml message
+            }
 
             switch (Object.keys(result)[0]){
                 
                 case 'request-response':
                 case 'application-authentication-indication':
                 case 'function-information-indication':
-                    console.dir(Object.keys(result));
+                    console.log('GV sent <== ', result[Object.keys(result)[0]]['$'].message, ' ', result[Object.keys(result)[0]]['$'].result);
+                    // console.dir(result);
+                    // console.dir(Object.keys(result);
 
                     break;
 
@@ -264,6 +280,13 @@ socket.on('data', function(data) {
             }
         
         });
+        }                   // End try
+        catch (err) {
+          // statements to handle any exceptions
+          console.log('vvv parser threw error vvv');    // pass exception object to error handler
+          console.dir(err);
+          console.log('^^^ parser threw error ^^^');
+        }
     });
     
 });

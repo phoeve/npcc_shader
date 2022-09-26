@@ -10,7 +10,7 @@ class Skaarhoj extends EventEmitter{
 
         let myHost = host;
         let port = 9923;
-        let self = this;        // set target or our "emit's"
+        let self = this;        // set target for our "emit's"
 
 
         console.log('Connecting to Skaarhoj ' + host + ':' + port + '...');
@@ -48,6 +48,9 @@ class Skaarhoj extends EventEmitter{
 
         this.socket.on('data', function(data) {
 
+            // console.log('<== Skaarhoj sent');
+            // console.dir(data);
+
             if (data.includes('Down')){
 
                 var button = data.toString().split('\n')[0].split('.')[0].split('#')[1];
@@ -77,6 +80,10 @@ class Skaarhoj extends EventEmitter{
         //        console.log('dial', parseInt(dial), parseInt(movement));
                 self.emit('dial', parseInt(dial), parseInt(movement));
             }
+            else if (data.includes('Press')){
+                var dial = data.toString().split('\n')[0].split('.')[0].split('#')[1];
+                self.emit('press', parseInt(dial));
+            }
         });
     }
 
@@ -102,7 +109,7 @@ class Skaarhoj extends EventEmitter{
 
     hwcLabel(button, label)
     {
-        var str = 'HWCt#' +button +'=|||||' +label +'\n';
+        var str = 'HWCt#' +button +'=|||||' +label +'||||||||||0||\n';
         // console.log('hwcLabel()' +str);
         this.socket.write(str);
     }

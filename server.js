@@ -1,339 +1,375 @@
 
+        // Skaarhoj constants
+        // for HWC#xx=yy mode calls (leds, buttons )
+const modeOff   = 0;
+const modeRed   = 2;
+const modeGreen = 3;
+const modeWhite = 4;
+
+        // for HWCc#xx=yy color calls (dials, buttons, )
+const colorOff     = 129;
+const colorWhite   = 130;
+const colorRed     = 132;
+const colorGreen   = 143;
+const colorBlue    = 138;
+const colorMagenta = 133;
+const colorYellow  = 137;
+const colorCyan    = 141;
+
+
+
+        // Naming buttons for our RCP
+const buttonHome        = 17;
+const buttonGainGamma   = 18;
+const buttonFlarePed    = 19;
+const buttonMatrix      = 20;
+const buttonColorCorr   = 21;
+const buttonHdr         = 22;
+const buttonSuper       =  1;
+const buttonSub         =  2;
+const buttonShift       = 38;
+
+
+        // Mapping Screen Layouts to Skaarhoj buttons
+const screenShift         = buttonShift;                // Many screens have same screen# as Skaarhoj button# (by design - avoids some mapping)
+const screenHome          = buttonHome;
+const screenGainGamma     = buttonGainGamma;
+const screenFlarePed      = buttonFlarePed;
+const screenMatrix        = buttonMatrix;
+const screenColorCorr     = buttonColorCorr;
+const screenColorCorrSub  = 221;
+const screenHdr           = buttonHdr;
+const screenHdrSub        = 222;
+
+
+            // Grass valley Function Codes
+            //
+const gvSensitivity = 8321;
+const gvFstop       = 1039;
+const gvIris        =  542;
+const gvPed         =  540;
+const gvGain        = 8392;
+const gvDetail      = 1056;
+const gvKnee        = 1027;
+const gvTally       = 1809;
+const gvDtl         = 8369;
+const gvSkin        =  776;
+const gvSkinSet     = 8192;
+const gvActiveScene = 8200;
+const gvSetScene    = 4098;
+const gvNDFilter    = 1030;
+const gvSaturation  =  615;
+const gvTemp        =  608;
+
+const gvGainMaster  = 1026;
+const gvGainRed     =  513;
+const gvGainGreen   =  514;
+const gvGainBlue    =  515;
+const gvGammaMaster =  584;
+const gvGammaRed    =  583;
+const gvGammaGreen  =  586;
+const gvGammaBlue   =  585;
+
+const gvFlareOnOff  =  969;
+const gvFlareRed    =  519;
+const gvFlareGreen  =  520;
+const gvFlareBlue   =  521;
+const gvPedMaster   =  540;
+const gvPedRed      =  516;
+const gvPedGreen    =  517;
+const gvPedBlue     =  518;
+
+const gvMatrixRG    =  533;
+const gvMatrixRB    =  534;
+const gvMatrixGR    =  535;
+const gvMatrixGB    =  536;
+const gvMatrixBR    =  537;
+const gvMatrixBG    =  538;
+
+
+                // GV Function Code Excepions Table    assumed default -> "functionCode: {setter: functionCode},"
+
+const gvFuncCodeDef = {
+                // "setRelative: true" - means that the setter (GV) is expecting a setRelative value - default
+    [gvDetail]:       {boolean: true},
+    [gvKnee]:         {boolean: true},
+    [gvTally]:        {boolean: true},
+    [gvDtl]:          {boolean: true},
+    [gvSkin]:         {boolean: true},
+    [gvSensitivity]:  {setRelative:false, range:2},
+    [gvNDFilter]:     {setRelative:false, range:4},
+    [gvActiveScene]:  {setRelative:false, range:6},
+    [gvFlareOnOff]:   {boolean: true},
+}
+
+
+const x2562Pct = 100/255;
+const x4k2Pct = 100/4095;
+
                     // Common to all Screens (Shift key overlays current screen)
-
-const x256ToPercent = 100/255;
-const x4096ToPercent = 100/4095;
-
-
-const commonLayout = {
-        // 'D001':    {dial:  9, display:  9, label: ' ',  color:129},
-        // 'D002':    {dial: 10, display: 10, label: ' ',  color:129},     // Clear dial attributes
-        // 'D003':    {dial: 11, display: 11, label: ' ',  color:129},
-        // 'D004':    {dial: 12, display: 12, label: ' ',  color:129},
-        // 'D005':    {dial: 13, display: 13, label: ' ',  color:129},
-        // 'D006':    {dial: 14, display: 14, label: ' ',  color:129},     
-        // 'D007':    {dial: 15, display: 15, label: ' ',  color:129},
-        // 'D008':    {dial: 16, display: 16, label: ' ',  color:129},
-
-        'C001': {button: 17, label: 'Home',        color:129},
-        'C002': {button: 18, label: 'Gain/Gamma',  color:129},
-        'C003': {button: 19, label: 'Flare/Ped',   color:129},
-        'C004': {button: 20, label: 'Matrix',      color:129},
-        'C005': {button: 21, label: 'Color/Corr',  color:129},
-        'C006': {button: 22, label: 'HDR',         color:129},
-        'C007': {button: 25, label: 'Menu',        color:129},
-        'C008': {button: 26, label: ' ',           color:129},      // Turn off ABB
-        'C009': {button:  1, color:129},                            // Turn sub menu button lights off
-        'C010': {button:  2, color:129}, 
-        'C011': {button: 38, color:129}, 
-        'L047': {led:    17,        color:143},
-
-        1039:   {dial: 56, display: 29, label: 'F ',      func: 542,    scale: 7}, 
-        // 540:    {dial: 55, display: 28, label: 'PED ',      func: 540,    scale: 7, scaling: x4096ToPercent}, 
-        8392:   {dial: 31, display: 31, label: 'Gain ',   color:130,    func: 8392},
-        1027:   {dial: 55, display: 33, label: 'Knee ',      func: 1027}, 
-        9999:   {dial: 55, display: 32, label: 'DTL ',      func: 9999}, 
-        1809:   {led:  30, 0: 0, 1: 2},                         // Tally  1=red=132  0=black=129
+const commonLayout = 
+{
+        'C001':     {button: buttonHome,      label: 'Home',        color: colorOff,                        screen: screenHome},
+        'C002':     {button: buttonGainGamma, label: 'Gain/Gamma',  color: colorOff,                        screen: screenGainGamma},
+        'C003':     {button: buttonFlarePed,  label: 'Flare/Ped',   color: colorOff,                        screen: screenFlarePed},
+        'C004':     {button: buttonMatrix,    label: 'Matrix',      color: colorOff,                        screen: screenMatrix},
+        'C005':     {button: buttonColorCorr, label: 'Color/Corr',  color: colorOff,                        screen: screenColorCorr},
+        'C006':     {button: buttonHdr,       label: 'HDR',         color: colorOff,                        screen: screenHdr},
+        'C025':     {button: 25,              label: 'Menu',        color: colorOff},
+        'C026':     {button: 26,              label: ' ',           color: colorOff},      // Turn off ABB
+        [gvFstop]:  {dial:   56, display: 29, label: 'F ',                                  setter: gvIris,     setScale: 7, setUpScale: 100}, 
+        [gvPed]:    {dial:   55, display: 28, label: 'PED ',        displayScaling: x4k2Pct,                setScale: 7, setUpScale: 100}, 
+        [gvGain]:   {dial:   31, display: 31, label: 'Gain ',       color: colorWhite,      setter: gvGain},
+        [gvDetail]: {button: 32, display: 32, label: 'DTL ',        }, 
+        [gvKnee]:   {button: 33, display: 33, label: 'Knee ',       }, 
+        [gvTally]:  {led:    30,                0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
+        'C009':     {button: buttonSuper,     color: colorOff},     // Turn sub menu button lights off
+        'C010':     {button: buttonSub,       color: colorOff}, 
+        'C011':     {button: buttonShift,     color: colorOff}, 
 }
 
 const rcpLayouts = {
 
-    17:             // Home               
+    [screenHome]:             // Home               
     {        
-        'L001': {button: 17, label: 'Home', color:130},      // Light up Menu button
-        8369:   {dial:  9, display:  9, label: 'Dtl ',    color:130,  scaling: x256ToPercent,  func: 8369},
-        1025:   {dial: 10, display: 10, label: 'Skn ',    color:130,    func: 762},
-        615:    {dial: 11, display: 11, label: 'Sat ',    color:130,    func: 615},
-        608:    {dial: 12, display: 12, label: 'Temp ',   color:130,    func: 608},
-        'D005':    {dial: 13, display: 13, label: ' ',  color:129},
-        8321:   {dial: 14, display: 14, label: 'Sens ',   color:130,    func: 8321},
-        1030:   {dial: 15, display: 15, label: 'ND ',     color:130,    relative:false, range:4,    func: 1030},
-        8200:   {dial: 16, display: 16, label: 'Scene ',  color:130,    func: 4098},
+        'H001':          {button: 17, label: 'Home',                color: colorWhite},      // Light up Menu button
+        [gvDtl]:         {dial:    9, display:  9, label: 'Dtl ',   color: colorWhite,    displayScaling: x2562Pct},
+        [gvSkin]:        {dial:   10, display: 10, label: 'Skin ',  color: colorWhite,    setter: gvSkinSet},
+        [gvSaturation]:  {dial:   11, display: 11, label: 'Sat ',   color: colorWhite,    },
+        [gvTemp]:        {dial:   12, display: 12, label: 'Temp ',  color: colorWhite,    },
+        'H005':          {dial:   13, display: 13, label: ' ',      color: colorOff},
+        [gvSensitivity]: {dial:   14, display: 14, label: 'Sens ',  color: colorWhite,    },
+        [gvNDFilter]:    {dial:   15, display: 15, label: 'ND ',    color: colorWhite,    },
+        [gvActiveScene]: {dial:   16, display: 16, label: 'Scene ', color: colorWhite,    displayAdjust: -1},
     },
 
-    18:             // Gain/Gamma
+    [screenGainGamma]:             // Gain/Gamma
     {
-        'L001': {button: 18, color:130},       // Light up Menu button  
-        1026:   {dial:  9, display: 9,  label: 'M ',  color:130,  scaling: x256ToPercent,  func: 1026},
-        513:    {dial: 10, display: 10, label: 'R ',  color:132,  scaling: x256ToPercent,  func: 513},
-        514:    {dial: 11, display: 11, label: 'G ',  color:143,  scaling: x256ToPercent,  func: 514},
-        515:    {dial: 12, display: 12, label: 'B ',  color:138,  scaling: x256ToPercent,  func: 515},
-        584:    {dial: 13, display: 13, label: 'M ',  color:130,  scaling: x256ToPercent,  func: 584},
-        583:    {dial: 14, display: 14, label: 'R ',  color:132,  scaling: x256ToPercent,  func: 583},
-        586:    {dial: 15, display: 15, label: 'G ',  color:143,  scaling: x256ToPercent,  func: 586},
-        585:    {dial: 16, display: 16, label: 'B ',  color:138,  scaling: x256ToPercent,  func: 585},
+        'G001':           {button: 18, color: colorWhite},       // Light up Menu button  
+        [gvGainMaster]:   {dial:  9, display: 9,  label: 'M ',  color: colorWhite},
+        [gvGainRed]:      {dial: 10, display: 10, label: 'R ',  color: colorRed,    displayScaling: x2562Pct},
+        [gvGainGreen]:    {dial: 11, display: 11, label: 'G ',  color: colorGreen,  displayScaling: x2562Pct},
+        [gvGainBlue]:     {dial: 12, display: 12, label: 'B ',  color: colorBlue,   displayScaling: x2562Pct},
+        [gvGammaMaster]:  {dial: 13, display: 13, label: 'M ',  color: colorWhite,  displayScaling: x2562Pct},
+        [gvGammaRed]:     {dial: 14, display: 14, label: 'R ',  color: colorRed,    displayScaling: x2562Pct},
+        [gvGammaGreen]:   {dial: 15, display: 15, label: 'G ',  color: colorGreen,  displayScaling: x2562Pct},
+        [gvGammaBlue]:    {dial: 16, display: 16, label: 'B ',  color: colorBlue,   displayScaling: x2562Pct},
     },
 
-    19:             // Flare / PED
+    [screenFlarePed]:             // Flare / PED
     {
-        'L001': {button: 19, color:130},       // Light up Menu button 
-        969:    {dial:  9, display:  9, label: 'Flare ',  color:130,   relative: false, boolean: true, func: 969},
-        519:    {dial: 10, display: 10, label: 'R ',  color:132,   scaling: x256ToPercent,  func: 519},
-        520:    {dial: 11, display: 11, label: 'G ',  color:143,   scaling: x256ToPercent,  func: 520},
-        521:    {dial: 12, display: 12, label: 'B ',  color:138,   scaling: x256ToPercent,  func: 521},
-        540:    {dial: 13, display: 13, label: 'M ',  color:130, scale: 7,  scaling: x4096ToPercent,  func: 540},
-        516:    {dial: 14, display: 14, label: 'R ',  color:132,   scaling: x256ToPercent,  func: 516},     
-        517:    {dial: 15, display: 15, label: 'G ',  color:143,   scaling: x256ToPercent,  func: 517},
-        518:    {dial: 16, display: 16, label: 'B' ,  color:138,   scaling: x256ToPercent,  func: 518},
+        'F001':           {button: 19, color: colorWhite},       // Light up Menu button 
+        [gvFlareOnOff]:   {dial:  9, display:  9, label: 'Flare ',  color: colorWhite},
+        [gvFlareRed]:     {dial: 10, display: 10, label: 'R ',  color: colorRed,   displayScaling: x2562Pct},
+        [gvFlareGreen]:   {dial: 11, display: 11, label: 'G ',  color: colorGreen, displayScaling: x2562Pct},
+        [gvFlareBlue]:    {dial: 12, display: 12, label: 'B ',  color: colorBlue,  displayScaling: x2562Pct},
+        [gvPedMaster]:    {dial: 13, display: 13, label: 'M ',  color: colorWhite, displayScaling: x4k2Pct, setScale: 7},
+        [gvPedRed]:       {dial: 14, display: 14, label: 'R ',  color: colorRed,   displayScaling: x2562Pct},     
+        [gvPedGreen]:     {dial: 15, display: 15, label: 'G ',  color: colorGreen, displayScaling: x2562Pct},
+        [gvPedBlue]:      {dial: 16, display: 16, label: 'B' ,  color: colorBlue,  displayScaling: x2562Pct},
     },
 
-    20:             // Matrix
+    [screenMatrix]:             // Matrix
     {
-        'L001': {button: 20, color:130},       // Light up Menu button  
-        533:    {dial:  9, display:  9, label: 'R-G ',  color:132,   func: 533},
-        534:    {dial: 10, display: 10, label: 'R-B ',  color:132,   func: 534},
-        535:    {dial: 11, display: 11, label: 'G-R ',  color:143,   func: 535},
-        536:    {dial: 12, display: 12, label: 'G-B ',  color:143,   func: 536},
-        537:    {dial: 13, display: 13, label: 'B-R ',  color:138,   func: 537},
-        538:    {dial: 14, display: 14, label: 'B-G ',  color:138,   func: 538},  
-        'D007':    {dial: 15, display: 15, label: ' ',  color:129},
-        'D008':    {dial: 16, display: 16, label: ' ',  color:129},
+        'M001':        {button: 20, color: colorWhite},       // Light up Menu button  
+        gvMatrixRG:    {dial:  9, display:  9, label: 'R-G ',  color: colorRed},
+        gvMatrixRB:    {dial: 10, display: 10, label: 'R-B ',  color: colorRed},
+        gvMatrixGR:    {dial: 11, display: 11, label: 'G-R ',  color: colorGreen},
+        gvMatrixGB:    {dial: 12, display: 12, label: 'G-B ',  color: colorGreen},
+        gvMatrixBR:    {dial: 13, display: 13, label: 'B-R ',  color: colorBlue},
+        gvMatrixBG:    {dial: 14, display: 14, label: 'B-G ',  color: colorBlue},  
+        'M007':        {dial: 15, display: 15, label: ' ',     color: colorOff},
+        'M008':        {dial: 16, display: 16, label: ' ',     color: colorOff},
 
     },
 
-    21:             // Color / Correction
+    [screenColorCorr]:             // Color / Correction
     {
-        'L001': {button: 21, color:130},       // Light up Menu button  
-        'B009': {button:  1, color:130},       // Light up sub screen "1" button   
-        9999:    {dial:  9, display:  9, label: 'SAT ',     color:132,    func: 524},
-        9998:    {dial: 10, display: 10, label: 'PHASE ',   color:132,      func: 524},
-        9997:    {dial: 11, display: 11, label: 'SAT ',     color:133,    func: 524},
-        9996:    {dial: 12, display: 12, label: 'PHASE ',   color:133,      func: 524}, 
-        9995:    {dial: 13, display: 13, label: 'SAT ',     color:137,    func: 0},
-        9994:    {dial: 14, display: 14, label: 'PHASE ',   color:137,      func: 524},
-        9993:    {dial: 15, display: 15, label: 'SAT ',     color:143,     func: 524},
-        9992:    {dial: 16, display: 16, label: 'PHASE ',   color:143,       func: 524},   
+        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button  
+        'CC002': {button:  buttonSuper,      color: colorWhite},       // Light up sub screen "1" button   
+        'CC003': {button:  buttonSub,        color: colorOff, screen: screenColorCorrSub},          
+        9999:    {dial:  9, display:  9, label: 'SAT ',     color: colorRed},
+        9998:    {dial: 10, display: 10, label: 'PHASE ',   color: colorRed},
+        9997:    {dial: 11, display: 11, label: 'SAT ',     color: colorMagenta},
+        9996:    {dial: 12, display: 12, label: 'PHASE ',   color: colorMagenta}, 
+        9995:    {dial: 13, display: 13, label: 'SAT ',     color: colorYellow},
+        9994:    {dial: 14, display: 14, label: 'PHASE ',   color: colorYellow},
+        9993:    {dial: 15, display: 15, label: 'SAT ',     color: colorGreen},
+        9992:    {dial: 16, display: 16, label: 'PHASE ',   color: colorGreen},   
+    },
 
-        'sub': {
-            'B001': {button: 21, color:130},       // Light up Menu button 
-            'B010': {button:  2, color:130},       // Light up sub screen "2" button  
-            9999:    {dial:  9, display:  9, label: 'SAT ',    color:139,    func: 524},
-            9998:    {dial: 10, display: 10, label: 'PHASE ',  color:139,     func: 524}, 
-            'D003':    {dial: 11, display: 11, label: ' ',  color:129},
-            'D004':    {dial: 12, display: 12, label: ' ',  color:129},     
-            9997:    {dial: 13, display: 11, label: 'SAT ',    color:141,       func: 0},
-            9996:    {dial: 14, display: 12, label: 'PHASE ',  color:141,    func: 524},
-            'D007':    {dial: 15, display: 15, label: ' ',  color:129},
-            'D008':    {dial: 16, display: 16, label: ' ',  color:129},
-
-
-            'super': 21, 
-        }
+    [screenColorCorrSub]: {
+        'CC001':    {button: buttonColorCorr, color: colorWhite},       // Light up Menu button 
+        'CC002':    {button: buttonSuper,     color: colorOff, screen: screenColorCorr},       
+        'CC010':    {button: buttonSub,       color: colorWhite},       // Light up sub screen "2" button  
+        9999:       {dial:  9, display:  9, label: 'SAT ',    color: colorBlue},
+        9998:       {dial: 10, display: 10, label: 'PHASE ',  color: colorBlue}, 
+        'CC003':    {dial: 11, display: 11, label: ' ',       color: colorOff},
+        'CC004':    {dial: 12, display: 12, label: ' ',       color: colorOff},     
+        9997:       {dial: 13, display: 11, label: 'SAT ',    color: colorCyan},
+        9996:       {dial: 14, display: 12, label: 'PHASE ',  color: colorCyan},
+        'CC007':    {dial: 15, display: 15, label: ' ',       color: colorOff},
+        'CC008':    {dial: 16, display: 16, label: ' ',       color: colorOff},
     },
 
 
-    22:             // HDR
+    [screenHdr]:             // HDR
     {
-        name: 'HDR',
-        'B001': {button: 22, color:130},       // Light up Menu button  
-        'B009': {button:  1, color:130},       // Light up sub screen "1" button   
-        8392:    {dial:  9, display:  9, label: 'HDR Std ',     color:130,    func: 8392},
-        8901:    {dial: 10, display: 10, label: 'HDR Out ',    color:130,    func: 8901},
-        9997:    {dial: 11, display: 11, label: '% Hi ',        color:130,    func: 524},
-        8385:    {dial: 12, display: 12, label: 'Pt Hi ',    color:130,    func: 8385}, 
-        9994:    {dial: 14, display: 14, label: 'HDR Clip ',    color:130,    func: 524},
-        'D005':    {dial: 13, display: 13, label: ' ',  color:129},
-        9993:    {dial: 15, display: 15, label: '% Low ',       color:130,    func: 524},
-        8386:    {dial: 16, display: 16, label: 'Pt Low ',   color:130,    func: 8386},
-
-        'sub': {
-            'B001': {button: 22, color:130},       // Light up Menu button  
-            'B010': {button:  2, color:130},       // Light up sub screen "2" button  
-            'D001':    {dial:  9, display:  9, label: ' ',  color:129},
-            'D002':    {dial: 10, display: 10, label: ' ',  color:129},     // Clear dial attributes
-            'D003':    {dial: 11, display: 11, label: ' ',  color:129},
-            'D004':    {dial: 12, display: 12, label: ' ',  color:129},
-            524:    {dial: 13, display: 13, label: 'SDR Level ',  color:130, func: 0},    
-            572:    {dial: 14, display: 14, label: 'SDR Clip ',   color:130, func: 524}, 
-            'D007':    {dial: 15, display: 15, label: ' ',  color:129},
-            'D008':    {dial: 16, display: 16, label: ' ',  color:129},
-   
-            'super': 22,
-        },
+        'HD001': {button:  buttonHdr, color: colorWhite},       // Light up Menu button  
+        'HD002': {button:  buttonSuper, color: colorWhite},       // Light up sub screen "1" button  
+        'HD003': {button:  buttonSub,   color: colorOff, screen: screenHdrSub},          
+        8387:    {dial:  9, display:  9, label: 'HDR Std ',  color: colorWhite},
+        8388:    {dial: 10, display: 10, label: 'HDR Out ',  color: colorWhite},
+        9997:    {dial: 11, display: 11, label: '% Hi ',     color: colorWhite},
+        8385:    {dial: 12, display: 12, label: 'Pt Hi ',    color: colorWhite}, 
+        9994:    {dial: 14, display: 14, label: 'HDR Clip ', color: colorWhite},
+        'HD005': {dial: 13, display: 13, label: ' ',         color: colorOff},
+        9993:    {dial: 15, display: 15, label: '% Low ',    color: colorWhite},
+        8386:    {dial: 16, display: 16, label: 'Pt Low ',   color: colorWhite},
     },
 
-    38:
+
+    [screenHdrSub]: {
+        'HD001':     {button: buttonHdr,   color: colorWhite},       // Light up Menu button  
+        'HD002':     {button: buttonSuper, color: colorOff, screen: screenHdr},       
+        'HD010':     {button: buttonSub,   color: colorWhite},       // Light up sub screen "2" button  
+        'HD001':     {dial:  9, display:  9, label: ' ',          color: colorOff},
+        'HD002':     {dial: 10, display: 10, label: ' ',          color: colorOff},     // Clear dial attributes
+        'HD003':     {dial: 11, display: 11, label: ' ',          color: colorOff},
+        'HD004':     {dial: 12, display: 12, label: ' ',          color: colorOff},
+        524:         {dial: 13, display: 13, label: 'SDR Level ', color: colorWhite},    
+        572:         {dial: 14, display: 14, label: 'SDR Clip ',  color: colorWhite}, 
+        'HD007':     {dial: 15, display: 15, label: ' ',          color: colorOff},
+        'HD008':     {dial: 16, display: 16, label: ' ',          color: colorOff},
+    },
+
+    [screenShift]:
     {
-        name: 'Shift',
-        'L001': {button: 17, label: 'S1', color:129},
-        'L002': {button: 18, label: 'S2', color:129},
-        'L003': {button: 19, label: 'S3', color:129},
-        'L004': {button: 20, label: 'S4', color:129},
-        'L005': {button: 21, label: 'S5', color:129},
-        'L006': {button: 22, label: 'S6', color:129},
-        'L007': {button: 25, label: 'AWB', color:129},
-        'L008': {button: 26, label: 'ABB', color:129},
-        'L011': {button: 38, color:130},                   // Light up Shift key
+        'S001': {button: 17, label: 'S1',  color: colorOff, setter: 4098, setRelative: false, parm:2},
+        'S002': {button: 18, label: 'S2',  color: colorOff, setter: 4098, setRelative: false, parm:3},
+        'S003': {button: 19, label: 'S3',  color: colorOff, setter: 4098, setRelative: false, parm:4},
+        'S004': {button: 20, label: 'S4',  color: colorOff, setter: 4098, setRelative: false, parm:5},
+        'S005': {button: 21, label: 'S5',  color: colorOff, setter: 4098, setRelative: false, parm:6},
+        'S006': {button: 22, label: ' ',   color: colorOff},
+        'S007': {button: 25, label: 'AWB', color: colorOff, setter: 8193, setRelative: false, parm:true},
+        'S008': {button: 26, label: 'ABB', color: colorOff, setter: 8198, setRelative: false, parm:true},
+        'S011': {button: screenShift, color: colorWhite},                   // Light up Shift key
 
     },
 };
 
-grassValley = require('./grass.js');
-grassValleyEmitter = grassValley.connect();
-
-
 var f1Lay = {
-    1039:       {dial: 53, display: 53, label: 'F ',     color:130, func: 542, scale: 10},      // Iris fine
-    'L1039':    {dial: 54, display: 54, label: 'Coarse', color:130, func: 542, scale: 100 },     // Iris Coarse
-    8392:       {dial: 55, display: 55, label: 'Gain ',  color:130, func: 8392},                // Gain
-    1030:       {dial: 56, display: 56, label: 'ND ',    color:130, relative:false, range:4, func: 1030},
-
+    [gvFstop]:       {dial: 53, display: 53, label: 'F ',     color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine
+    [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite},    
+    [gvSensitivity]: {dial: 55, display: 55, label: 'Sens ',  color: colorWhite, setRelative:false, range:2},            
+    [gvNDFilter]:    {dial: 56, display: 56, label: 'ND ',    color: colorWhite, setRelative:false, range:4},
 }
 
 
-var buttonMap=[];  // Globals
-var sliderMap=[];
-var cameraMap=[];
-var buttonLive = 0;
+                //
+                // Grass Valley Calls
+                //
+grassValley = require('./grass.js');
+grassValleyEmitter = grassValley.connect();
 
-var RcpPageMap=[];
-
+                //
+                // Birch calls
+                //
 birch = require('./birch.js');
 birchEmitter = birch.init();
-
-
 birchEmitter.on('initialized', () => {
     // console.log('birchEmitter.on(initialized)');
     serverInit();
 });
 
 
+                //
+                // Skaarhoj init
+                //
 const Skaarhoj = require('./skaarhoj.js');
 skaarhojF1 = new Skaarhoj('10.1.43.37');
 skaarhojRCP = new Skaarhoj('10.1.45.54');
 
-skaarhojF1.on('slider', (slider, position) => {
 
-    if (!buttonLive)
-        return;
 
-    const scale = 2;
-
-    if (!sliderMap[slider]){
-        sliderMap[slider] = new Map();
-        sliderMap[slider].position = 0;
-        sliderMap[slider].timestamp = 0;
-    }
-    else{
-        // console.dir(position -sliderMap[slider].position *scale);
-
-        grassValley.sendIrisValue(buttonMap[buttonLive].camera, 'true', (position - sliderMap[slider].position) * scale );   
-    }
-                            // Save slider position and timestamp
-    sliderMap[slider].position = position;
-    cameraMap[buttonMap[liveButton].camera].sliderPosition = position;  // Allows us to position slider when this camera is selected
-    cameraMap[buttonMap[liveButton].camera].sliderTimestamp = Date.now();  // Allows us to position slider when this camera is selected
-
-});
-
-                        //
-                        //  Fusion 1
-                        //
+                //
+                //  Fusion 1
+                //
 
 skaarhojF1.on('dial', (dial, movement) => {
     onDialFunction (f1Lay, dial, movement);
 });
 
-
-function onDialFunction(layout, dial, movement)
-{
-    if (!buttonLive)    // No camera selected ?
-        return;
-
-    Object.entries(layout).forEach(entry => {
-
-
-        if (dial == entry[1].dial){
-
-            if (entry[1].scale === undefined)
-                mult = 1;
-            else
-                mult = entry[1].scale;
-
-            if (entry[1].relative === false){           
-                if (entry[1].boolean === true){
-                    if (movement > 0)
-                        grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'false', '1');   
-                    else
-                        grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'false', '0');   
-                }
-                                                            // Range of values like 1-4
-                else if (grassValues[buttonMap[buttonLive].camera][entry[1].func] != undefined){
-                    var newValue = parseInt(grassValues[buttonMap[buttonLive].camera][entry[1].func]) +movement;
-                    if (newValue > entry[1].range)
-                        newValue=1;
-                    else if (newValue < 1)
-                        newValue=entry[1].range;
-                    // console.log('range', entry[1].func, buttonMap[buttonLive].camera, newValue);
-                    grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', newValue);   
-                }
-            }
-            else{
-                if (entry[1].func){
-                    // console.log('abs', entry[1].func, buttonMap[buttonLive].camera, movement *mult);
-                    grassValley.sendFunctionValue(entry[1].func, buttonMap[buttonLive].camera, 'true', movement *mult );   
-                }
-            }
-        }
-    });
-}
-
-
-
 const recallSinglePresetF1 = 49;
 const recallAllPresetF1 = 28;
 const rebootF1 = 18;
 
+var f1DialToggleMap = [];
+
+
+skaarhojF1.on('press', (pressed) => {
+    if (f1DialToggleMap[pressed] == true){
+        f1DialToggleMap[pressed] = false;
+        skaarhojF1.hwcColor(pressed, 129);
+    }
+    else{
+        f1DialToggleMap[pressed] = true;
+        skaarhojF1.hwcColor(pressed, 132);
+    }
+
+    console.log ('Toggle', f1DialToggleMap[pressed]);
+    console.dir (f1DialToggleMap);
+});
+
+
+
 skaarhojF1.on('button', (pressed, position) => {
 
-    if (position == 'Up')
-        return;                 // F1 pabel doesn't care about the buttons' "Up" movement
+    if (f1ButtonMap[pressed]){      // Camera select button pressed ?
 
-    if (buttonMap[pressed]){      // Camera select button pressed ?
-
-        buttonLive = pressed;            // save the live button
+        f1ButtonLive = pressed;            // save the live button
 
         resetButtonsNLabels(); 
 
             // Send GV OCP camera name to shade
-        // console.log('GV OCP ' +buttonMap[pressed].camera);
-        grassValley.ocpSetCamera(buttonMap[pressed].camera);
+        // console.log('GV OCP ' +f1ButtonMap[pressed].camera);
+        grassValley.ocpSetCamera(f1ButtonMap[pressed].camera);
 
             // Send birch request route camera to shader monitor
-        birch.take(cameraMap[buttonMap[pressed].camera].birchObj, birch.destinations[0]);
+        birch.take(cameraMap[f1ButtonMap[pressed].camera].birchObj, birch.destinations[0]);
 
             // Set button colors   red=2, green=3
-        skaarhojF1.hwcMode(pressed, '4');          // set "pushed" to white
+        skaarhojF1.hwcMode(pressed, modeWhite);          // set "pushed" to white
 
         paintRCP(currentRcpLayout);
 
-        grassValley.subscribe2Camera(buttonMap[pressed].camera);        // Subscribe to camera changes in iris, gain, nd, ...
+        grassValley.subscribe2Camera(f1ButtonMap[pressed].camera);        // Subscribe to camera changes in iris, gain, nd, ...
     }
     else
     {
         switch (pressed){          
                                 // Recall Single Camera Preset
             case recallSinglePresetF1:
-                if (buttonLive){
-                    grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 2);      // 2 => File 1
+                if (f1ButtonLive){
+                    grassValley.sendPresetRecall(f1ButtonMap[f1ButtonLive].camera, 2);      // 2 => File 1
                     cameraPresetLEDs(pressed);
                 }
                 break;
             case recallSinglePresetF1 +1:
-                if (buttonLive){
-                    grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 3);      // 3 => File 2
+                if (f1ButtonLive){
+                    grassValley.sendPresetRecall(f1ButtonMap[f1ButtonLive].camera, 3);      // 3 => File 2
                     cameraPresetLEDs(pressed);
                 }
                 break;
             case recallSinglePresetF1 +2:
-                if (buttonLive){
-                    grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 4);      // 4 => File 3
+                if (f1ButtonLive){
+                    grassValley.sendPresetRecall(f1ButtonMap[f1ButtonLive].camera, 4);      // 4 => File 3
                     cameraPresetLEDs(pressed);
                 }
                 break;
             case recallSinglePresetF1 +3:
-                if (buttonLive){
-                    grassValley.sendPresetRecall(buttonMap[buttonLive].camera, 5);      // 5 => File 4
+                if (f1ButtonLive){
+                    grassValley.sendPresetRecall(f1ButtonMap[f1ButtonLive].camera, 5);      // 5 => File 4
                     cameraPresetLEDs(pressed);
                 }
                 break;
@@ -379,205 +415,269 @@ skaarhojF1.on('button', (pressed, position) => {
 });
 
 
+function onDialFunction(layout, dial, movement)
+{
+    if (!f1ButtonLive)    // No camera selected ?
+        return;
+
+    Object.entries(layout).forEach(item => {  // Loop through currentLayout looking for this dial #
+
+        var gvFuncNum = item[0];
+        var gvFuncDef = gvFuncCodeDef[gvFuncNum];
+        var layEnt = item[1];
+
+
+        if (dial === layEnt.dial){         // Is the Dial that was turned?
+
+            var setter = item[0];             // Default GV setter function code same as getter function code
+            if (layEnt.setter)
+                var setter = layEnt.setter;
+
+            mult = 1;                   // default to "no" multiplier                                
+            if (layout === f1Lay && f1DialToggleMap[dial] && layEnt.setUpScale){   // If operator pushes dial while turning - setUpScale!
+                if (layEnt.setUpScale)
+                    mult = layEnt.setUpScale;
+            }
+            else if (layEnt.setScale){
+                mult = layEnt.setScale;
+            }
+
+            if (gvFuncDef != undefined){        // Any special handling at gvFuncCodeDef level?
+                if (gvFuncDef.boolean === true){
+                    if (movement > 0){
+                        console.log('grassValley.sendFunctionValue', setter, false, 1);
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, 'false', 1);   
+                    }
+                    else{
+                        console.log('grassValley.sendFunctionValue', setter, false, 0);
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, 'false', 0);   
+                    }
+                }                           
+
+                else if (gvFuncDef.setRelative != undefined && gvFuncDef.setRelative === false){     // !=undefined means setRelative is true
+                                            // range? && previous/cached values ?
+                    if (gvFuncDef.range && grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] != undefined){  
+                        var newValue = parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) +movement;
+                        if (newValue > gvFuncDef.range) // Range of values like 1-4
+                            newValue=1;
+                        else if (newValue < 1)
+                            newValue=gvFuncDef.range;
+                        console.log('grassValley.sendFunctionValue', setter, false, newValue);
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue);   
+                    }
+                } // end setRelative === false
+            }
+            else{
+                console.log('grassValley.sendFunctionValue', setter, false, movement, '*', mult);
+                grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, true, movement *mult );   
+            }
+        }
+    });
+}
                         //
                         //  RCP
                         //
+
+var currentRcpLayout = {};
+// var rcpButtonDownMap = [];
 
 skaarhojRCP.on('dial', (dial, movement) => {
     onDialFunction (currentRcpLayout, dial, movement);
 });
 
 
-var currentRcpLayout = {};
+skaarhojRCP.on('button', (pressed, position) => {
 
-Object.assign(currentRcpLayout, commonLayout, rcpLayouts[17]);   // Let's head to Home screen at program startup
+    if (position == 'Up'){
+        // rcpButtonDownMap[pressed] = false;
+        return;                 // F1 pabel doesn't care about the buttons' "Up" movement
+    }
+    // else{
+    //     rcpButtonDownMap[pressed] = true;
+    // }
+                        // Find the button on the current layout
+    Object.entries(currentRcpLayout).forEach(item => {
+
+        var gvFuncNum = item[0];
+        var gvFuncDef = gvFuncCodeDef[gvFuncNum];
+        var layEnt = item[1];
+
+        console.log('gvFuncDef: ', 'gvFuncDef: ', gvFuncDef, 'gvFuncNum: ', gvFuncNum);
+
+        if (pressed == layEnt.button){         // Is this currentLayout Button that was pressed?
+            if (position === 'Down'){
+                skaarhojRCP.hwcMode(pressed, modeWhite);    // Light up the button skaarhojRCP.hwcColor(pressed, colorWhite); 
+
+                if (layEnt.screen){
+                    paintRCP (layEnt.screen);
+                }
+                else {
+                    var setter = gvFuncNum;             // Default GV setter function code same as getter function code
+                    if (layEnt.setter)
+                        var setter = layEnt.setter;
+
+                    if (gvFuncDef.boolean){     // button or dial depressed
+                        var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val);  
+                    }
+                    else{
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, gvFuncDef.parm);  
+                    }
+                }
+            }
+            else if (pressed === buttonShift){  // 'Up'
+                paintRCP(currentRcpLayout);     // Shift key does not alter currentRcpLayout (see paintRCP)
+            }
+        }
+    });
+
+});
+
+        // Let's head to Home screen at program startup
+Object.assign(currentRcpLayout, commonLayout, rcpLayouts[screenHome]);  
+
 
 function paintRCP(layout)
 {
-    if (layout != rcpLayouts[38]){          // Don't dicplay "common" menu on shift key
+    if (layout != rcpLayouts[screenShift]){          // Don't dicplay "common" menu on shift key
         currentRcpLayout = {};
         Object.assign(currentRcpLayout, layout);         // currentRcpLayout tells us what is on the RCP excluding Shift.
     }
 
-    // console.log('===================');
-    // console.dir(currentRcpLayout);
-    // console.log('===================');
+    Object.entries(layout).forEach(item => {
 
+        var gvFuncNum = item[0];
+        var gvFuncDef = gvFuncCodeDef[gvFuncNum];
+        var layEnt = item[1];
 
-    Object.entries(layout).forEach(hwc => {
+        console.log ('gvFuncNum', gvFuncNum, 'gvFuncDef', gvFuncDef, 'layEnt', layEnt);
 
-        if(hwc[0] == 'sub')    // Don't paint sub menus!
-            return;
+        console.log(gvFuncCodeDef);
 
-        if (hwc[1].led){            // Just light up an LED with color (not a display w/label)
-            skaarhojRCP.hwcMode(hwc[1].led, hwc[1][grassValues[buttonMap[buttonLive].camera][hwc[0]]] );
+        if (layEnt.led){            // Just light up an LED with color (not a display w/label)
+            skaarhojRCP.hwcMode(layEnt.led, layEnt[ grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] ] );
         }
-        else if(hwc[1].dial){
-            if (grassValues[buttonMap[buttonLive].camera] === undefined ||
-                                                       grassValues[buttonMap[buttonLive].camera][hwc[0]] === undefined){
-                skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label);    // Just a label - no value:)
+        else if(layEnt.dial){
+            if (grassValueCache[f1ButtonMap[f1ButtonLive].camera] === undefined ||
+                                                       grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] === undefined){
+                skaarhojRCP.hwcLabel(layEnt.display, layEnt.label);    // Just a label - no value:)
             }
             else{
-                if (hwc[1].scaling){
-                    skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label +Math.trunc( (grassValues[buttonMap[buttonLive].camera][hwc[0]]) *hwc[1].scaling));
+                if (layEnt.displayScaling){
+                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
                 }
                 else{
 
-                    if (hwc[1].boolean){
-                        if(grassValues[buttonMap[buttonLive].camera][hwc[0]] == '0')
-                            skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label + 'OFF');
+                    if (gvFuncDef != undefined && gvFuncDef.boolean){
+                        if(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] == '0')
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label + 'OFF');
                         else
-                            skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label + 'ON');
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label + 'ON');
                     }
                     else {
-                        skaarhojRCP.hwcLabel(hwc[1].display, hwc[1].label +grassValues[buttonMap[buttonLive].camera][hwc[0]]);
+                        if (layEnt.displayAdjust){
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label +(parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) +layEnt.displayAdjust) );
+                        }
+                        else{
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label +grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]);
+                        }
                     }
                 }
             }
             
-            if (hwc[1].color){
-                // console.log('calling hwcColor ' +hwc[1].dial +' ' +hwc[1].color +' ' +hwc[1].label);
-                skaarhojRCP.hwcColor(hwc[1].dial, hwc[1].color);
+            if (layEnt.color){
+                // console.log('calling hwcColor ' +layEnt[1].dial +' ' +layEnt[1].color +' ' +layEnt[1].label);
+                skaarhojRCP.hwcColor(layEnt.dial, layEnt.color);
             }
             else{
                 // console.log("calling hwcColor w/default color");
-                skaarhojRCP.hwcColor(hwc[1].dial, 128 +' ' +hwc[1].label); // 128 = default
+                skaarhojRCP.hwcColor(layEnt.dial, 128 +' ' +layEnt.label); // 128 = default
             }
         }
-        else if(hwc[1].button){
-            // console.log('calling hwcLabel/Color ')
-            if (hwc[1].label)
-                skaarhojRCP.hwcLabel(hwc[1].button, hwc[1].label);  
-            skaarhojRCP.hwcColor(hwc[1].button, hwc[1].color);
+        else if(layEnt.button){
+
+            if (layEnt.label)
+                skaarhojRCP.hwcLabel(layEnt.button, layEnt.label);
+
+            skaarhojRCP.hwcColor(layEnt.button, layEnt.color);
         }
     });
 
-    skaarhojRCP.hwcLabel(38, buttonMap[buttonLive].name)
+    skaarhojRCP.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name)
 
 }
-                        //
-                        //  RCP
-                        //
-
-var shiftDepressed = false;
-
-skaarhojRCP.on('button', (pressed, position) => {
-
-    // console.log ('RCP button on ' +pressed  +' ' +position );
-    // console.dir (currentRcpLayout);
-
-    switch (pressed){ 
-
-        case 1:             // Screen change Key ??
-            if (!shiftDepressed && position == 'Down' && rcpLayouts[currentRcpLayout['super']]){
-                var newLayout = {};
-                Object.assign(newLayout, commonLayout, rcpLayouts[currentRcpLayout['super']]);
-                paintRCP (newLayout);  // Display parent (super) screen
-            }
-        break;
-
-        case 2:             // SubScreen 
-            if (!shiftDepressed && position == 'Down' && currentRcpLayout['sub']){
-                var newLayout = {};
-                Object.assign(newLayout, commonLayout, currentRcpLayout['sub']);
-                paintRCP (newLayout);  // Display child (sub) screen
-            }
-        break;
-
-        case 38:            // Shift Key 
-            // console.log('Shift Key ' +position);
-            if (position == 'Down'){  
-                shiftDepressed = true;
-                paintRCP(rcpLayouts[pressed]);
-            }
-            else{
-                shiftDepressed = false;
-                paintRCP(currentRcpLayout);     // Shift key does not alter currentRcpLayout (see paintRCP)
-
-            }
-        break;
-
-        case 17:            // Home mode 
-        case 18:            // Gain/Gamma Mode 
-        case 19:            // Flare/PED mode 
-        case 20:            // Matrix 1,2
-        case 21:            // Color 1,2
-        case 22:            // HDR 1,2 
-
-            if (position == 'Down'){    
-                if (shiftDepressed){           // Shift screen invoked?
-                    skaarhojRCP.hwcMode(pressed, 4); 
-                    grassValley.sendPresetRecall(buttonMap[buttonLive].camera, parseInt(pressed) -15);
-                }
-                else {       
-                    var newLayout = {};
-                    Object.assign(newLayout, commonLayout, rcpLayouts[pressed]);
-                    paintRCP (newLayout);  // Display parent (super) screen
-                }
-            }
-        break;
-
-        case 25:            // AWB=8193  State=809
-            if (shiftDepressed && position == 'Down'){      // Shift depressed?
-                skaarhojRCP.hwcMode(pressed, 4); 
-                console.log('AWB sent');
-                grassValley.sendFunctionValue(8193, buttonMap[buttonLive].camera, 'true', 'true');  
-            } 
-        break;
-
-        case 26:            // ABB=8198  State=???
-            if (shiftDepressed && position == 'Down'){
-                skaarhojRCP.hwcMode(pressed, 4); 
-                console.log('ABB sent');
-                grassValley.sendFunctionValue(8198, buttonMap[buttonLive].camera, 'true', 'true'); 
-            }
-        break;
-
-        default:
-            console.log('Unmapped button pressed: ' +pressed +' ' +position);
-    }
-
-});
 
 
-var grassValues=[];
+
+
+
+var f1ButtonMap=[];  // Globals
+var f1ButtonLive = 0;
+var cameraMap=[];
+var grassValueCache=[];
 
 grassValleyEmitter.on('func', (func, camera, value) => {
-    console.log('GV sent ==> camera: ' +camera +' func: ' +func + ' value:' +value);
+    // console.log('GV sent <== camera: ' +camera +' func: ' +func + ' value:' +value);
 
-    if (grassValues[camera] === undefined)
-        grassValues[camera] = [];
+    if (grassValueCache[camera] == undefined)
+        grassValueCache[camera] = [];
 
-    grassValues[camera][func] = value;          // Save incoming GV values by camera/function code
+    // console.log('+++++++++++++');
+    // console.dir(grassValueCache[camera]);
 
-    if (buttonLive && camera == buttonMap[buttonLive].camera){
+    grassValueCache[camera][func] = value;          // Save incoming GV values by camera/function code
 
-        if (f1Lay[func] != undefined)
+    if (f1ButtonLive && camera == f1ButtonMap[f1ButtonLive].camera){     // If this pertains to the "live" camera ...
+
+        // console.log ('grassValleyEmitter.on', 'func', func, 'f1Lay', f1Lay);
+        if (f1Lay[func] != undefined){           // Update the Fusion 1 panel if this function is defined there
             skaarhojF1.hwcLabel(f1Lay[func].display, f1Lay[func].label +value);
+        }
 
-        if (currentRcpLayout[func] != undefined){
+        if (currentRcpLayout[func] != undefined){           // RCP - Does this GV function code have a setter?
             if (currentRcpLayout[func].led != undefined){            // LED Indicator
-                if (currentRcpLayout[func][value] != undefined)   // Is there a color corresponding to value?
+                if (currentRcpLayout[func][value] != undefined){   // Is there a color corresponding to value?
                     skaarhojRCP.hwcMode(currentRcpLayout[func].led, currentRcpLayout[func][value]);
+                    if (currentRcpLayout[func].led_2)
+                        skaarhojRCP.hwcMode(currentRcpLayout[func].led_2, currentRcpLayout[func][value]);
+                }
             }
             else{   // Not LED
-                if (currentRcpLayout[func].scaling){
-                    skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +Math.trunc(value *currentRcpLayout[func].scaling));
+                if (currentRcpLayout[func].displayScaling){
+                    skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +Math.trunc(value *currentRcpLayout[func].displayScaling));
+                    if (currentRcpLayout[func].display_2)
+                        skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +Math.trunc(value *currentRcpLayout[func].displayScaling));
+
                 }
                 else{
                     if (currentRcpLayout[func].boolean){
-                        if(value == '0')
+                        if(value == '0'){
                             skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +'OFF');
-                        else
+                            if (currentRcpLayout[func].display_2)
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +'OFF');
+
+                        }
+                        else{
                             skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +'ON');
+                            if (currentRcpLayout[func].display_2)
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +'ON');
+                        }
                     }
                     else{
-                        skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +value);
+                        if (currentRcpLayout[func].displayAdjust){
+                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +(parseInt(value) +currentRcpLayout[func].displayAdjust) );
+                            if (currentRcpLayout[func].display_2)
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +(parseInt(value) +currentRcpLayout[func].displayAdjust) );
+                        }
+                        else{
+                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +value);
+                            if (currentRcpLayout[func].display_2)
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +value);
+                        }
                     }
                 }
             }
         }
-
     }
 });
 
@@ -591,7 +691,6 @@ function serverInit()
     // console.dir(birch.sources);
     
     for(i=0; i<birch.sources.length; i++){
-
                             // Initial Camera to Button Mapping - Naming driven by Birch
                             //
         switch (birch.sources[i].name){
@@ -647,9 +746,9 @@ function serverInit()
         cameraMap[camera].cameraNum = camera;
         cameraMap[camera].presetButton = 0;
 
-        buttonMap[button] = new Object();
-        buttonMap[button].camera = camera;
-        buttonMap[button].name = birch.sources[i].name;
+        f1ButtonMap[button] = new Object();
+        f1ButtonMap[button].camera = camera;
+        f1ButtonMap[button].name = birch.sources[i].name;
 
         grassValley.subscribe2Camera(camera);        // Subscribe to camera changes in iris, gain, nd, ...
 
@@ -657,7 +756,7 @@ function serverInit()
     } // for loop
 
 
-    // console.dir(buttonMap);
+    // console.dir(f1ButtonMap);
     // console.dir(cameraMap);
 
     resetButtonsNLabels();
@@ -666,30 +765,30 @@ function serverInit()
 
 function resetButtonsNLabels()
 {
-    for(i=0;i<buttonMap.length;i++){
-        if(buttonMap[i]){
+    for(i=0;i<f1ButtonMap.length;i++){
+        if(f1ButtonMap[i]){
             skaarhojF1.hwcMode(i, '0');      // set all to off
             skaarhojF1.hwcMode(i+6, '0');      // set flags to off
-            skaarhojF1.hwcLabel(i, buttonMap[i].name);
+            skaarhojF1.hwcLabel(i, f1ButtonMap[i].name);
         }
     }
-    skaarhojF1.hwcLabel(54, 'Coarse');
+    // skaarhojF1.hwcLabel(54, 'Coarse');
     skaarhojF1.hwcLabel(47, 'Preset');
-    if (buttonLive){
+    if (f1ButtonLive){
         cameraPresetLEDs(0);    // Clear all 4 then light single below
-        skaarhojF1.hwcLabel(48, buttonMap[buttonLive].name);
-        if (cameraMap[buttonMap[buttonLive].camera].presetButton)
-            skaarhojF1.hwcMode(cameraMap[buttonMap[buttonLive].camera].presetButton, 4);       //  White is 4
+        skaarhojF1.hwcLabel(48, f1ButtonMap[f1ButtonLive].name);
+        if (cameraMap[f1ButtonMap[f1ButtonLive].camera].presetButton)
+            skaarhojF1.hwcMode(cameraMap[f1ButtonMap[f1ButtonLive].camera].presetButton, 4);       //  White is 4
     }
     skaarhojF1.hwcLabel(25, 'Preset ALL Cams');
     skaarhojF1.hwcLabel(18, 'Reset Panel');            // Force program to exit
 
-    if (!buttonLive){    // We just started up - no camera selected
+    if (!f1ButtonLive){    // We just started up - no camera selected
         allCamerasPresetLEDs(0);     // Clear "All Camera" preset buttons
         cameraPresetLEDs(0);        // Clear individual camera preset buttons
     }
     else{
-        skaarhojRCP.hwcLabel(38, buttonMap[buttonLive].name)
+        skaarhojRCP.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name);    // Use Shift key's Display area
     }
 }
 
@@ -700,7 +799,7 @@ function cameraPresetLEDs(pressed)
 
     if (pressed){
         skaarhojF1.hwcMode(pressed, 4);       //  Green is 3
-        cameraMap[buttonMap[buttonLive].camera].presetButton = pressed;
+        cameraMap[f1ButtonMap[f1ButtonLive].camera].presetButton = pressed;
     }
 }
 
@@ -715,5 +814,19 @@ function allCamerasPresetLEDs(pressed)
 
     cameraPresetLEDs(0);   // All cameras Profile ... clear this cameras individual Profile LEDs
 }
+
+// console.log("Unit testing ON!!!!");
+// f1ButtonLive = 1;
+// currentRcpLayout = rcpLayouts.screenHome;
+
+// f1DialToggleMap[53] = true;
+// onDialFunction(f1Lay, 53, 1);
+
+console.dir (gvFuncCodeDef);
+console.dir(f1Lay);
+console.dir(rcpLayouts);
+
+
+
 
 

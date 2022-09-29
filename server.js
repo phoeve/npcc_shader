@@ -292,6 +292,7 @@ skaarhojRCP = new Skaarhoj('10.1.45.54');
 
 
 
+
                 //
                 //  Fusion 1
                 //
@@ -305,8 +306,29 @@ const recallAllPresetF1 = 28;
 const rebootF1 = 18;
 
 
+function getLayEntByHWC (layout, pressed, hwc)
+{
+    var layEnt = {};
+
+    Object.entries(layout).forEach(item => { 
+        // console.log('pressed:', pressed, 'hwc:', hwc, 'item[1][hwc]:', item[1][hwc], 'item:', item);
+        if (item[1][hwc] === pressed){
+            layEnt = item[1];
+            // console.log('Matched!');
+        }
+    });
+
+    return layEnt;
+}
+
 var f1DialToggleMap = [];                   // Dial press (toggle) logic for Fusion 1      
 skaarhojF1.on('press', (pressed) => {
+
+    var layEnt = getLayEntByHWC (f1Lay, pressed, 'dial');
+
+    if (layEnt == {} || layEnt.setUpScale == undefined)
+        return;             // Not an UpScale button
+
     if (f1DialToggleMap[pressed] == true ){
         f1DialToggleMap[pressed] = false;
         skaarhojF1.hwcColor(pressed, 129);
@@ -498,6 +520,12 @@ function rcpDialToggleMapClear()
 
                 
 skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
+
+    var layEnt = getLayEntByHWC (currentRcpLayout, pressed, 'dial');
+
+    if (layEnt == {} || layEnt.setUpScale == undefined)
+        return;             // Not an UpScale button
+
     if (rcpDialToggleMap[pressed] == true){
         rcpDialToggleMap[pressed] = false;
         skaarhojRCP.hwcColor(pressed, 129);

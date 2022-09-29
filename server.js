@@ -15,6 +15,8 @@ const colorBlue    = 138;
 const colorMagenta = 133;
 const colorYellow  = 137;
 const colorCyan    = 141;
+const colorAmber   = 136;
+
 
 
 
@@ -331,11 +333,11 @@ skaarhojF1.on('press', (pressed) => {
 
     if (f1DialToggleMap[pressed] == true ){
         f1DialToggleMap[pressed] = false;
-        skaarhojF1.hwcColor(pressed, 129);
+        skaarhojF1.hwcColor(pressed, colorOff);
     }
     else{
         f1DialToggleMap[pressed] = true;
-        skaarhojF1.hwcColor(pressed, 132);
+        skaarhojF1.hwcColor(pressed, colorAmber);
     }
 });
 
@@ -528,11 +530,11 @@ skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
 
     if (rcpDialToggleMap[pressed] == true){
         rcpDialToggleMap[pressed] = false;
-        skaarhojRCP.hwcColor(pressed, 129);
+        skaarhojRCP.hwcColor(pressed, colorOff);
     }
     else{
         rcpDialToggleMap[pressed] = true;
-        skaarhojRCP.hwcColor(pressed, 132);
+        skaarhojRCP.hwcColor(pressed, colorAmber);
     }
 });
 

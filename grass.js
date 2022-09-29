@@ -219,10 +219,16 @@ socket.on('data', function(data) {
     data = data.toString();
     arr=data.split(splitStr);    // If multiple responses arrive, let's split them up
 
+    // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    // console.dir (arr);
+
     arr.forEach(function(xmlBuf){
 
-        if (xmlBuf == ''){           // getting nth null message from split?
-            console.log('skipping null xmlBuf from GV: ', xmlBuf);
+        // console.log('[][]][][][][][][][][[][][][][][][][][][][][][][][][');
+        // console.dir(xmlBuf);
+
+        if (xmlBuf == ''){           // End of concatenated messages?
+            // console.log('skipping null xmlBuf from GV: ', xmlBuf);
             return;
         }
 

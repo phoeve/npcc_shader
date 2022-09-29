@@ -98,9 +98,9 @@ function init(){
 
 
 function take(source, destination){
-    console.dir('take ' +source +' to ' +destination);
-    console.dir(source);
-    console.dir(destination);
+    // console.dir('take ' +source +' to ' +destination);
+    // console.dir(source);
+    // console.dir(destination);
 
     axios({
       method: 'post',

@@ -57,7 +57,7 @@ function ocpSetCamera(camera){
 
 function sendPresetRecall(camera, value){
 
-    console.log ('\nsend GV ==> function: ', 4098, 'camera: ', camera, 'value: ', value);
+    console.log ('send GV ==> function: ', 4098, 'camera: ', camera, 'value: ', value);
 
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"4098"},"value":[{"_":value,"$":{"relative":'false'}}]}]}]}};
 
@@ -69,13 +69,13 @@ function sendPresetRecall(camera, value){
             //
 function sendFunctionValue(func, camera, relative, value)
 {
-    console.log ('\nsend GV ==> function: ', func, 'camera: ', camera, 'value: ', value);
+    console.log ('send GV ==> function: ', func, 'camera: ', camera, 'value: ', value);
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":func},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
-    console.log(setJson);
+    // console.log(setJson);
 
     var xml = builder.buildObject(setJson);
-    console.log(xml);
+    // console.log(xml);
 
     socket.write(xml);  
 }
@@ -94,7 +94,7 @@ function subscribe2Camera(camera){
     var sub2Cam;
     var xml;
 
-    console.log('+++++++++++++++++++' + 'subscribe2Camera:', camera);
+    console.log('GV subscribe2Camera:', camera);
 
     subCodes.forEach(function(code){
 

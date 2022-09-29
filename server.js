@@ -109,6 +109,7 @@ const x4k2Pct = 100/4095;
                     // Common to all Screens (Shift key overlays current screen)
 const commonLayout = 
 {
+        'Shift':    {button: buttonShift,                           color: colorOff,                        screen: screenShift},
         'C001':     {button: buttonHome,      label: 'Home',        color: colorOff,                        screen: screenHome},
         'C002':     {button: buttonGainGamma, label: 'Gain/Gamma',  color: colorOff,                        screen: screenGainGamma},
         'C003':     {button: buttonFlarePed,  label: 'Flare/Ped',   color: colorOff,                        screen: screenFlarePed},
@@ -119,13 +120,12 @@ const commonLayout =
         'C026':     {button: 26,              label: ' ',           color: colorOff},      // Turn off ABB
         [gvFstop]:  {dial:   56, display: 29, label: 'F ',                                  setter: gvIris,     setScale: 7, setUpScale: 100}, 
         [gvPed]:    {dial:   55, display: 28, label: 'PED ',        displayScaling: x4k2Pct,                setScale: 7, setUpScale: 100}, 
-        [gvGain]:   {dial:   31, display: 31, label: 'Gain ',       color: colorWhite,      setter: gvGain},
-        [gvDetail]: {button: 32, display: 32, label: 'DTL ',        }, 
-        [gvKnee]:   {button: 33, display: 33, label: 'Knee ',       }, 
-        [gvTally]:  {led:    30,                0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
+        [gvGain]:   {dial:   31, display: 31, label: 'Gain ',       color: colorWhite,      setter: gvGain, setScale: 1, setUpScale: 10},
+        [gvDetail]: {button: 32, display: 32, label: 'DTL ',        color: colorOff}, 
+        [gvKnee]:   {button: 33, display: 33, label: 'Knee ',       color: colorOff}, 
+        [gvTally]:  {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
         'C009':     {button: buttonSuper,     color: colorOff},     // Turn sub menu button lights off
         'C010':     {button: buttonSub,       color: colorOff}, 
-        'C011':     {button: buttonShift,     color: colorOff}, 
 }
 
 const rcpLayouts = {
@@ -172,12 +172,12 @@ const rcpLayouts = {
     [screenMatrix]:             // Matrix
     {
         'M001':        {button: 20, color: colorWhite},       // Light up Menu button  
-        gvMatrixRG:    {dial:  9, display:  9, label: 'R-G ',  color: colorRed},
-        gvMatrixRB:    {dial: 10, display: 10, label: 'R-B ',  color: colorRed},
-        gvMatrixGR:    {dial: 11, display: 11, label: 'G-R ',  color: colorGreen},
-        gvMatrixGB:    {dial: 12, display: 12, label: 'G-B ',  color: colorGreen},
-        gvMatrixBR:    {dial: 13, display: 13, label: 'B-R ',  color: colorBlue},
-        gvMatrixBG:    {dial: 14, display: 14, label: 'B-G ',  color: colorBlue},  
+        [gvMatrixRG]:  {dial:  9, display:  9, label: 'R-G ',  color: colorRed},
+        [gvMatrixRB]:  {dial: 10, display: 10, label: 'R-B ',  color: colorRed},
+        [gvMatrixGR]:  {dial: 11, display: 11, label: 'G-R ',  color: colorGreen},
+        [gvMatrixGB]:  {dial: 12, display: 12, label: 'G-B ',  color: colorGreen},
+        [gvMatrixBR]:  {dial: 13, display: 13, label: 'B-R ',  color: colorBlue},
+        [gvMatrixBG]:  {dial: 14, display: 14, label: 'B-G ',  color: colorBlue},  
         'M007':        {dial: 15, display: 15, label: ' ',     color: colorOff},
         'M008':        {dial: 16, display: 16, label: ' ',     color: colorOff},
 
@@ -232,15 +232,15 @@ const rcpLayouts = {
     [screenHdrSub]: {
         'HD001':     {button: buttonHdr,   color: colorWhite},       // Light up Menu button  
         'HD002':     {button: buttonSuper, color: colorOff, screen: screenHdr},       
-        'HD010':     {button: buttonSub,   color: colorWhite},       // Light up sub screen "2" button  
-        'HD001':     {dial:  9, display:  9, label: ' ',          color: colorOff},
-        'HD002':     {dial: 10, display: 10, label: ' ',          color: colorOff},     // Clear dial attributes
-        'HD003':     {dial: 11, display: 11, label: ' ',          color: colorOff},
-        'HD004':     {dial: 12, display: 12, label: ' ',          color: colorOff},
+        'HD003':     {button: buttonSub,   color: colorWhite},       // Light up sub screen "2" button  
+        'HD004':     {dial:  9, display:  9, label: ' ',          color: colorOff},
+        'HD005':     {dial: 10, display: 10, label: ' ',          color: colorOff},     // Clear dial attributes
+        'HD006':     {dial: 11, display: 11, label: ' ',          color: colorOff},
+        'HD007':     {dial: 12, display: 12, label: ' ',          color: colorOff},
         524:         {dial: 13, display: 13, label: 'SDR Level ', color: colorWhite},    
         572:         {dial: 14, display: 14, label: 'SDR Clip ',  color: colorWhite}, 
-        'HD007':     {dial: 15, display: 15, label: ' ',          color: colorOff},
-        'HD008':     {dial: 16, display: 16, label: ' ',          color: colorOff},
+        'HD008':     {dial: 15, display: 15, label: ' ',          color: colorOff},
+        'HD009':     {dial: 16, display: 16, label: ' ',          color: colorOff},
     },
 
     [screenShift]:
@@ -260,7 +260,7 @@ const rcpLayouts = {
 
 var f1Lay = {
     [gvFstop]:       {dial: 53, display: 53, label: 'F ',     color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine
-    [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite},    
+    [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite, setScale: 1, setUpScale: 10},    
     [gvSensitivity]: {dial: 55, display: 55, label: 'Sens ',  color: colorWhite, setRelative:false, range:2},            
     [gvNDFilter]:    {dial: 56, display: 56, label: 'ND ',    color: colorWhite, setRelative:false, range:4},
 }
@@ -304,11 +304,10 @@ const recallSinglePresetF1 = 49;
 const recallAllPresetF1 = 28;
 const rebootF1 = 18;
 
-var f1DialToggleMap = [];
 
-
+var f1DialToggleMap = [];                   // Dial press (toggle) logic for Fusion 1      
 skaarhojF1.on('press', (pressed) => {
-    if (f1DialToggleMap[pressed] == true){
+    if (f1DialToggleMap[pressed] == true ){
         f1DialToggleMap[pressed] = false;
         skaarhojF1.hwcColor(pressed, 129);
     }
@@ -316,14 +315,16 @@ skaarhojF1.on('press', (pressed) => {
         f1DialToggleMap[pressed] = true;
         skaarhojF1.hwcColor(pressed, 132);
     }
-
-    console.log ('Toggle', f1DialToggleMap[pressed]);
-    console.dir (f1DialToggleMap);
 });
 
 
 
+
 skaarhojF1.on('button', (pressed, position) => {
+
+    if (position == 'Up'){          // Ignore button Up's on Fusion One
+        return;                 
+    }
 
     if (f1ButtonMap[pressed]){      // Camera select button pressed ?
 
@@ -332,7 +333,7 @@ skaarhojF1.on('button', (pressed, position) => {
         resetButtonsNLabels(); 
 
             // Send GV OCP camera name to shade
-        // console.log('GV OCP ' +f1ButtonMap[pressed].camera);
+            // console.log('GV OCP ' +f1ButtonMap[pressed].camera);
         grassValley.ocpSetCamera(f1ButtonMap[pressed].camera);
 
             // Send birch request route camera to shader monitor
@@ -373,7 +374,6 @@ skaarhojF1.on('button', (pressed, position) => {
                     cameraPresetLEDs(pressed);
                 }
                 break;
-
                                 // Recall All CamerasPreset
             case recallAllPresetF1:
                 cameraMap.forEach(function(obj){
@@ -417,6 +417,10 @@ skaarhojF1.on('button', (pressed, position) => {
 
 function onDialFunction(layout, dial, movement)
 {
+
+    console.log('dial:', dial, 'movement:', movement);
+    console.dir(layout);
+
     if (!f1ButtonLive)    // No camera selected ?
         return;
 
@@ -434,7 +438,7 @@ function onDialFunction(layout, dial, movement)
                 var setter = layEnt.setter;
 
             mult = 1;                   // default to "no" multiplier                                
-            if (layout === f1Lay && f1DialToggleMap[dial] && layEnt.setUpScale){   // If operator pushes dial while turning - setUpScale!
+            if ( ((layout === f1Lay && f1DialToggleMap[dial]) || (layout != f1Lay && rcpDialToggleMap[dial]))  && layEnt.setUpScale){   // If operator pushes dial while turning - setUpScale!
                 if (layEnt.setUpScale)
                     mult = layEnt.setUpScale;
             }
@@ -479,55 +483,109 @@ function onDialFunction(layout, dial, movement)
                         //
 
 var currentRcpLayout = {};
-// var rcpButtonDownMap = [];
+
+
+var rcpDialToggleMap = [];
+
+function rcpDialToggleMapClear()
+{
+    Object.entries(rcpDialToggleMap).forEach(item => {  
+        if (item[0] != undefined)
+            skaarhojRCP.hwcColor(item[1], 129);     // Clear dial color ring
+    });
+    rcpDialToggleMap = [];
+}
+
+                
+skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
+    if (rcpDialToggleMap[pressed] == true){
+        rcpDialToggleMap[pressed] = false;
+        skaarhojRCP.hwcColor(pressed, 129);
+    }
+    else{
+        rcpDialToggleMap[pressed] = true;
+        skaarhojRCP.hwcColor(pressed, 132);
+    }
+});
+
 
 skaarhojRCP.on('dial', (dial, movement) => {
     onDialFunction (currentRcpLayout, dial, movement);
 });
 
 
+var shiftDepressed = false;
+
 skaarhojRCP.on('button', (pressed, position) => {
 
-    if (position == 'Up'){
-        // rcpButtonDownMap[pressed] = false;
-        return;                 // F1 pabel doesn't care about the buttons' "Up" movement
+
+    console.log('button:', pressed, 'position:', position);
+    // console.dir(currentRcpLayout);
+
+    if (pressed === buttonShift){
+        if (position === 'Down'){
+            shiftDepressed = true;
+            paintRCP (rcpLayouts[screenShift]);
+        }
+        else{
+            shiftDepressed = false;
+            paintRCP(currentRcpLayout);     // Shift key does not alter currentRcpLayout (see paintRCP)
+            return;
+        }
     }
-    // else{
-    //     rcpButtonDownMap[pressed] = true;
-    // }
+
                         // Find the button on the current layout
-    Object.entries(currentRcpLayout).forEach(item => {
+    var layout;
+    if (shiftDepressed)
+        layout = rcpLayouts[buttonShift];
+    else
+        layout = currentRcpLayout;
+
+
+    Object.entries(layout).forEach(item => {
 
         var gvFuncNum = item[0];
         var gvFuncDef = gvFuncCodeDef[gvFuncNum];
         var layEnt = item[1];
 
-        console.log('gvFuncDef: ', 'gvFuncDef: ', gvFuncDef, 'gvFuncNum: ', gvFuncNum);
 
         if (pressed == layEnt.button){         // Is this currentLayout Button that was pressed?
+
+
             if (position === 'Down'){
+
+                console.log('gvFuncDef: ', 'gvFuncDef: ', gvFuncDef, 'gvFuncNum: ', gvFuncNum);
+                console.log('layEnt:', layEnt);
+
                 skaarhojRCP.hwcMode(pressed, modeWhite);    // Light up the button skaarhojRCP.hwcColor(pressed, colorWhite); 
 
                 if (layEnt.screen){
-                    paintRCP (layEnt.screen);
+                    // console.log('Painting new screen:', layEnt.screen);
+
+                    paintRCP (rcpLayouts[layEnt.screen]);
                 }
                 else {
-                    var setter = gvFuncNum;             // Default GV setter function code same as getter function code
-                    if (layEnt.setter)
-                        var setter = layEnt.setter;
+                    var setter = false;
 
-                    if (gvFuncDef.boolean){     // button or dial depressed
-                        var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
-                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val);  
+                    if (!isNaN(gvFuncNum)){        // gvFuncNum is numeric
+                        setter = gvFuncNum;
                     }
-                    else{
-                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, gvFuncDef.parm);  
+                    if (layEnt.setter){
+                        setter = layEnt.setter;
+                    }
+
+                    if (setter){
+                        if (gvFuncDef && gvFuncDef.boolean){     // button or dial depressed
+                            var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
+                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val);  
+                        }
+                        else{
+                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, layEnt.parm);  
+                        }
                     }
                 }
             }
-            else if (pressed === buttonShift){  // 'Up'
-                paintRCP(currentRcpLayout);     // Shift key does not alter currentRcpLayout (see paintRCP)
-            }
+
         }
     });
 
@@ -539,20 +597,25 @@ Object.assign(currentRcpLayout, commonLayout, rcpLayouts[screenHome]);
 
 function paintRCP(layout)
 {
-    if (layout != rcpLayouts[screenShift]){          // Don't dicplay "common" menu on shift key
+    rcpDialToggleMapClear();            // Clear any dials that are in "upScale" mode
+
+    var paintLayout = layout;
+
+    if (layout != rcpLayouts[screenShift]){          // Don't display "common" menu on shift key
         currentRcpLayout = {};
-        Object.assign(currentRcpLayout, layout);         // currentRcpLayout tells us what is on the RCP excluding Shift.
+        Object.assign(currentRcpLayout, commonLayout, layout);         // currentRcpLayout tells us what is on the RCP excluding Shift.
+        paintLayout = currentRcpLayout;
     }
 
-    Object.entries(layout).forEach(item => {
+    Object.entries(paintLayout).forEach(item => {
 
         var gvFuncNum = item[0];
         var gvFuncDef = gvFuncCodeDef[gvFuncNum];
         var layEnt = item[1];
 
-        console.log ('gvFuncNum', gvFuncNum, 'gvFuncDef', gvFuncDef, 'layEnt', layEnt);
+        // console.log ('gvFuncNum', gvFuncNum, 'gvFuncDef', gvFuncDef, 'layEnt', layEnt);
 
-        console.log(gvFuncCodeDef);
+        // console.log(gvFuncCodeDef);
 
         if (layEnt.led){            // Just light up an LED with color (not a display w/label)
             skaarhojRCP.hwcMode(layEnt.led, layEnt[ grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] ] );
@@ -621,9 +684,6 @@ grassValleyEmitter.on('func', (func, camera, value) => {
 
     if (grassValueCache[camera] == undefined)
         grassValueCache[camera] = [];
-
-    // console.log('+++++++++++++');
-    // console.dir(grassValueCache[camera]);
 
     grassValueCache[camera][func] = value;          // Save incoming GV values by camera/function code
 
@@ -755,10 +815,6 @@ function serverInit()
 
     } // for loop
 
-
-    // console.dir(f1ButtonMap);
-    // console.dir(cameraMap);
-
     resetButtonsNLabels();
 
 }
@@ -822,9 +878,10 @@ function allCamerasPresetLEDs(pressed)
 // f1DialToggleMap[53] = true;
 // onDialFunction(f1Lay, 53, 1);
 
-console.dir (gvFuncCodeDef);
-console.dir(f1Lay);
-console.dir(rcpLayouts);
+// console.dir (gvFuncCodeDef);
+// console.dir(f1Lay);
+// console.dir(rcpLayouts);
+// console.dir(commonLayout);
 
 
 

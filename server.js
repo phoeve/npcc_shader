@@ -778,7 +778,7 @@ function serverInit()
     var button;
     var camera;
 
-    // console.dir(birch.sources);
+    console.dir(birch.sources.length);
     
     for(i=0; i<birch.sources.length; i++){
                             // Initial Camera to Button Mapping - Naming driven by Birch

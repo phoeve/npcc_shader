@@ -94,7 +94,7 @@ function subscribe2Camera(camera){
     var sub2Cam;
     var xml;
 
-    console.log('+++++++++++++++++++' + 'subscribe2Camera');
+    console.log('+++++++++++++++++++' + 'subscribe2Camera:', camera);
 
     subCodes.forEach(function(code){
 
@@ -135,7 +135,7 @@ function subscribe2Camera(camera){
         socket.write(xml);    
     });
 
-    console.log('+++++++++++++++++++' + 'subscribe2Camera');
+    // console.log('+++++++++++++++++++' + 'subscribe2Camera');
 
 
     // var sub2Cam = {'function-value-request': 

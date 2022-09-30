@@ -107,10 +107,27 @@ class Skaarhoj extends EventEmitter{
         this.socket.write(str); 
     }
 
-    hwcLabel(button, label)
+
+                        // The three commands below
+                        // HWC#38=4
+                        // HWCc#38=137
+                        // HWCt#38=9999|2|40|Value
+
+
+// HWCt#9=|||Sensitivity|1|50%
+
+    hwcLabel(button, label, value)
     {
-        var str = 'HWCt#' +button +'=|||||' +label +'||||||||||0||\n';
-        // console.log('hwcLabel()' +str);
+        // var str = 'HWCt#' +button +'=|||' +label;
+
+        if (value == undefined || isNaN(value))
+            var str = 'HWCt#' +button +'=|||||' +label +'||||||||||||\n';
+        else
+            var str = 'HWCt#' +button +'=|||' +label +'||' +value +'||||||||||||\n';
+
+
+        // var str = 'HWCt#' +button +'=|||||' +label +'||||||||||0||\n';
+        console.log('hwcLabel()' +str);
         this.socket.write(str);
     }
 

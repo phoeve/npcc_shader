@@ -12,10 +12,11 @@ const colorWhite   = 130;
 const colorRed     = 132;
 const colorGreen   = 143;
 const colorBlue    = 138;
-const colorMagenta = 133;
+const colorMagenta = 134;
 const colorYellow  = 137;
 const colorCyan    = 141;
 const colorAmber   = 136;
+
 
 
 
@@ -50,7 +51,7 @@ const gvSensitivity = 8321;
 const gvFstop       = 1039;
 const gvIris        =  542;
 const gvGain        = 8392;
-const gvDetail      = 1056;
+const gvDetailOnOff = 1056;
 const gvKnee        = 1027;
 const gvTally       = 1809;
 const gvDtl         = 8369;
@@ -92,15 +93,17 @@ const gvMatrixBG    =  538;
 
 const gvFuncCodeDef = {
                 // "setRelative: true" - means that the setter (GV) is expecting a setRelative value - default
-    [gvDetail]:       {boolean: true},
+    // [gvDetail]:       {boolean: true},
     [gvKnee]:         {boolean: true},
     [gvTally]:        {boolean: true},
-    [gvDtl]:          {boolean: true},
+    // [gvDtl]:          {boolean: true},
     [gvSkin]:         {boolean: true},
-    [gvSensitivity]:  {setRelative:false, range:2},
-    [gvNDFilter]:     {setRelative:false, range:4},
-    [gvActiveScene]:  {setRelative:false, range:5},
-    [gvFlareOnOff]:   {boolean: true},
+    [gvSensitivity]:  {setRelative:false, range:2, rangeLow:1, rangeHi:2},
+    [gvNDFilter]:     {setRelative:false, range:4, rangeLow:1, rangeHi:4},
+    [gvActiveScene]:  {setRelative:false, range:5, rangeLow:2, rangeHi:6},
+    [gvFlareOnOff]:   {setRelative:false, range:2, rangeLow:0, rangeHi:1},
+    [gvDetailOnOff]:  {setRelative:false, range:2, rangeLow:0, rangeHi:1},
+
 }
 
 
@@ -119,10 +122,10 @@ const commonLayout =
         'C006':       {button: buttonHdr,       label: 'HDR',         color: colorOff,                        screen: screenHdr},
         'C025':       {button: 25,              label: 'Menu',        color: colorOff},
         'C026':       {button: 26,              label: ' ',           color: colorOff},      // Turn off ABB
-        [gvFstop]:    {dial:   56, display: 29, label: 'F ',                                  setter: gvIris,     setScale: 7, setUpScale: 100}, 
-        [gvPedMaster]:{dial:   99, display: 28, label: 'PED ',        displayScaling: x4k2Pct,                setScale: 7, setUpScale: 100}, 
+        [gvFstop]:    {dial:   56, display: 29, label: 'F Stop ',                         setter: gvIris,     setScale: 7, setUpScale: 100}, 
+        [gvPedMaster]:{dial:   99, display: 28, label: 'PED Master',        displayScaling: x4k2Pct,                setScale: 7, setUpScale: 100}, 
         [gvGain]:     {dial:   31, display: 31, label: 'Gain ',       color: colorWhite,      setter: gvGain, setScale: 1, setUpScale: 10},
-        [gvDetail]:   {button: 32, display: 32, label: 'DTL ',        color: colorOff}, 
+        [gvDetailOnOff]:   {button: 32, display: 32, label: 'Detail',        color: colorOff}, 
         [gvKnee]:     {button: 33, display: 33, label: 'Knee ',       color: colorOff}, 
         [gvTally]:    {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
         'C009':       {button: buttonSuper,     color: colorOff},     // Turn sub menu button lights off
@@ -160,14 +163,14 @@ const rcpLayouts = {
     [screenFlarePed]:             // Flare / PED
     {
         'F001':           {button: 19, color: colorWhite},       // Light up Menu button 
-        [gvFlareOnOff]:   {dial:  9, display:  9, label: 'Flare ',  color: colorWhite},
-        [gvFlareRed]:     {dial: 10, display: 10, label: 'R ',  color: colorRed,   displayScaling: x2562Pct},
-        [gvFlareGreen]:   {dial: 11, display: 11, label: 'G ',  color: colorGreen, displayScaling: x2562Pct},
-        [gvFlareBlue]:    {dial: 12, display: 12, label: 'B ',  color: colorBlue,  displayScaling: x2562Pct},
-        [gvPedMaster]:    {dial: 13, display: 13, display_2: 28, label: 'M ',  color: colorWhite, displayScaling: x4k2Pct, setScale: 7},
-        [gvPedRed]:       {dial: 14, display: 14, label: 'R ',  color: colorRed,   displayScaling: x2562Pct},     
-        [gvPedGreen]:     {dial: 15, display: 15, label: 'G ',  color: colorGreen, displayScaling: x2562Pct},
-        [gvPedBlue]:      {dial: 16, display: 16, label: 'B' ,  color: colorBlue,  displayScaling: x2562Pct},
+        [gvFlareOnOff]:   {dial:  9, display:  9, label: 'Flare OnOff',  color: colorWhite},
+        [gvFlareRed]:     {dial: 10, display: 10, label: 'Flare Red',  color: colorRed,   displayScaling: x2562Pct},
+        [gvFlareGreen]:   {dial: 11, display: 11, label: 'Flare Green',  color: colorGreen, displayScaling: x2562Pct},
+        [gvFlareBlue]:    {dial: 12, display: 12, label: 'Flare Blue',  color: colorBlue,  displayScaling: x2562Pct},
+        [gvPedMaster]:    {dial: 13, display: 13, display_2: 28, label: 'PED Master',  color: colorWhite, displayScaling: x4k2Pct, setScale: 7},
+        [gvPedRed]:       {dial: 14, display: 14, label: 'PED Red',  color: colorRed,   displayScaling: x2562Pct},     
+        [gvPedGreen]:     {dial: 15, display: 15, label: 'PED Green',  color: colorGreen, displayScaling: x2562Pct},
+        [gvPedBlue]:      {dial: 16, display: 16, label: 'PED Blue' ,  color: colorBlue,  displayScaling: x2562Pct},
     },
 
     [screenMatrix]:             // Matrix
@@ -246,20 +249,32 @@ const rcpLayouts = {
 
     [screenShift]:
     {
-        'S001': {button: 17, label: 'S1',  color: colorOff, setter: 4098, setRelative: false, parm:2},
-        'S002': {button: 18, label: 'S2',  color: colorOff, setter: 4098, setRelative: false, parm:3},
-        'S003': {button: 19, label: 'S3',  color: colorOff, setter: 4098, setRelative: false, parm:4},
-        'S004': {button: 20, label: 'S4',  color: colorOff, setter: 4098, setRelative: false, parm:5},
-        'S005': {button: 21, label: 'S5',  color: colorOff, setter: 4098, setRelative: false, parm:6},
+        'S001': {button: 17, label: 'Scene 1',  color: colorWhite, setter: 4098, setRelative: false, parm:2},
+        'S002': {button: 18, label: 'Scene 2',  color: colorWhite, setter: 4098, setRelative: false, parm:3},
+        'S003': {button: 19, label: 'Scene 3',  color: colorWhite, setter: 4098, setRelative: false, parm:4},
+        'S004': {button: 20, label: 'Scene 4',  color: colorWhite, setter: 4098, setRelative: false, parm:5},
+        'S005': {button: 21, label: 'Scene 5',  color: colorWhite, setter: 4098, setRelative: false, parm:6},
         'S006': {button: 22, label: ' ',   color: colorOff},
-        'S007': {button: 25, label: 'AWB', color: colorOff, setter: 8193, setRelative: false, parm:true},
-        'S008': {button: 26, label: 'ABB', color: colorOff, setter: 8198, setRelative: false, parm:true},
+        'S007': {button: 25, label: 'AWB', color: colorWhite, setter: 8193, setRelative: false, parm:true},
+        'S008': {button: 26, label: 'ABB', color: colorWhite, setter: 8198, setRelative: false, parm:true},
         'S011': {button: screenShift, color: colorWhite},                   // Light up Shift key
 
     },
 };
 
 var f1Lay = {
+    'F001':          {button: 1, display: 'NP CAM 1', camera: 1},
+    'F002':          {button: 2, display: 'NP CAM 2', camera: 2},
+    'F003':          {button: 3, display: 'NP CAM 3', camera: 3},
+    'F004':          {button: 4, display: 'NP CAM 4', camera: 4},
+    'F005':          {button: 5, display: 'NP CAM 5', camera: 5},
+    'F006':          {button: 6, display: 'NP CAM 6', camera: 6},
+
+    'F013':          {button: 13, display: 'NP CAM 10', camera: 10},
+    'F014':          {button: 14, display: 'NP CAM 11', camera: 11},
+    'F015':          {button: 15, display: 'NP CAM 12', camera: 12},
+    'F016':          {button: 16, display: 'NP CAM 13', camera: 13},
+
     [gvFstop]:       {dial: 53, display: 53, label: 'F ',     color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine
     [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite, setScale: 1, setUpScale: 10},    
     [gvSensitivity]: {dial: 55, display: 55, label: 'Sens ',  color: colorWhite},            
@@ -472,11 +487,11 @@ function onDialFunction(layout, dial, movement)
                 if (gvFuncDef.boolean === true){
                     if (movement > 0){
                         // console.log('grassValley.sendFunctionValue', setter, false, 1);
-                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, 'false', 1);   
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, 1);   
                     }
                     else{
                         // console.log('grassValley.sendFunctionValue', setter, false, 0);
-                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, 'false', 0);   
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, 0);   
                     }
                 }                           
 
@@ -490,10 +505,10 @@ function onDialFunction(layout, dial, movement)
                         else
                             var adj = layEnt.displayAdjust;
 
-                        if (newValue > gvFuncDef.range -adj) // Range of values like 1-4
-                            newValue=1 -adj;
-                        else if (newValue < 1 -adj)
-                            newValue=gvFuncDef.range -adj;
+                        if (newValue > gvFuncDef.rangeHi) // Range of values like 1-4
+                            newValue=gvFuncDef.rangeLow;
+                        else if (newValue < gvFuncDef.rangeLow)
+                            newValue=gvFuncDef.rangeHi;
 
                         // console.log('grassValley.sendFunctionValue', setter, false, newValue);
                         grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue);   
@@ -662,24 +677,24 @@ function paintRCP(layout)
             }
             else{
                 if (layEnt.displayScaling){
-                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
+                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
                     if (layEnt.display_2 !=undefined)
-                        skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
+                        skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
                 }
                 else{
 
                     if (gvFuncDef != undefined && gvFuncDef.boolean){
                         if(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] == '0')
-                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label + 'OFF');
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, + 'OFF');
                         else
-                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label + 'ON');
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, + 'ON');
                     }
                     else {
                         if (layEnt.displayAdjust){
-                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label +(parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) +layEnt.displayAdjust) );
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +(parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) +layEnt.displayAdjust) );
                         }
                         else{
-                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label +grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]);
+                            skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]);
                         }
                     }
                 }
@@ -741,35 +756,35 @@ grassValleyEmitter.on('func', (func, camera, value) => {
             }
             else{   // Not LED
                 if (currentRcpLayout[func].displayScaling){
-                    skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +Math.trunc(value *currentRcpLayout[func].displayScaling));
+                    skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label, +Math.trunc(value *currentRcpLayout[func].displayScaling));
                     if (currentRcpLayout[func].display_2)
-                        skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +Math.trunc(value *currentRcpLayout[func].displayScaling));
+                        skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label, +Math.trunc(value *currentRcpLayout[func].displayScaling));
 
                 }
                 else{
                     if (currentRcpLayout[func].boolean){
                         if(value == '0'){
-                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +'OFF');
+                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label, +'OFF');
                             if (currentRcpLayout[func].display_2)
-                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +'OFF');
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label, +'OFF');
 
                         }
                         else{
-                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +'ON');
+                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label, +'ON');
                             if (currentRcpLayout[func].display_2)
-                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +'ON');
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label, +'ON');
                         }
                     }
                     else{
                         if (currentRcpLayout[func].displayAdjust){
-                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +(parseInt(value) +currentRcpLayout[func].displayAdjust) );
+                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label, +(parseInt(value) +currentRcpLayout[func].displayAdjust) );
                             if (currentRcpLayout[func].display_2)
-                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +(parseInt(value) +currentRcpLayout[func].displayAdjust) );
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label, +(parseInt(value) +currentRcpLayout[func].displayAdjust) );
                         }
                         else{
-                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label +value);
+                            skaarhojRCP.hwcLabel(currentRcpLayout[func].display, currentRcpLayout[func].label, +value);
                             if (currentRcpLayout[func].display_2)
-                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label +value);
+                                skaarhojRCP.hwcLabel(currentRcpLayout[func].display_2, currentRcpLayout[func].label, +value);
                         }
                     }
                 }
@@ -855,6 +870,23 @@ function serverInit()
     resetButtonsNLabels();
 
 }
+
+
+// var f1CameraSelect = {
+//     {button: 1,  cameraName: 'NP CAM_1', cameraNum: 1},
+//     {button: 2,  cameraName: 'NP CAM_2', cameraNum: 2},
+//     {button: 3,  cameraName: 'NP CAM_3', cameraNum: 3},
+//     {button: 4,  cameraName: 'NP CAM_4', cameraNum: 4},
+//     {button: 5,  cameraName: 'NP CAM_5', cameraNum: 5},
+//     {button: 6,  cameraName: 'NP CAM_6', cameraNum: 6},
+
+//     {button: 13,  cameraName: 'NP CAM_10', cameraNum: 10},   
+//     {button: 14,  cameraName: 'NP CAM_11i', cameraNum: 11},   
+//     {button: 15,  cameraName: 'NP CAM_12i', cameraNum: 12},   
+//     {button: 16,  cameraName: 'NP CAM_13i', cameraNum: 13},   
+// }
+
+
 
 function resetButtonsNLabels()
 {

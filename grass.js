@@ -59,6 +59,9 @@ function sendPresetRecall(camera, value){
 
     console.log ('send GV ==> function: ', 4098, 'camera: ', camera, 'value: ', value);
 
+    if (value == undefined)
+        return;
+
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":"4098"},"value":[{"_":value,"$":{"relative":'false'}}]}]}]}};
 
     var xml = builder.buildObject(setJson);
@@ -70,6 +73,11 @@ function sendPresetRecall(camera, value){
 function sendFunctionValue(func, camera, relative, value)
 {
     console.log ('send GV ==> function: ', func, 'camera: ', camera, 'value: ', value);
+
+    if (value == undefined)
+        return;
+
+
     var setJson = {"function-value-change":{"$":{"response-level":"ErrorOnly"},"device":[{"name":[camera],"function":[{"$":{"id":func},"value":[{"_":value,"$":{"relative":relative}}]}]}]}};
 
     // console.log(setJson);
@@ -81,13 +89,14 @@ function sendFunctionValue(func, camera, relative, value)
 }
 
 var subCodes = [524, 523, 615, 513, 514, 515, 516, 517, 518, 584, 583, 586, 585, 608,
-                969, 519, 520, 521, 524, 533, 534, 535, 536, 537, 654, 538, 540, 776, 969, 
+                519, 520, 521, 524, 533, 534, 535, 536, 537, 654, 538, 540, 772, 776, 969, 
                 1025, 1026,1027, 1039, 1041, 1042, 1056, 8392, 1030, 1809,  
                 8306, 8321, 8200, 8369, 8378, 8385, 8386, 8387, 8388, 8901, 8392,
 ];
 
 
-var unSubCodes = [8895, 8894, 739,];
+var unSubCodes = [8895, 8894, 739,];   // 739
+// var unSubCodes = [];
 
 function subscribe2Camera(camera){
 

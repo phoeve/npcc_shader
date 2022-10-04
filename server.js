@@ -51,7 +51,7 @@ const gvSensitivity = 8321;
 const gvFstop       = 1039;
 const gvIris        =  542;
 const gvGain        = 8392;
-const gvDetailOnOff = 1056;
+const gvDtlOnOff    = 1056;
 const gvKnee        = 1027;
 const gvTally       = 1809;
 const gvDtl         = 8369;
@@ -88,21 +88,37 @@ const gvMatrixGB    =  536;
 const gvMatrixBR    =  537;
 const gvMatrixBG    =  538;
 
+const gvHdrStd      =  8387;
+const gvHdrOut      =  8388;
+const gvHdrHigh     =  8385;
+const gvHdrGamLow   =  8386;
+
+const gvHdrClipLvl  =  8896;
+const gvHdrOutLvl   =  8901;
+
+const gvHdrGamBrkHi =  8903;
+const gvHdrGamBrkLo =  8902;
+
+
 
                 // GV Function Code Excepions Table    assumed default -> "functionCode: {setter: functionCode},"
 
 const gvFuncCodeDef = {
                 // "setRelative: true" - means that the setter (GV) is expecting a setRelative value - default
     // [gvDetail]:       {boolean: true},
-    [gvKnee]:         {boolean: true},
+    // [gvKnee]:         {boolean: true},
     [gvTally]:        {boolean: true},
+    [gvKnee]:         {setRelative:false, range:4, rangeLow:2, rangeHi:6},
     // [gvDtl]:          {boolean: true},
     [gvSkin]:         {boolean: true},
     [gvSensitivity]:  {setRelative:false, range:2, rangeLow:1, rangeHi:2},
     [gvNDFilter]:     {setRelative:false, range:4, rangeLow:1, rangeHi:4},
     [gvActiveScene]:  {setRelative:false, range:5, rangeLow:2, rangeHi:6},
     [gvFlareOnOff]:   {setRelative:false, range:2, rangeLow:0, rangeHi:1},
-    [gvDetailOnOff]:  {setRelative:false, range:2, rangeLow:0, rangeHi:1},
+    [gvDtlOnOff]:     {setRelative:false, range:2, rangeLow:0, rangeHi:1},
+
+    [gvHdrStd]:       {setRelative:false, range:4, rangeLow:0, rangeHi:3},
+
 
 }
 
@@ -118,14 +134,14 @@ const commonLayout =
         'C002':       {button: buttonGainGamma, label: 'Gain/Gamma',  color: colorOff,                        screen: screenGainGamma},
         'C003':       {button: buttonFlarePed,  label: 'Flare/Ped',   color: colorOff,                        screen: screenFlarePed},
         'C004':       {button: buttonMatrix,    label: 'Matrix',      color: colorOff,                        screen: screenMatrix},
-        'C005':       {button: buttonColorCorr, label: 'Color/Corr',  color: colorOff,                        screen: screenColorCorr},
+        'C005':       {button: buttonColorCorr, label: 'Color Corr',  color: colorOff,                        screen: screenColorCorr},
         'C006':       {button: buttonHdr,       label: 'HDR',         color: colorOff,                        screen: screenHdr},
         'C025':       {button: 25,              label: 'Menu',        color: colorOff},
         'C026':       {button: 26,              label: ' ',           color: colorOff},      // Turn off ABB
         [gvFstop]:    {dial:   56, display: 29, label: 'F Stop ',                         setter: gvIris,     setScale: 7, setUpScale: 100}, 
         [gvPedMaster]:{dial:   99, display: 28, label: 'PED Master',        displayScaling: x4k2Pct,                setScale: 7, setUpScale: 100}, 
         [gvGain]:     {dial:   31, display: 31, label: 'Gain ',       color: colorWhite,      setter: gvGain, setScale: 1, setUpScale: 10},
-        [gvDetailOnOff]:   {button: 32, display: 32, label: 'Detail',        color: colorOff}, 
+        [gvDtlOnOff]: {button: 32, display: 32, label: 'Detail',      Sentcolor: colorOff}, 
         [gvKnee]:     {button: 33, display: 33, label: 'Knee ',       color: colorOff}, 
         [gvTally]:    {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
         'C009':       {button: buttonSuper,     color: colorOff},     // Turn sub menu button lights off
@@ -144,6 +160,8 @@ const rcpLayouts = {
         'H005':          {dial:   13, display: 13, label: ' ',      color: colorOff},
         [gvSensitivity]: {dial:   14, display: 14, label: 'Sens ',  color: colorWhite     },
         [gvNDFilter]:    {dial:   15, display: 15, label: 'ND ',    color: colorWhite,    },
+        // [gvNDFilter]:    {button:   33, display: 33, label: 'ND ',    color: colorWhite,    },
+
         [gvActiveScene]: {dial:   16, display: 16, label: 'Scene ', color: colorWhite,    displayAdjust: -1, setter: 4098},
     },
 
@@ -222,14 +240,14 @@ const rcpLayouts = {
         'HD001': {button:  buttonHdr, color: colorWhite},       // Light up Menu button  
         'HD002': {button:  buttonSuper, color: colorWhite},       // Light up sub screen "1" button  
         'HD003': {button:  buttonSub,   color: colorOff, screen: screenHdrSub},          
-        8387:    {dial:  9, display:  9, label: 'HDR Std ',  color: colorWhite},
-        8388:    {dial: 10, display: 10, label: 'HDR Out ',  color: colorWhite},
-        9997:    {dial: 11, display: 11, label: '% Hi ',     color: colorWhite},
-        8385:    {dial: 12, display: 12, label: 'Pt Hi ',    color: colorWhite}, 
-        9994:    {dial: 14, display: 14, label: 'HDR Clip ', color: colorWhite},
+        [gvHdrStd]:    {dial:  9, display:  9, label: 'HDR Std ',  color: colorWhite},
+        [gvHdrOut]:    {dial: 10, display: 10, label: 'HDR Out ',  color: colorWhite},
+        [gvHdrGamBrkHi]:    {dial: 11, display: 11, label: '% Hi ',     color: colorWhite},
+        [gvHdrHigh]:    {dial: 12, display: 12, label: 'Pt Hi ',    color: colorWhite}, 
+        [gvHdrClipLvl]:    {dial: 14, display: 14, label: 'HDR Clip ', color: colorWhite},
         'HD005': {dial: 13, display: 13, label: ' ',         color: colorOff},
-        9993:    {dial: 15, display: 15, label: '% Low ',    color: colorWhite},
-        8386:    {dial: 16, display: 16, label: 'Pt Low ',   color: colorWhite},
+        [gvHdrGamBrkLo]:    {dial: 15, display: 15, label: '% Low ',    color: colorWhite},
+        [gvHdrGamLow]:    {dial: 16, display: 16, label: 'Pt Low ',   color: colorWhite},
     },
 
 
@@ -305,8 +323,6 @@ birchEmitter.on('initialized', () => {
 const Skaarhoj = require('./skaarhoj.js');
 skaarhojF1 = new Skaarhoj('10.1.43.37');
 skaarhojRCP = new Skaarhoj('10.1.45.54');
-
-
 
 
                 //
@@ -498,20 +514,19 @@ function onDialFunction(layout, dial, movement)
                 else if (gvFuncDef.setRelative != undefined && gvFuncDef.setRelative === false){     // !=undefined means setRelative is true
                                             // range? && previous/cached values ?
                     if (gvFuncDef.range && grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] != undefined){  
+                        
                         var newValue = parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) +movement;
-
-                        if (layEnt.displayAdjust == undefined)
-                            var adj = 0;
-                        else
-                            var adj = layEnt.displayAdjust;
-
+                        
                         if (newValue > gvFuncDef.rangeHi) // Range of values like 1-4
                             newValue=gvFuncDef.rangeLow;
                         else if (newValue < gvFuncDef.rangeLow)
                             newValue=gvFuncDef.rangeHi;
 
-                        // console.log('grassValley.sendFunctionValue', setter, false, newValue);
-                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue);   
+                        if (layEnt.displayAdjust)
+                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue, +layEnt.displayAdjust);   
+                        else
+                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue);   
+
                     }
                 } // end setRelative === false
             }
@@ -624,10 +639,30 @@ skaarhojRCP.on('button', (pressed, position) => {
                         setter = layEnt.setter;
                     }
 
+
                     if (setter){
-                        if (gvFuncDef && gvFuncDef.boolean){     // button or dial depressed
-                            var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
-                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val);  
+                        if (gvFuncDef){     // button or dial depressed
+                            if (gvFuncDef.boolean){
+                                var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
+                                grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val); 
+                            } 
+                            else if (gvFuncDef.range) {
+
+                                var newValue = parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]);
+
+                                if (isNaN(newValue))
+                                    newValue = gvFuncDef.rangeLow;
+                                else
+                                    newValue = newValue +1;
+                                
+                                if (newValue > gvFuncDef.rangeHi) // Range of values like 1-4
+                                    newValue=gvFuncDef.rangeLow;
+                                else if (newValue < gvFuncDef.rangeLow)
+                                    newValue=gvFuncDef.rangeHi;
+
+                                console.log('button range!', 'newValue', newValue, 'gvFuncDef', gvFuncDef);
+                                grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue); 
+                            }
                         }
                         else{
                             grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, layEnt.parm);  
@@ -721,8 +756,6 @@ function paintRCP(layout)
     skaarhojRCP.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name)
 
 }
-
-
 
 
 

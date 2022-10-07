@@ -1,4 +1,155 @@
 
+        // Color width, hue, and saturation   4 dials for cc
+
+// GV sent <== camera: 10 func: 745 value:2048
+// hwcLabel()HWCt#10=|||PHASE ||2048||||||||||||
+
+// GV sent <== camera: 10 func: 1240 value:0
+// GV sent <== camera: 10 func: 1242 value:4
+// GV sent <== camera: 10 func: 741 value:169
+// GV sent <== camera: 10 func: 742 value:67
+// GV sent <== camera: 10 func: 744 value:2168
+// hwcLabel()HWCt#9=|||SAT ||52||||||||||||
+
+// GV sent <== camera: 10 func: 1240 value:1
+// GV sent <== camera: 10 func: 1242 value:7
+// GV sent <== camera: 10 func: 741 value:236
+// GV sent <== camera: 10 func: 744 value:2128
+// hwcLabel()HWCt#9=|||SAT ||51||||||||||||
+
+// GV sent <== camera: 10 func: 1240 value:2
+// GV sent <== camera: 10 func: 1242 value:10
+// GV sent <== camera: 10 func: 741 value:292
+// GV sent <== camera: 10 func: 742 value:44
+// GV sent <== camera: 10 func: 744 value:2248
+// hwcLabel()HWCt#9=|||SAT ||54||||||||||||
+
+// GV sent <== camera: 10 func: 1240 value:3
+// GV sent <== camera: 10 func: 1242 value:13
+// GV sent <== camera: 10 func: 741 value:348
+// GV sent <== camera: 10 func: 742 value:67
+// GV sent <== camera: 10 func: 744 value:2288
+// hwcLabel()HWCt#9=|||SAT ||55||||||||||||
+
+
+
+
+
+        // Detail
+
+// GV sent <== camera: 1 func: 8377 value:1   <<<<<<<<   on/OFf
+// GV sent <== camera: 1 func: 8833 value:7
+// GV sent <== camera: 1 func: 8378 value:104      // Detail Amount !!!!
+// GV sent <== camera: 1 func: 8379 value:26
+// GV sent <== camera: 1 func: 8380 value:129
+// GV sent <== camera: 1 func: 8381 value:129
+// GV sent <== camera: 1 func: 8382 value:129
+// GV sent <== camera: 1 func: 8835 value:1
+// GV sent <== camera: 1 func: 8834 value:129
+
+
+// GV sent <== camera: 1 func: 8377 value:3   <<<<<<<
+// GV sent <== camera: 1 func: 8833 value:7
+// GV sent <== camera: 1 func: 8378 value:104     // Detail Amount
+// GV sent <== camera: 1 func: 8379 value:26
+// GV sent <== camera: 1 func: 8380 value:129
+// GV sent <== camera: 1 func: 8381 value:129
+// GV sent <== camera: 1 func: 8382 value:129
+// GV sent <== camera: 1 func: 8835 value:1
+// GV sent <== camera: 1 func: 8834 value:129
+
+
+
+// // Knee off
+
+// GV sent <== camera: 2 func: 1027 value:1   <<<<
+// GV sent <== camera: 2 func: 654 value:0   Knee point
+// GV sent <== camera: 2 func: 541 value:0   Knee slope
+
+
+
+// // Knee On
+
+// GV sent <== camera: 2 func: 1027 value:3    <<<<<<
+// GV sent <== camera: 2 func: 654 value:0
+// GV sent <== camera: 2 func: 541 value:0
+
+
+
+// Detail over Skin and Knee   press and then amount
+
+
+// Skin Detail
+
+// GV sent <== camera: 8 func: 1025 value:2   On
+// GV sent <== camera: 8 func: 762 value:0
+// GV sent <== camera: 8 func: 775 value:0
+// GV sent <== camera: 8 func: 525 value:75
+// GV sent <== camera: 8 func: 526 value:103
+// GV sent <== camera: 8 func: 527 value:96
+// GV sent <== camera: 8 func: 528 value:16
+// GV sent <== camera: 8 func: 8192 value:undefined
+// GV sent <== camera: 8 func: 776 value:0
+// hwcLabel()HWCt#10=|||Skin ||0||||||||||||
+
+// GV sent <== camera: 8 func: 8325 value:1
+
+
+
+// GV sent <== camera: 8 func: 1025 value:1  Off
+// GV sent <== camera: 8 func: 762 value:0
+// GV sent <== camera: 8 func: 775 value:0
+// GV sent <== camera: 8 func: 525 value:75
+// GV sent <== camera: 8 func: 526 value:103
+// GV sent <== camera: 8 func: 527 value:96
+// GV sent <== camera: 8 func: 528 value:16
+// GV sent <== camera: 8 func: 8192 value:undefined
+// GV sent <== camera: 8 func: 776 value:0
+// hwcLabel()HWCt#10=|||Skin ||0||||||||||||
+
+// GV sent <== camera: 8 func: 8325 value:0
+
+
+
+
+// Skin Detail**********************
+
+// GV sent <== camera: 8 func: 1025 value:1
+// GV sent <== camera: 8 func: 762 value:5
+// GV sent <== camera: 8 func: 775 value:0
+// GV sent <== camera: 8 func: 525 value:75
+// GV sent <== camera: 8 func: 526 value:103
+// GV sent <== camera: 8 func: 527 value:96
+// GV sent <== camera: 8 func: 528 value:16
+// GV sent <== camera: 8 func: 8192 value:undefined
+// GV sent <== camera: 8 func: 776 value:0
+// GV sent <== camera: 8 func: 8325 value:0
+
+
+
+
+// GV sent <== camera: 8 func: 1025 value:2
+// GV sent <== camera: 8 func: 762 value:5
+// GV sent <== camera: 8 func: 775 value:0
+// GV sent <== camera: 8 func: 525 value:75
+// GV sent <== camera: 8 func: 526 value:103
+// GV sent <== camera: 8 func: 527 value:96
+// GV sent <== camera: 8 func: 528 value:16
+// GV sent <== camera: 8 func: 8192 value:undefined
+// GV sent <== camera: 8 func: 776 value:0
+// GV sent <== camera: 8 func: 8325 value:1
+
+
+
+// GV sent <== camera: 8 func: 762 value:4
+// GV sent <== camera: 8 func: 762 value:3
+// GV sent <== camera: 8 func: 762 value:2
+// GV sent <== camera: 8 func: 762 value:1
+
+
+
+
+
         // Skaarhoj constants
         // for HWC#xx=yy mode calls (leds, buttons )
 const modeOff   = 0;
@@ -16,8 +167,6 @@ const colorMagenta = 134;
 const colorYellow  = 137;
 const colorCyan    = 141;
 const colorAmber   = 136;
-
-
 
 
 
@@ -44,6 +193,16 @@ const screenColorCorrSub  = 221;
 const screenHdr           = buttonHdr;
 const screenHdrSub        = 222;
 
+const screenCC_0          = 800;
+const screenCC_1          = 801;
+const screenCC_2          = 802;
+const screenCC_3          = 803;
+const screenCC_4          = 804;
+const screenCC_5          = 805;
+const screenCC            = 888;
+
+
+
 
             // Grass valley Function Codes
             //
@@ -51,7 +210,7 @@ const gvSensitivity = 8321;
 const gvFstop       = 1039;
 const gvIris        =  542;
 const gvGain        = 8392;
-const gvDtlOnOff    = 1056;
+const gvDtlOnOff    = 8377;
 const gvKnee        = 1027;
 const gvTally       = 1809;
 const gvDtl         = 8369;
@@ -99,6 +258,16 @@ const gvHdrOutLvl   =  8901;
 const gvHdrGamBrkHi =  8903;
 const gvHdrGamBrkLo =  8902;
 
+const gvCCSet       =  1240;
+const gvCCName      =  1242;
+const gvCCColor     =   741;
+const gvCCWidth     =   742;
+const gvCCHue       =   743;
+const gvCCSat       =   744;
+const gvCCLum       =   745;
+
+
+
 
 
                 // GV Function Code Excepions Table    assumed default -> "functionCode: {setter: functionCode},"
@@ -115,7 +284,7 @@ const gvFuncCodeDef = {
     [gvNDFilter]:     {setRelative:false, range:4, rangeLow:1, rangeHi:4},
     [gvActiveScene]:  {setRelative:false, range:5, rangeLow:2, rangeHi:6},
     [gvFlareOnOff]:   {setRelative:false, range:2, rangeLow:0, rangeHi:1},
-    [gvDtlOnOff]:     {setRelative:false, range:2, rangeLow:0, rangeHi:1},
+    [gvDtlOnOff]:     {boolean:true, false:1, true:3},
 
     [gvHdrStd]:       {setRelative:false, range:4, rangeLow:0, rangeHi:3},
 
@@ -144,8 +313,8 @@ const commonLayout =
         [gvDtlOnOff]: {button: 32, display: 32, label: 'Detail',      Sentcolor: colorOff}, 
         [gvKnee]:     {button: 33, display: 33, label: 'Knee ',       color: colorOff}, 
         [gvTally]:    {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
-        'C009':       {button: buttonSuper,     color: colorOff},     // Turn sub menu button lights off
-        'C010':       {button: buttonSub,       color: colorOff}, 
+        // 'CB001':       {button: buttonSuper,     color: colorOff},     // Turn sub menu button lights off
+        // 'CB002':       {button: buttonSub,       color: colorOff}, 
 }
 
 const rcpLayouts = {
@@ -154,14 +323,12 @@ const rcpLayouts = {
     {        
         'H001':          {button: 17, label: 'Home',                color: colorWhite},      // Light up Menu button
         [gvDtl]:         {dial:    9, display:  9, label: 'Dtl ',   color: colorWhite,    displayScaling: x2562Pct},
-        [gvSkin]:        {dial:   10, display: 10, label: 'Skin ',  color: colorWhite,    setter: gvSkinSet},
+        [gvKnee]:        {dial:   10, display: 10, label: 'Knee ',  color: colorWhite,    },
         [gvSaturation]:  {dial:   11, display: 11, label: 'Sat ',   color: colorWhite,    },
         [gvTemp]:        {dial:   12, display: 12, label: 'Temp ',  color: colorWhite,    },
-        'H005':          {dial:   13, display: 13, label: ' ',      color: colorOff},
+        [gvSkin]:        {dial:   13, display: 13, label: 'Skin ',  color: colorWhite,    setter: gvSkinSet},
         [gvSensitivity]: {dial:   14, display: 14, label: 'Sens ',  color: colorWhite     },
         [gvNDFilter]:    {dial:   15, display: 15, label: 'ND ',    color: colorWhite,    },
-        // [gvNDFilter]:    {button:   33, display: 33, label: 'ND ',    color: colorWhite,    },
-
         [gvActiveScene]: {dial:   16, display: 16, label: 'Scene ', color: colorWhite,    displayAdjust: -1, setter: 4098},
     },
 
@@ -202,37 +369,129 @@ const rcpLayouts = {
         [gvMatrixBG]:  {dial: 14, display: 14, label: 'B-G ',  color: colorBlue},  
         'M007':        {dial: 15, display: 15, label: ' ',     color: colorOff},
         'M008':        {dial: 16, display: 16, label: ' ',     color: colorOff},
-
     },
+
 
     [screenColorCorr]:             // Color / Correction
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button  
-        'CC002': {button:  buttonSuper,      color: colorWhite},       // Light up sub screen "1" button   
-        'CC003': {button:  buttonSub,        color: colorOff, screen: screenColorCorrSub},          
-        9999:    {dial:  9, display:  9, label: 'SAT ',     color: colorRed},
-        9998:    {dial: 10, display: 10, label: 'PHASE ',   color: colorRed},
-        9997:    {dial: 11, display: 11, label: 'SAT ',     color: colorMagenta},
-        9996:    {dial: 12, display: 12, label: 'PHASE ',   color: colorMagenta}, 
-        9995:    {dial: 13, display: 13, label: 'SAT ',     color: colorYellow},
-        9994:    {dial: 14, display: 14, label: 'PHASE ',   color: colorYellow},
-        9993:    {dial: 15, display: 15, label: 'SAT ',     color: colorGreen},
-        9992:    {dial: 16, display: 16, label: 'PHASE ',   color: colorGreen},   
+        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'M009':  {dial:  9, display:  9, label: ' ',     color: colorOff},
+        'M010':  {dial: 10, display: 10, label: ' ',     color: colorOff},
+        'M011':  {dial: 11, display: 11, label: ' ',     color: colorOff},
+        'M012':  {dial: 12, display: 12, label: ' ',     color: colorOff},
+        'M013':  {dial: 13, display: 13, label: ' ',     color: colorOff},
+        'M014':  {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'M015':  {dial: 15, display: 15, label: ' ',     color: colorOff}, 
+        'M016':  {dial: 16, display: 16, label: ' ',     color: colorOff},
+
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+
+        [gvCCSet]: {screenTrigger: screenCC},
     },
 
-    [screenColorCorrSub]: {
-        'CC001':    {button: buttonColorCorr, color: colorWhite},       // Light up Menu button 
-        'CC002':    {button: buttonSuper,     color: colorOff, screen: screenColorCorr},       
-        'CC010':    {button: buttonSub,       color: colorWhite},       // Light up sub screen "2" button  
-        9999:       {dial:  9, display:  9, label: 'SAT ',    color: colorBlue},
-        9998:       {dial: 10, display: 10, label: 'PHASE ',  color: colorBlue}, 
-        'CC003':    {dial: 11, display: 11, label: ' ',       color: colorOff},
-        'CC004':    {dial: 12, display: 12, label: ' ',       color: colorOff},     
-        9997:       {dial: 13, display: 11, label: 'SAT ',    color: colorCyan},
-        9996:       {dial: 14, display: 12, label: 'PHASE ',  color: colorCyan},
-        'CC007':    {dial: 15, display: 15, label: ' ',       color: colorOff},
-        'CC008':    {dial: 16, display: 16, label: ' ',       color: colorOff},
+   8880:
+    {
+        [gvCCSet]: {screenTrigger: screenCC},
+        741:    {dial:  9, display:  9, label: 'Color ',   color: colorRed},
+        742:    {dial: 10, display: 10, label: 'Width ',   color: colorRed},
+        743:    {dial: 11, display: 11, label: 'Hue   ',   color: colorRed},
+        744:    {dial: 12, display: 12, label: 'Sat   ',   color: colorRed, displayScaling: x4k2Pct},
+        745:    {dial: 13, display: 13, label: 'Lum   ',   color: colorRed, displayScaling: x4k2Pct},
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+
     },
+
+    8881:
+    {
+        [gvCCSet]: {screenTrigger: screenCC},
+        741:    {dial:  9, display:  9, label: 'Color ',   color: colorYellow},
+        742:    {dial: 10, display: 10, label: 'Width ',   color: colorYellow},
+        743:    {dial: 11, display: 11, label: 'Hue   ',   color: colorYellow},
+        744:    {dial: 12, display: 12, label: 'Sat   ',   color: colorYellow, displayScaling: x4k2Pct},
+        745:    {dial: 13, display: 13, label: 'Lum   ',   color: colorYellow, displayScaling: x4k2Pct},
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+
+    },
+
+    8882:
+    {
+        [gvCCSet]: {screenTrigger: screenCC},
+        741:    {dial:  9, display:  9, label: 'Color ',   color: colorGreen},
+        742:    {dial: 10, display: 10, label: 'Width ',   color: colorGreen},
+        743:    {dial: 11, display: 11, label: 'Hue   ',   color: colorGreen},
+        744:    {dial: 12, display: 12, label: 'Sat   ',   color: colorGreen, displayScaling: x4k2Pct},
+        745:    {dial: 13, display: 13, label: 'Lum   ',   color: colorGreen, displayScaling: x4k2Pct},
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+    },
+
+    8883:
+    {
+        [gvCCSet]: {screenTrigger: screenCC},
+        741:    {dial:  9, display:  9, label: 'Color ',   color: colorCyan},
+        742:    {dial: 10, display: 10, label: 'Width ',   color: colorCyan},
+        743:    {dial: 11, display: 11, label: 'Hue   ',   color: colorCyan},
+        744:    {dial: 12, display: 12, label: 'Sat   ',   color: colorCyan, displayScaling: x4k2Pct},
+        745:    {dial: 13, display: 13, label: 'Lum   ',   color: colorCyan, displayScaling: x4k2Pct},
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+    },
+
+    8884:
+    {
+        [gvCCSet]: {screenTrigger: screenCC},
+        741:    {dial:  9, display:  9, label: 'Color ',   color: colorBlue},
+        742:    {dial: 10, display: 10, label: 'Width ',   color: colorBlue},
+        743:    {dial: 11, display: 11, label: 'Hue   ',   color: colorBlue},
+        744:    {dial: 12, display: 12, label: 'Sat   ',   color: colorBlue, displayScaling: x4k2Pct},
+        745:    {dial: 13, display: 13, label: 'Lum   ',   color: colorBlue, displayScaling: x4k2Pct},
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+    },
+
+    8885:
+    {
+        [gvCCSet]: {screenTrigger: screenCC},
+        741:    {dial:  9, display:  9, label: 'Color ',   color: colorMagenta},
+        742:    {dial: 10, display: 10, label: 'Width ',   color: colorMagenta},
+        743:    {dial: 11, display: 11, label: 'Hue   ',   color: colorMagenta},
+        744:    {dial: 12, display: 12, label: 'Sat   ',   color: colorMagenta, displayScaling: x4k2Pct},
+        745:    {dial: 13, display: 13, label: 'Lum   ',   color: colorMagenta, displayScaling: x4k2Pct},
+        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+    },
+
 
 
     [screenHdr]:             // HDR
@@ -393,6 +652,8 @@ skaarhojF1.on('button', (pressed, position) => {
             // Send birch request route camera to shader monitor
         birch.take(cameraMap[f1ButtonMap[pressed].camera].birchObj, birch.destinations[0]);
 
+        grassValley.subscribe2Camera(f1ButtonMap[pressed].camera);        // Subscribe to camera changes in iris, gain, nd, ...
+
             // Set button colors   red=2, green=3
         skaarhojF1.hwcMode(pressed, modeWhite);          // set "pushed" to white
 
@@ -470,9 +731,6 @@ skaarhojF1.on('button', (pressed, position) => {
 
 function onDialFunction(layout, dial, movement)
 {
-
-    // console.log('dial:', dial, 'movement:', movement);
-    // console.dir(layout);
 
     if (!f1ButtonLive)    // No camera selected ?
         return;
@@ -629,44 +887,42 @@ skaarhojRCP.on('button', (pressed, position) => {
 
                     paintRCP (rcpLayouts[layEnt.screen]);
                 }
-                else {
-                    var setter = false;
 
-                    if (!isNaN(gvFuncNum)){        // gvFuncNum is numeric
-                        setter = gvFuncNum;
-                    }
-                    if (layEnt.setter){
-                        setter = layEnt.setter;
-                    }
+                var setter = false;
 
+                if (!isNaN(gvFuncNum)){        // gvFuncNum is numeric
+                    setter = gvFuncNum;
+                }
+                if (layEnt.setter){
+                    setter = layEnt.setter;
+                }
 
-                    if (setter){
-                        if (gvFuncDef){     // button or dial depressed
-                            if (gvFuncDef.boolean){
-                                var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
-                                grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val); 
-                            } 
-                            else if (gvFuncDef.range) {
+                if (setter){
+                    if (gvFuncDef){     // button or dial depressed
+                        if (gvFuncDef.boolean){
+                            var val = !grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
+                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, val); 
+                        } 
+                        else if (gvFuncDef.range) {
 
-                                var newValue = parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]);
+                            var newValue = parseInt(grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]);
 
-                                if (isNaN(newValue))
-                                    newValue = gvFuncDef.rangeLow;
-                                else
-                                    newValue = newValue +1;
-                                
-                                if (newValue > gvFuncDef.rangeHi) // Range of values like 1-4
-                                    newValue=gvFuncDef.rangeLow;
-                                else if (newValue < gvFuncDef.rangeLow)
-                                    newValue=gvFuncDef.rangeHi;
+                            if (isNaN(newValue))
+                                newValue = gvFuncDef.rangeLow;
+                            else
+                                newValue = newValue +1;
+                            
+                            if (newValue > gvFuncDef.rangeHi) // Range of values like 1-4
+                                newValue=gvFuncDef.rangeLow;
+                            else if (newValue < gvFuncDef.rangeLow)
+                                newValue=gvFuncDef.rangeHi;
 
-                                console.log('button range!', 'newValue', newValue, 'gvFuncDef', gvFuncDef);
-                                grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue); 
-                            }
+                            console.log('button range!', 'newValue', newValue, 'gvFuncDef', gvFuncDef);
+                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, newValue); 
                         }
-                        else{
-                            grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, layEnt.parm);  
-                        }
+                    }
+                    else{
+                        grassValley.sendFunctionValue(setter, f1ButtonMap[f1ButtonLive].camera, false, layEnt.parm);  
                     }
                 }
             }
@@ -708,10 +964,15 @@ function paintRCP(layout)
         else if(layEnt.dial){
             if (grassValueCache[f1ButtonMap[f1ButtonLive].camera] === undefined ||
                                                        grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum] === undefined){
-                skaarhojRCP.hwcLabel(layEnt.display, layEnt.label);    // Just a label - no value:)
+                if (layEnt.label != undefined)
+                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label);    // Just a label - no value:)
             }
             else{
-                if (layEnt.displayScaling){
+                if (layEnt.screenTrigger != undefined){
+                    var newLayHash = layEnt.screenTrigger +'_' +grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum];
+                    paintRCP (rcpLayouts[newLayHash]);
+                }
+                else if (layEnt.displayScaling){
                     skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
                     if (layEnt.display_2 !=undefined)
                         skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc( (grassValueCache[f1ButtonMap[f1ButtonLive].camera][gvFuncNum]) *layEnt.displayScaling));  //???
@@ -780,7 +1041,20 @@ grassValleyEmitter.on('func', (func, camera, value) => {
         }
 
         if (currentRcpLayout[func] != undefined){           // RCP - Does this GV function code have a setter?
-            if (currentRcpLayout[func].led != undefined){            // LED Indicator
+
+            // console.log('currentRcpLayout[func].screenTrigger', currentRcpLayout[func].screenTrigger);
+            if (currentRcpLayout[func].screenTrigger != undefined){
+                // console.log('Got screenTrigger');
+                // console.dir(currentRcpLayout[func]);
+                var newHash = currentRcpLayout[func].screenTrigger +value;
+                // console.log('newHash', newHash);
+                // console.dir(rcpLayouts[newHash]);
+                // console.dir(rcpLayouts);
+
+
+                paintRCP (rcpLayouts[newHash]);
+            }
+            else if (currentRcpLayout[func].led != undefined){            // LED Indicator
                 if (currentRcpLayout[func][value] != undefined){   // Is there a color corresponding to value?
                     skaarhojRCP.hwcMode(currentRcpLayout[func].led, currentRcpLayout[func][value]);
                     if (currentRcpLayout[func].led_2)

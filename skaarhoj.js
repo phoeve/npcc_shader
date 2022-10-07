@@ -127,7 +127,7 @@ class Skaarhoj extends EventEmitter{
 
 
         // var str = 'HWCt#' +button +'=|||||' +label +'||||||||||0||\n';
-        console.log('hwcLabel()' +str);
+        // console.log('hwcLabel()' +str);
         this.socket.write(str);
     }
 

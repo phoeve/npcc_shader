@@ -120,7 +120,8 @@ class Skaarhoj extends EventEmitter{
     {
         // var str = 'HWCt#' +button +'=|||' +label;
 
-        if (value == undefined || isNaN(value))
+        // if (value == undefined || isNaN(value))
+        if (value == undefined)
             var str = 'HWCt#' +button +'=|||||' +label +'||||||||||||\n';
         else
             var str = 'HWCt#' +button +'=|||' +label +'||' +value +'||||||||||||\n';

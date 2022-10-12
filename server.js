@@ -1,4 +1,4 @@
-
+// 
  // 4K camera diff detail
 
  // Camera # instead of name
@@ -180,31 +180,35 @@ const colorAmber   = 136;
 const buttonHome        = 17;
 const buttonGainGamma   = 18;
 const buttonFlarePed    = 19;
-const buttonMatrix      = 20;
-const buttonColorCorr   = 21;
+const buttonMatrixCC    = 20;
+const buttonDetailKnee  = 21;
 const buttonHdr         = 22;
 const buttonSuper       =  1;
 const buttonSub         =  2;
-const buttonShift       = 38;
+const buttonSoloShift   = 32;
+const buttonAllShift    = 33;
+const buttonCamera      = 38;
+
 
 
         // Mapping Screen Layouts to Skaarhoj buttons
-const screenShift         = buttonShift;                // Many screens have same screen# as Skaarhoj button# (by design - avoids some mapping)
+const screenShift         = 255;                // Many screens have same screen# as Skaarhoj button# (by design - avoids some mapping)
 const screenHome          = buttonHome;
 const screenGainGamma     = buttonGainGamma;
 const screenFlarePed      = buttonFlarePed;
-const screenMatrix        = buttonMatrix;
-const screenColorCorr     = buttonColorCorr;
-const screenColorCorrSub  = 221;
+const screenMatrixCC      = buttonMatrixCC;
+const screenDetailKnee    = buttonDetailKnee;
 const screenHdr           = buttonHdr;
 const screenHdrSub        = 222;
 
-const screenCC_0          = 800;
-const screenCC_1          = 801;
-const screenCC_2          = 802;
-const screenCC_3          = 803;
-const screenCC_4          = 804;
-const screenCC_5          = 805;
+// const screenColorCorr     = 245;
+
+// const screenCC_0          = 800;
+// const screenCC_1          = 801;
+// const screenCC_2          = 802;
+// const screenCC_3          = 803;
+// const screenCC_4          = 804;
+// const screenCC_5          = 805;
 const screenCC            = 888;
 
 
@@ -299,20 +303,23 @@ const x4k2Pct = 100/4095;           //  Scaling factor for 0-4095 => 0-100%
                     // Common to all Screens (Shift key overlays current screen)
 const commonLayout = 
 {
-        'Shift':      {button: buttonShift,                           color: colorOff,                        screen: screenShift},
+        'SoloShift':  {button: buttonSoloShift,                       color: colorOff,                        screen: screenShift},
+        'AllShift':   {button: buttonAllShift,                        color: colorOff,                        screen: screenShift},
         'C001':       {button: buttonHome,      label: 'Home',        color: colorOff,                        screen: screenHome},
         'C002':       {button: buttonGainGamma, label: 'Gain/Gamma',  color: colorOff,                        screen: screenGainGamma},
         'C003':       {button: buttonFlarePed,  label: 'Flare/Ped',   color: colorOff,                        screen: screenFlarePed},
-        // 'C004':       {button: buttonMatrix,    label: 'Matrix / Color',      color: colorOff,                screen: screenMatrix},
-        'C005':       {button: buttonColorCorr, label: ' ',           color: colorOff,                        screen: screenColorCorr},
+        'C004':       {button: buttonMatrixCC,  label: 'Matrix/Color',color: colorOff,                        screen: screenMatrixCC},
+        'C005':       {button: buttonDetailKnee,label: 'Detail/Knee', color: colorOff,                        screen: screenDetailKnee},
         'C006':       {button: buttonHdr,       label: 'HDR',         color: colorOff,                        screen: screenHdr},
         'C025':       {button: 25,              label: 'Menu',        color: colorOff},
         'C026':       {button: 26,              label: ' ',           color: colorOff},      // Turn off ABB
-        [gvFstop]:    {dial:   56, display: 29, label: 'F Stop',      setter: gvIris,                 setScale: 7, setUpScale: 100}, 
-        [gvPedMaster]:{dial:   99, display: 28, label: 'PED Master',  displayScaling: x4k2Pct,        setScale: 7, setUpScale: 100}, 
+        [gvFstop]:    {dial:   56, display: 29, label: 'F Stop',      setter: gvIris}, 
+        [gvPedMaster]:{dial:   99, display: 28, label: 'PED Master',  displayScaling: x4k2Pct}, 
         [gvGain]:     {dial:   31, display: 31, label: 'Gain',        color: colorWhite,              setScale: 1, setUpScale: 10},
-        [gvDtlOnOff]: {button: 32, display: 32, label: 'Detail',      color: colorOff}, 
-        [gvKneeOnOff]:{button: 33, display: 33, label: 'Knee',        color: colorOff}, 
+        'Solo':       {button: 32, display: 32, label: 'Solo',        color: colorOff}, 
+        'All':        {button: 33, display: 33, label: 'All',         color: colorOff}, 
+        'Recall':     {button: 34,display: 34, label: 'Recall',      color: colorOff}, 
+
         [gvTally]:    {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
         'CX001': {button:  1,     color: colorOff},     // Turn off small buttons at top of RCP
         'CX002': {button:  2,     color: colorOff},
@@ -328,14 +335,15 @@ const rcpLayouts = {
 
     [screenHome]:             // Home               
     {        
-        'H001':          {button: 17, label: 'Home',                color: colorWhite},      // Light up Menu button
-        [gvDtlOnOff]:    {press:   9, toggle:true, on:3, off:1,       onColor: colorAmber, offColor: colorOff},
-        [gvDtlLevel]:    {dial:    9, display:  9, label: 'Dtl',    displayScaling: x2562Pct},
+        'H001':          {button: 17, label: 'Home',               color: colorWhite},      // Light up Menu button
+        [gvDtlOnOff]:    {press:   9, toggle:true, on:3, off:1,    onColor: colorAmber, offColor: colorOff},
+        [gvDtlLevel]:    {dial:    9, display:  9, label: 'Dtl',   displayScaling: x2562Pct},
         [gvKneePoint]:   {dial:   10, display: 10, label: 'Knee',  color: colorWhite,    range:true, rangeLow:2, rangeHi:6},
-        [gvKneeOnOff]:   {press:  10, color: colorWhite,    toggle:true, on:3, off:1},
+        [gvKneeOnOff]:   {press:  10, toggle:true, on:3, off:1,    onColor: colorAmber, offColor: colorOff},
         [gvSaturation]:  {dial:   11, display: 11, label: 'Sat',   color: colorWhite,    },
         [gvTemp]:        {dial:   12, display: 12, label: 'Temp',  color: colorWhite,    },
-        [gvSkin]:        {dial:   13, display: 13, label: 'Skin',  color: colorWhite,    setter: gvSkin},
+        [gvSkin]:        {dial:   13, display: 13, label: 'Skin',  setter: gvSkin},
+        [gvSkinOnOff]:   {press:  13, toggle:true, on:3, off:1,    onColor: colorAmber, offColor: colorOff},
         [gvSensitivity]: {dial:   14, display: 14, label: 'Sens',  color: colorWhite,    range:true, rangeLow:1, rangeHi:2},
         [gvNDFilter]:    {dial:   15, display: 15, label: 'ND',    color: colorWhite,    range:true, rangeLow:1, rangeHi:4},
         [gvActiveScene]: {dial:   16, display: 16, label: 'Scene', color: colorWhite,    displayAdjust: -1, range:true, rangeLow:2, rangeHi:6, setter: 4098},
@@ -367,23 +375,11 @@ const rcpLayouts = {
         [gvPedBlue]:      {dial: 16, display: 16, label: 'PED Blue' ,  color: colorBlue,  displayScaling: x2562Pct},
     },
 
-    [screenMatrix]:             // Matrix
-    {
-        // 'M001':        {button: 20, color: colorWhite},       // Light up Menu button  
-        [gvMatrixRG]:  {dial:  9, display:  9, label: 'R-G',  color: colorRed},
-        [gvMatrixRB]:  {dial: 10, display: 10, label: 'R-B',  color: colorRed},
-        [gvMatrixGR]:  {dial: 11, display: 11, label: 'G-R',  color: colorGreen},
-        [gvMatrixGB]:  {dial: 12, display: 12, label: 'G-B',  color: colorGreen},
-        [gvMatrixBR]:  {dial: 13, display: 13, label: 'B-R',  color: colorBlue},
-        [gvMatrixBG]:  {dial: 14, display: 14, label: 'B-G',  color: colorBlue},  
-        'M007':        {dial: 15, display: 15, label: ' ',    color: colorOff},
-        'M008':        {dial: 16, display: 16, label: ' ',    color: colorOff},
-    },
 
 
-    [screenColorCorr]:             // Color / Correction
+    [screenDetailKnee]:             // Detail / Knee
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  21,  color: colorWhite},       // Light up Menu button 
         'M009':  {dial:  9, display:  9, label: ' ',     color: colorOff},
         'M010':  {dial: 10, display: 10, label: ' ',     color: colorOff},
         'M011':  {dial: 11, display: 11, label: ' ',     color: colorOff},
@@ -392,20 +388,35 @@ const rcpLayouts = {
         'M014':  {dial: 14, display: 14, label: ' ',     color: colorOff},
         'M015':  {dial: 15, display: 15, label: ' ',     color: colorOff}, 
         'M016':  {dial: 16, display: 16, label: ' ',     color: colorOff},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
-        'CB008': {button:  8,     color: colorWhite,    screen: screenMatrix},
+        [gvCCSet]: {screenTrigger: screenCC},
+    },
 
+
+
+    [screenMatrixCC]:             // Matrix and Color Corrector
+    {
+        'M001':        {button: 20, color: colorWhite},       // Light up Menu button  
+        [gvMatrixRG]:  {dial:  9, display:  9, label: 'R-G',  color: colorRed},
+        [gvMatrixRB]:  {dial: 10, display: 10, label: 'R-B',  color: colorRed},
+        [gvMatrixGR]:  {dial: 11, display: 11, label: 'G-R',  color: colorGreen},
+        [gvMatrixGB]:  {dial: 12, display: 12, label: 'G-B',  color: colorGreen},
+        [gvMatrixBR]:  {dial: 13, display: 13, label: 'B-R',  color: colorBlue},
+        [gvMatrixBG]:  {dial: 14, display: 14, label: 'B-G',  color: colorBlue},  
+        'M007':        {dial: 15, display: 15, label: ' ',    color: colorOff},
+        'M008':        {dial: 16, display: 16, label: ' ',    color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0,   screen: 8880},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1,   screen: 8881},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2,   screen: 8882},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3,   screen: 8883},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4,   screen: 8884},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5,   screen: 8885},
         [gvCCSet]: {screenTrigger: screenCC},
     },
 
    8880:
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  buttonMatrixCC,  color: colorWhite},       // Light up Menu button 
 
         [gvCCSet]: {screenTrigger: screenCC},
         741:    {dial:  9, display:  9, label: 'Color', color: colorRed},
@@ -413,17 +424,19 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorRed},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorRed, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorRed, displayScaling: x4k2Pct},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5},
     },
 
     8881:
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  buttonMatrixCC,  color: colorWhite},       // Light up Menu button 
 
         [gvCCSet]: {screenTrigger: screenCC},
         741:    {dial:  9, display:  9, label: 'Color', color: colorYellow},
@@ -431,17 +444,19 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorYellow},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorYellow, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorYellow, displayScaling: x4k2Pct},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5},
     },
 
     8882:
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  buttonMatrixCC,  color: colorWhite},       // Light up Menu button 
 
         [gvCCSet]: {screenTrigger: screenCC},
         741:    {dial:  9, display:  9, label: 'Color', color: colorGreen},
@@ -449,17 +464,19 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorGreen},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorGreen, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorGreen, displayScaling: x4k2Pct},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5},
     },
 
     8883:
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  buttonMatrixCC,  color: colorWhite},       // Light up Menu button 
 
         [gvCCSet]: {screenTrigger: screenCC},
         741:    {dial:  9, display:  9, label: 'Color', color: colorCyan},
@@ -467,17 +484,19 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorCyan},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorCyan, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorCyan, displayScaling: x4k2Pct},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5},
     },
 
     8884:
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  buttonMatrixCC,  color: colorWhite},       // Light up Menu button 
 
         [gvCCSet]: {screenTrigger: screenCC},
         741:    {dial:  9, display:  9, label: 'Color', color: colorBlue},
@@ -485,17 +504,19 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorBlue},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorBlue, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorBlue, displayScaling: x4k2Pct},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5},
     },
 
     8885:
     {
-        'CC001': {button:  buttonColorCorr,  color: colorWhite},       // Light up Menu button 
+        'CC001': {button:  buttonMatrixCC,  color: colorWhite},       // Light up Menu button 
 
         [gvCCSet]: {screenTrigger: screenCC},
         741:    {dial:  9, display:  9, label: 'Color', color: colorMagenta},
@@ -503,12 +524,14 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorMagenta},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorMagenta, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorMagenta, displayScaling: x4k2Pct},
-        'CB001': {button:  1,     color: colorRed,      setter: gvCCSet, parm: 0},
-        'CB002': {button:  2,     color: colorYellow,   setter: gvCCSet, parm: 1},
-        'CB003': {button:  3,     color: colorGreen,    setter: gvCCSet, parm: 2},
-        'CB004': {button:  4,     color: colorCyan,     setter: gvCCSet, parm: 3},
-        'CB005': {button:  5,     color: colorBlue,     setter: gvCCSet, parm: 4},
-        'CB006': {button:  6,     color: colorMagenta,  setter: gvCCSet, parm: 5},
+        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
+        'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
+        'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
+        'CB003': {button:  4,     color: colorGreen,    setter: gvCCSet, parm: 2},
+        'CB004': {button:  5,     color: colorCyan,     setter: gvCCSet, parm: 3},
+        'CB005': {button:  6,     color: colorBlue,     setter: gvCCSet, parm: 4},
+        'CB006': {button:  7,     color: colorMagenta,  setter: gvCCSet, parm: 5},
     },
 
 
@@ -569,7 +592,7 @@ var f1Lay = {
     'F015':          {button: 15, display: 'NP CAM 12', camera: 12},
     'F016':          {button: 16, display: 'NP CAM 13', camera: 13},
 
-    [gvFstop]:       {dial: 53, display: 53, label: 'F',     color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine
+    [gvFstop]:       {dial: 53, display: 53, label: 'F',      color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine
     [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite, setScale: 1, setUpScale: 10},    
     [gvSensitivity]: {dial: 55, display: 55, label: 'Sens ',  color: colorWhite, range:true, rangeLow:1, rangeHi:2},            
     [gvNDFilter]:    {dial: 56, display: 56, label: 'ND ',    color: colorWhite, range:true, rangeLow:1, rangeHi:4},
@@ -640,7 +663,7 @@ skaarhojF1.on('press', (pressed) => {
     if (layEnt[1].setUpScale != undefined){ // UpScale Press !!!!
         if (f1DialUpscaleMap[pressed] == true ){
             f1DialUpscaleMap[pressed] = false;
-            skaarhojF1.hwcColor(pressed, colorOff);
+            skaarhojF1.hwcColor(pressed, layEnt[1].color);
         }
         else{
             f1DialUpscaleMap[pressed] = true;
@@ -829,8 +852,11 @@ skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
 
     var layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'press');
 
-    if (layEnt == -1)
-        return;             
+    if (layEnt == -1){
+        layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'dial');
+        if (layEnt == -1)
+            return;             
+    }
 
     var setter = layEnt[0];
 
@@ -850,9 +876,12 @@ skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
     }
 
     else if (layEnt[1].setUpScale != undefined){            // UpScale indicating presses
+
+        console.log('rcpUpscale!');
+
         if (rcpDialUpscaleMap[pressed] == true){
             rcpDialUpscaleMap[pressed] = false;
-            skaarhojRCP.hwcColor(pressed, colorOff);
+            skaarhojRCP.hwcColor(pressed, layEnt[1].color);
         }
         else{
             rcpDialUpscaleMap[pressed] = true;
@@ -862,38 +891,55 @@ skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
 });
 
 
+
 skaarhojRCP.on('dial', (dial, movement) => {
     onDialFunction (rcpCurrentLayout, dial, movement);
 });
 
 
-var shiftDepressed = false;
+
+
+
+
+
+var shiftSoloDepressed = false;
+var shiftAllDepressed = false;
+
 
 skaarhojRCP.on('button', (pressed, position) => {
 
-
-
-    // console.log('button:', pressed, 'position:', position);
-    // console.dir(rcpCurrentLayout);
-
-    if (pressed === buttonShift){
+    if (pressed === buttonSoloShift){
         if (position === 'Down'){
-            shiftDepressed = true;
+            shiftSoloDepressed = true;
             paintRCP (rcpLayouts[screenShift]);
+            return;
         }
         else{
-            shiftDepressed = false;
+            shiftSoloDepressed = false;
             paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
             return;
         }
     }
 
-                        // Find the button on the current layout
+    if (pressed === buttonAllShift){
+        if (position === 'Down'){
+            shiftAllDepressed = true;
+            paintRCP (rcpLayouts[screenShift]);
+            return;
+        }
+        else{
+            shiftAllDepressed = false;
+            paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
+            return;
+        }
+    }
+
     var layout;
-    if (shiftDepressed)
-        layout = rcpLayouts[buttonShift];
+    if (shiftSoloDepressed || shiftAllDepressed)
+        layout = rcpLayouts[screenShift];
     else
         layout = rcpCurrentLayout;
+
 
 
     Object.entries(layout).forEach(item => {
@@ -943,11 +989,15 @@ skaarhojRCP.on('button', (pressed, position) => {
                         console.log('button range!', 'newValue', newValue, 'layEnt', layEnt);
                         grassValley.sendFunctionValue(setter, currentCamera(), false, newValue); 
                     }
-                    else if (layEnt.toggle){
-
-                    }
                     else{
-                        grassValley.sendFunctionValue(setter, currentCamera(), false, layEnt.parm);  
+                        if (shiftAllDepressed){
+                            cameraMap.forEach(camera =>{
+                                grassValley.sendFunctionValue(setter, camera.cameraNum, false, layEnt.parm);  
+                            });
+                        }
+                        else{
+                            grassValley.sendFunctionValue(setter, currentCamera(), false, layEnt.parm);  
+                        }
                     }
                 }
             }
@@ -1010,11 +1060,6 @@ function paintRCP(layout)
                 }
             }
             else{
-                // if (layEnt.screenTrigger != undefined){
-                //     var newLayHash = layEnt.screenTrigger +'_' +cacheValue;
-                //     paintRCP (rcpLayouts[newLayHash]);
-                // }
-                // else 
                 if (layEnt.displayScaling){
                     skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
                     if (layEnt.display_2 !=undefined)
@@ -1043,7 +1088,7 @@ function paintRCP(layout)
         }
     });
 
-    skaarhojRCP.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].camera)
+    skaarhojRCP.hwcLabel(buttonCamera, f1ButtonMap[f1ButtonLive].camera)
 
 }
 
@@ -1241,6 +1286,8 @@ function resetButtonsNLabels()
     else{        
         Object.entries(f1Lay).forEach(layEnt => { 
             skaarhojF1.hwcLabel(layEnt[1].display, layEnt[1].label + grassValueCache[currentCamera()][layEnt[0]]);
+            if (layEnt[1].color)
+                skaarhojF1.hwcColor(layEnt[1].display, layEnt[1].color);
         });
         skaarhojRCP.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name);    // Use Shift key's Display area
     }

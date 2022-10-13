@@ -201,14 +201,6 @@ const screenDetailKnee    = buttonDetailKnee;
 const screenHdr           = buttonHdr;
 const screenHdrSub        = 222;
 
-// const screenColorCorr     = 245;
-
-// const screenCC_0          = 800;
-// const screenCC_1          = 801;
-// const screenCC_2          = 802;
-// const screenCC_3          = 803;
-// const screenCC_4          = 804;
-// const screenCC_5          = 805;
 const screenCC            = 888;
 
 
@@ -319,8 +311,8 @@ const commonLayout =
         'Solo':       {button: 32, display: 32, label: 'Solo',        color: colorOff}, 
         'All':        {button: 33, display: 33, label: 'All',         color: colorOff}, 
         'Recall':     {button: 34,display: 34, label: 'Recall',      color: colorOff}, 
-
         [gvTally]:    {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
+
         'CX001': {button:  1,     color: colorOff},     // Turn off small buttons at top of RCP
         'CX002': {button:  2,     color: colorOff},
         'CX003': {button:  3,     color: colorOff},
@@ -424,7 +416,9 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorRed},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorRed, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorRed, displayScaling: x4k2Pct},
-        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB010':{dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB011':{dial: 15, display: 15, label: ' ',     color: colorOff},
+        'CB012':{dial: 16, display: 16, label: ' ',     color: colorOff},
         'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
         'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
         'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
@@ -444,7 +438,9 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorYellow},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorYellow, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorYellow, displayScaling: x4k2Pct},
-        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB010':{dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB011':{dial: 15, display: 15, label: ' ',     color: colorOff},
+        'CB012':{dial: 16, display: 16, label: ' ',     color: colorOff},
         'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
         'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
         'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
@@ -464,7 +460,9 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorGreen},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorGreen, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorGreen, displayScaling: x4k2Pct},
-        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB010':{dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB011':{dial: 15, display: 15, label: ' ',     color: colorOff},
+        'CB012':{dial: 16, display: 16, label: ' ',     color: colorOff},
         'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
         'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
         'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
@@ -484,7 +482,9 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorCyan},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorCyan, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorCyan, displayScaling: x4k2Pct},
-        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB010':{dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB011':{dial: 15, display: 15, label: ' ',     color: colorOff},
+        'CB012':{dial: 16, display: 16, label: ' ',     color: colorOff},
         'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
         'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
         'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
@@ -504,7 +504,9 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorBlue},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorBlue, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorBlue, displayScaling: x4k2Pct},
-        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB010':{dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB011':{dial: 15, display: 15, label: ' ',     color: colorOff},
+        'CB012':{dial: 16, display: 16, label: ' ',     color: colorOff},
         'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
         'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
         'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
@@ -524,7 +526,9 @@ const rcpLayouts = {
         743:    {dial: 11, display: 11, label: 'Hue',   color: colorMagenta},
         744:    {dial: 12, display: 12, label: 'Sat',   color: colorMagenta, displayScaling: x4k2Pct},
         745:    {dial: 13, display: 13, label: 'Lum',   color: colorMagenta, displayScaling: x4k2Pct},
-        'CB010': {dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB010':{dial: 14, display: 14, label: ' ',     color: colorOff},
+        'CB011':{dial: 15, display: 15, label: ' ',     color: colorOff},
+        'CB012':{dial: 16, display: 16, label: ' ',     color: colorOff},
         'CB008': {button:  1,     color: colorWhite,    screen: screenMatrixCC},
         'CB001': {button:  2,     color: colorRed,      setter: gvCCSet, parm: 0},
         'CB002': {button:  3,     color: colorYellow,   setter: gvCCSet, parm: 1},
@@ -592,7 +596,7 @@ var f1Lay = {
     'F015':          {button: 15, display: 'NP CAM 12', camera: 12},
     'F016':          {button: 16, display: 'NP CAM 13', camera: 13},
 
-    [gvFstop]:       {dial: 53, display: 53, label: 'F',      color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine
+    [gvFstop]:       {dial: 53, display: 53, label: 'F',      color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine / coarse
     [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite, setScale: 1, setUpScale: 10},    
     [gvSensitivity]: {dial: 55, display: 55, label: 'Sens ',  color: colorWhite, range:true, rangeLow:1, rangeHi:2},            
     [gvNDFilter]:    {dial: 56, display: 56, label: 'ND ',    color: colorWhite, range:true, rangeLow:1, rangeHi:4},
@@ -833,7 +837,16 @@ function onDialFunction(layout, dial, movement)
                         //  RCP
                         //
 
+
+
+
+var rcpCurrentControlLayout = {};
+
 var rcpCurrentLayout = {};
+
+commonLayout.func = function (){
+    console.log('Hello');
+}
 
 
 var rcpDialUpscaleMap = [];               // Store Skaarhoj 'Press' state for each dial (only dials generate press events)
@@ -942,7 +955,7 @@ skaarhojRCP.on('button', (pressed, position) => {
 
 
 
-    Object.entries(layout).forEach(item => {
+    Object.entries(layout).forEach(item => {        // loop through layout to find button
 
         var gvFuncNum = item[0];
         var layEnt = item[1];
@@ -1244,22 +1257,6 @@ function serverInit()
 }
 
 
-// var f1CameraSelect = {
-//     {button: 1,  cameraName: 'NP CAM_1', cameraNum: 1},
-//     {button: 2,  cameraName: 'NP CAM_2', cameraNum: 2},
-//     {button: 3,  cameraName: 'NP CAM_3', cameraNum: 3},
-//     {button: 4,  cameraName: 'NP CAM_4', cameraNum: 4},
-//     {button: 5,  cameraName: 'NP CAM_5', cameraNum: 5},
-//     {button: 6,  cameraName: 'NP CAM_6', cameraNum: 6},
-
-//     {button: 13,  cameraName: 'NP CAM_10', cameraNum: 10},   
-//     {button: 14,  cameraName: 'NP CAM_11i', cameraNum: 11},   
-//     {button: 15,  cameraName: 'NP CAM_12i', cameraNum: 12},   
-//     {button: 16,  cameraName: 'NP CAM_13i', cameraNum: 13},   
-// }
-
-
-
 function resetButtonsNLabels()
 {
     for(i=0;i<f1ButtonMap.length;i++){
@@ -1316,17 +1313,11 @@ function allCamerasPresetLEDs(pressed)
     cameraPresetLEDs(0);   // All cameras Profile ... clear this cameras individual Profile LEDs
 }
 
-// console.log("Unit testing ON!!!!");
-// f1ButtonLive = 1;
-// rcpCurrentLayout = rcpLayouts.screenHome;
 
-// f1DialUpscaleMap[53] = true;
-// onDialFunction(f1Lay, 53, 1);
 
-// console.dir (gvFuncCodeDef);
-// console.dir(f1Lay);
-// console.dir(rcpLayouts);
-// console.dir(commonLayout);
+
+console.dir (rcpCurrentLayout);
+rcpCurrentLayout.func();
 
 
 

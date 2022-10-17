@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "commander": "^9.4.1",
     "xml2js-preserve-spaces": "^0.0.1"
   }
 }

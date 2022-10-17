@@ -155,6 +155,21 @@
 // GV sent <== camera: 8 func: 762 value:1
 
 
+const { program } = require('commander');
+
+program
+  .option('-f1 [ip]')
+  .option('-rcp [ip]');
+
+program.parse(process.argv);
+
+const options = program.opts();
+
+// console.dir(options);
+// console.log(options.F1);
+// console.log(options.Rcp);
+
+
 
         // Skaarhoj constants
         // for HWC#xx=yy mode calls (leds, buttons )
@@ -623,9 +638,17 @@ birchEmitter.on('initialized', () => {
                 //
                 // Skaarhoj init
                 //
+// console.log(options.F1);
+// console.log(options.Rcp);
+
 const Skaarhoj = require('./skaarhoj.js');
-skaarhojF1 = new Skaarhoj('10.1.43.37');
-skaarhojRCP = new Skaarhoj('10.1.45.54');
+// skaarhojF1 = new Skaarhoj('10.1.43.37');
+// skaarhojRcp = new Skaarhoj('10.1.45.54');
+if (options.F1 != undefined)
+    skaarhojF1 = new Skaarhoj(options.F1);
+if (options.Rcp != undefined)
+    skaarhojRcp = new Skaarhoj(options.Rcp);
+
 
 
                 //
@@ -855,13 +878,13 @@ function rcpDialUpscaleMapClear()
 {
     Object.entries(rcpDialUpscaleMap).forEach(item => {  
         if (item[0] != undefined)
-            skaarhojRCP.hwcColor(item[1], 129);     // Clear dial color ring
+            skaarhojRcp.hwcColor(item[1], 129);     // Clear dial color ring
     });
     rcpDialUpscaleMap = [];
 }
 
                 
-skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
+skaarhojRcp.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
 
     var layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'press');
 
@@ -894,18 +917,18 @@ skaarhojRCP.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
 
         if (rcpDialUpscaleMap[pressed] == true){
             rcpDialUpscaleMap[pressed] = false;
-            skaarhojRCP.hwcColor(pressed, layEnt[1].color);
+            skaarhojRcp.hwcColor(pressed, layEnt[1].color);
         }
         else{
             rcpDialUpscaleMap[pressed] = true;
-            skaarhojRCP.hwcColor(pressed, colorAmber);
+            skaarhojRcp.hwcColor(pressed, colorAmber);
         }
     }
 });
 
 
 
-skaarhojRCP.on('dial', (dial, movement) => {
+skaarhojRcp.on('dial', (dial, movement) => {
     onDialFunction (rcpCurrentLayout, dial, movement);
 });
 
@@ -919,7 +942,7 @@ var shiftSoloDepressed = false;
 var shiftAllDepressed = false;
 
 
-skaarhojRCP.on('button', (pressed, position) => {
+skaarhojRcp.on('button', (pressed, position) => {
 
     if (pressed === buttonSoloShift){
         if (position === 'Down'){
@@ -964,7 +987,7 @@ skaarhojRCP.on('button', (pressed, position) => {
 
             if (position === 'Down'){
 
-                skaarhojRCP.hwcMode(pressed, modeWhite);    // Light up the button skaarhojRCP.hwcColor(pressed, colorWhite); 
+                skaarhojRcp.hwcMode(pressed, modeWhite);    // Light up the button skaarhojRcp.hwcColor(pressed, colorWhite); 
 
                 if (layEnt.screen){
                     paintRCP (rcpLayouts[layEnt.screen]);
@@ -1043,65 +1066,65 @@ function paintRCP(layout)
 
         if (layEnt.led){            // Just light up an LED with color (not a display w/label)
             if (cacheValue != undefined)
-                skaarhojRCP.hwcMode(layEnt.led, layEnt[cacheValue]);
+                skaarhojRcp.hwcMode(layEnt.led, layEnt[cacheValue]);
         }
         else if (layEnt.press){            // Just light up an LED with color (not a display w/label)
 
-            console.log(layEnt.press);
-            console.dir(layEnt);
-            console.log(parseInt(cacheValue));
+            // console.log(layEnt.press);
+            // console.dir(layEnt);
+            // console.log(parseInt(cacheValue));
 
             if(parseInt(cacheValue) == layEnt.on){
                 console.log(layEnt.onColor);
-                skaarhojRCP.hwcColor(layEnt.press, layEnt.onColor);
+                skaarhojRcp.hwcColor(layEnt.press, layEnt.onColor);
             }
             else if( cacheValue == layEnt.off){
                 console.log(layEnt.offColor);
-                skaarhojRCP.hwcColor(layEnt.press, layEnt.offColor);
+                skaarhojRcp.hwcColor(layEnt.press, layEnt.offColor);
             }
         }
         else if(layEnt.dial){
             // if(layEnt.toggle != undefined){
             //     if (cacheValue === layEnt.on) 
-            //         skaarhojRCP.hwcColor(layEnt.dial, layEnt.onColor);
+            //         skaarhojRcp.hwcColor(layEnt.dial, layEnt.onColor);
             //     else if (cacheValue === layEnt.off)    
-            //         skaarhojRCP.hwcColor(layEnt.dial, layEnt.offColor);
+            //         skaarhojRcp.hwcColor(layEnt.dial, layEnt.offColor);
             // }
             if (cacheValue == undefined){
                 if (layEnt.label != undefined){
-                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, '-');    // Just a label - no value:)
+                    skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, '-');    // Just a label - no value:)
                 }
             }
             else{
                 if (layEnt.displayScaling){
-                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
+                    skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
                     if (layEnt.display_2 !=undefined)
-                        skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
+                        skaarhojRcp.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
                 }
                 else{
                     if (layEnt.displayAdjust){
-                        skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +(parseInt(cacheValue) +layEnt.displayAdjust) );
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +(parseInt(cacheValue) +layEnt.displayAdjust) );
                     }
                     else{
-                        skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +cacheValue);
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +cacheValue);
                     }
                 }
             } 
             if (layEnt.color){
                 // console.log('calling hwcColor ' +layEnt[1].dial +' ' +layEnt[1].color +' ' +layEnt[1].label);
-                skaarhojRCP.hwcColor(layEnt.dial, layEnt.color);
+                skaarhojRcp.hwcColor(layEnt.dial, layEnt.color);
             }
         }
         else if(layEnt.button){
 
             if (layEnt.label)
-                skaarhojRCP.hwcLabel(layEnt.button, layEnt.label);
+                skaarhojRcp.hwcLabel(layEnt.button, layEnt.label);
 
-            skaarhojRCP.hwcColor(layEnt.button, layEnt.color);
+            skaarhojRcp.hwcColor(layEnt.button, layEnt.color);
         }
     });
 
-    skaarhojRCP.hwcLabel(buttonCamera, f1ButtonMap[f1ButtonLive].camera)
+    skaarhojRcp.hwcLabel(buttonCamera, f1ButtonMap[f1ButtonLive].camera)
 
 }
 
@@ -1143,34 +1166,34 @@ grassValleyEmitter.on('func', (func, camera, value) => {
             }
             else if (layEnt.press != undefined){    // Dial on/off toggle set color
                 if (value == layEnt.on) {
-                    skaarhojRCP.hwcColor(layEnt.press, layEnt.onColor);
+                    skaarhojRcp.hwcColor(layEnt.press, layEnt.onColor);
                 }
                 else if (value == layEnt.off) {   
-                    skaarhojRCP.hwcColor(layEnt.press, layEnt.offColor);
+                    skaarhojRcp.hwcColor(layEnt.press, layEnt.offColor);
                 }
             }
             else if (layEnt.led != undefined){            // LED Indicator
                 if (layEnt[value] != undefined){   // Is there a color corresponding to GV value?
-                    skaarhojRCP.hwcMode(layEnt.led, layEnt[value]);
+                    skaarhojRcp.hwcMode(layEnt.led, layEnt[value]);
                 }
             }
             else{                                       // Not a special Field
                 if (layEnt.displayScaling){
-                    skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +Math.trunc(value *layEnt.displayScaling));
+                    skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +Math.trunc(value *layEnt.displayScaling));
                     if (layEnt.display_2)
-                        skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc(value *layEnt.displayScaling));
+                        skaarhojRcp.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc(value *layEnt.displayScaling));
 
                 }
                 else{
                     if (layEnt.displayAdjust){
-                        skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +(parseInt(value) +layEnt.displayAdjust) );
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +(parseInt(value) +layEnt.displayAdjust) );
                         if (layEnt.display_2)
-                            skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label, +(parseInt(value) +layEnt.displayAdjust) );
+                            skaarhojRcp.hwcLabel(layEnt.display_2, layEnt.label, +(parseInt(value) +layEnt.displayAdjust) );
                     }
                     else{
-                        skaarhojRCP.hwcLabel(layEnt.display, layEnt.label, +value);
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +value);
                         if (layEnt.display_2)
-                            skaarhojRCP.hwcLabel(layEnt.display_2, layEnt.label, +value);
+                            skaarhojRcp.hwcLabel(layEnt.display_2, layEnt.label, +value);
                     }
                 }
             }
@@ -1185,7 +1208,7 @@ function serverInit()
     var button;
     var camera;
 
-    console.dir(birch.sources.length);
+    // console.dir(birch.sources.length);
     
     for(i=0; i<birch.sources.length; i++){
                             // Initial Camera to Button Mapping - Naming driven by Birch
@@ -1286,7 +1309,7 @@ function resetButtonsNLabels()
             if (layEnt[1].color)
                 skaarhojF1.hwcColor(layEnt[1].display, layEnt[1].color);
         });
-        skaarhojRCP.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name);    // Use Shift key's Display area
+        skaarhojRcp.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name);    // Use Shift key's Display area
     }
 }
 
@@ -1316,8 +1339,8 @@ function allCamerasPresetLEDs(pressed)
 
 
 
-console.dir (rcpCurrentLayout);
-rcpCurrentLayout.func();
+// console.dir (rcpCurrentLayout);
+// rcpCurrentLayout.func();
 
 
 

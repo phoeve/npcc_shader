@@ -85,7 +85,7 @@ async function getBirchDestinations() {
 
 
 function init(){
-    console.log('birch.init()');
+    // console.log('birch.init()');
 
     isInitDone = 0;
 

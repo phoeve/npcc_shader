@@ -158,7 +158,7 @@
 const { program } = require('commander');
 
 program
-  .option('-f1 [ip]')
+  .requiredOption('-f1 [ip]')
   .option('-rcp [ip]');
 
 program.parse(process.argv);
@@ -638,16 +638,13 @@ birchEmitter.on('initialized', () => {
                 //
                 // Skaarhoj init
                 //
-// console.log(options.F1);
-// console.log(options.Rcp);
-
 const Skaarhoj = require('./skaarhoj.js');
-// skaarhojF1 = new Skaarhoj('10.1.43.37');
-// skaarhojRcp = new Skaarhoj('10.1.45.54');
+                                            // skaarhojF1 = new Skaarhoj('10.1.43.37');
+                                            // skaarhojRcp = new Skaarhoj('10.1.45.54');
 if (options.F1 != undefined)
-    skaarhojF1 = new Skaarhoj(options.F1);
+    var skaarhojF1 = new Skaarhoj(options.F1);
 if (options.Rcp != undefined)
-    skaarhojRcp = new Skaarhoj(options.Rcp);
+    var skaarhojRcp = new Skaarhoj(options.Rcp);
 
 
 
@@ -856,277 +853,7 @@ function onDialFunction(layout, dial, movement)
         }
     });
 }
-                        //
-                        //  RCP
-                        //
 
-
-
-
-var rcpCurrentControlLayout = {};
-
-var rcpCurrentLayout = {};
-
-commonLayout.func = function (){
-    console.log('Hello');
-}
-
-
-var rcpDialUpscaleMap = [];               // Store Skaarhoj 'Press' state for each dial (only dials generate press events)
-
-function rcpDialUpscaleMapClear()
-{
-    Object.entries(rcpDialUpscaleMap).forEach(item => {  
-        if (item[0] != undefined)
-            skaarhojRcp.hwcColor(item[1], 129);     // Clear dial color ring
-    });
-    rcpDialUpscaleMap = [];
-}
-
-                
-skaarhojRcp.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
-
-    var layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'press');
-
-    if (layEnt == -1){
-        layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'dial');
-        if (layEnt == -1)
-            return;             
-    }
-
-    var setter = layEnt[0];
-
-    if (layEnt[1].toggle){                       // toggle values come from GV and are sent
-
-        var oldValue = grassValueCache[currentCamera()][setter];
-        var newValue;
-
-        if (oldValue == layEnt[1].on){
-            newValue = layEnt[1].off;
-        }
-        else{
-            newValue = layEnt[1].on;
-        }
-
-        grassValley.sendFunctionValue(setter, currentCamera(), false, newValue);   // Send newValue to GV - allow GV camera to send update
-    }
-
-    else if (layEnt[1].setUpScale != undefined){            // UpScale indicating presses
-
-        console.log('rcpUpscale!');
-
-        if (rcpDialUpscaleMap[pressed] == true){
-            rcpDialUpscaleMap[pressed] = false;
-            skaarhojRcp.hwcColor(pressed, layEnt[1].color);
-        }
-        else{
-            rcpDialUpscaleMap[pressed] = true;
-            skaarhojRcp.hwcColor(pressed, colorAmber);
-        }
-    }
-});
-
-
-
-skaarhojRcp.on('dial', (dial, movement) => {
-    onDialFunction (rcpCurrentLayout, dial, movement);
-});
-
-
-
-
-
-
-
-var shiftSoloDepressed = false;
-var shiftAllDepressed = false;
-
-
-skaarhojRcp.on('button', (pressed, position) => {
-
-    if (pressed === buttonSoloShift){
-        if (position === 'Down'){
-            shiftSoloDepressed = true;
-            paintRCP (rcpLayouts[screenShift]);
-            return;
-        }
-        else{
-            shiftSoloDepressed = false;
-            paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
-            return;
-        }
-    }
-
-    if (pressed === buttonAllShift){
-        if (position === 'Down'){
-            shiftAllDepressed = true;
-            paintRCP (rcpLayouts[screenShift]);
-            return;
-        }
-        else{
-            shiftAllDepressed = false;
-            paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
-            return;
-        }
-    }
-
-    var layout;
-    if (shiftSoloDepressed || shiftAllDepressed)
-        layout = rcpLayouts[screenShift];
-    else
-        layout = rcpCurrentLayout;
-
-
-
-    Object.entries(layout).forEach(item => {        // loop through layout to find button
-
-        var gvFuncNum = item[0];
-        var layEnt = item[1];
-
-        if (pressed == layEnt.button){         // Is this currentLayout Button that was pressed?
-
-            if (position === 'Down'){
-
-                skaarhojRcp.hwcMode(pressed, modeWhite);    // Light up the button skaarhojRcp.hwcColor(pressed, colorWhite); 
-
-                if (layEnt.screen){
-                    paintRCP (rcpLayouts[layEnt.screen]);
-                }
-
-                var setter = false;
-
-                if (!isNaN(gvFuncNum)){        // gvFuncNum is numeric So send GV something
-                    setter = gvFuncNum;
-                }
-                if (layEnt.setter){            // layout has a setter So send GV something
-                    setter = layEnt.setter;
-                }
-
-                if (setter){
-                    if (layEnt.range) {
-                        var newValue = parseInt(cacheValue);
-
-                        if (isNaN(newValue)){
-                            newValue = layEnt.rangeLow;
-                        }
-                        else{
-                            var inc = layEnt.rangeInc;
-                            if (inc == undefined)
-                                inc =1;
-
-                            newValue = newValue +inc;
-                        }
-                        
-                        if (newValue > layEnt.rangeHi) // Range of values like 1-4
-                            newValue=layEnt.rangeLow;
-                        else if (newValue < layEnt.rangeLow)
-                            newValue=layEnt.rangeHi;
-
-                        console.log('button range!', 'newValue', newValue, 'layEnt', layEnt);
-                        grassValley.sendFunctionValue(setter, currentCamera(), false, newValue); 
-                    }
-                    else{
-                        if (shiftAllDepressed){
-                            cameraMap.forEach(camera =>{
-                                grassValley.sendFunctionValue(setter, camera.cameraNum, false, layEnt.parm);  
-                            });
-                        }
-                        else{
-                            grassValley.sendFunctionValue(setter, currentCamera(), false, layEnt.parm);  
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-});
-
-        // Let's head to Home screen at program startup
-Object.assign(rcpCurrentLayout, commonLayout, rcpLayouts[screenHome]);  
-
-
-function paintRCP(layout)
-{
-    rcpDialUpscaleMapClear();            // Clear any dials that are in "upScale" mode
-
-    var paintLayout = layout;
-
-    if (layout != rcpLayouts[screenShift]){          // Don't display "common" menu on shift key
-        rcpCurrentLayout = {};
-        Object.assign(rcpCurrentLayout, commonLayout, layout);         // rcpCurrentLayout tells us what is on the RCP excluding Shift.
-        paintLayout = rcpCurrentLayout;
-    }
-
-    Object.entries(paintLayout).forEach(item => {
-
-        var gvFuncNum = item[0];
-        var layEnt = item[1];
-        var cacheValue = grassValueCache[currentCamera()][gvFuncNum];
-
-        if (layEnt.led){            // Just light up an LED with color (not a display w/label)
-            if (cacheValue != undefined)
-                skaarhojRcp.hwcMode(layEnt.led, layEnt[cacheValue]);
-        }
-        else if (layEnt.press){            // Just light up an LED with color (not a display w/label)
-
-            // console.log(layEnt.press);
-            // console.dir(layEnt);
-            // console.log(parseInt(cacheValue));
-
-            if(parseInt(cacheValue) == layEnt.on){
-                console.log(layEnt.onColor);
-                skaarhojRcp.hwcColor(layEnt.press, layEnt.onColor);
-            }
-            else if( cacheValue == layEnt.off){
-                console.log(layEnt.offColor);
-                skaarhojRcp.hwcColor(layEnt.press, layEnt.offColor);
-            }
-        }
-        else if(layEnt.dial){
-            // if(layEnt.toggle != undefined){
-            //     if (cacheValue === layEnt.on) 
-            //         skaarhojRcp.hwcColor(layEnt.dial, layEnt.onColor);
-            //     else if (cacheValue === layEnt.off)    
-            //         skaarhojRcp.hwcColor(layEnt.dial, layEnt.offColor);
-            // }
-            if (cacheValue == undefined){
-                if (layEnt.label != undefined){
-                    skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, '-');    // Just a label - no value:)
-                }
-            }
-            else{
-                if (layEnt.displayScaling){
-                    skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
-                    if (layEnt.display_2 !=undefined)
-                        skaarhojRcp.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
-                }
-                else{
-                    if (layEnt.displayAdjust){
-                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +(parseInt(cacheValue) +layEnt.displayAdjust) );
-                    }
-                    else{
-                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +cacheValue);
-                    }
-                }
-            } 
-            if (layEnt.color){
-                // console.log('calling hwcColor ' +layEnt[1].dial +' ' +layEnt[1].color +' ' +layEnt[1].label);
-                skaarhojRcp.hwcColor(layEnt.dial, layEnt.color);
-            }
-        }
-        else if(layEnt.button){
-
-            if (layEnt.label)
-                skaarhojRcp.hwcLabel(layEnt.button, layEnt.label);
-
-            skaarhojRcp.hwcColor(layEnt.button, layEnt.color);
-        }
-    });
-
-    skaarhojRcp.hwcLabel(buttonCamera, f1ButtonMap[f1ButtonLive].camera)
-
-}
 
 
 
@@ -1158,7 +885,7 @@ grassValleyEmitter.on('func', (func, camera, value) => {
             skaarhojF1.hwcLabel(f1Lay[func].display, f1Lay[func].label +value);
         }
 
-        if (layEnt != undefined){           // RCP - Does this GV function code have an entry on this screen layout?
+        if (skaarhojRcp != undefined && layEnt != undefined){           // RCP - Does this GV function code have an entry on this screen layout?
 
             if (layEnt.screenTrigger != undefined){
                 var newHash = layEnt.screenTrigger +value;
@@ -1309,7 +1036,6 @@ function resetButtonsNLabels()
             if (layEnt[1].color)
                 skaarhojF1.hwcColor(layEnt[1].display, layEnt[1].color);
         });
-        skaarhojRcp.hwcLabel(screenShift, f1ButtonMap[f1ButtonLive].name);    // Use Shift key's Display area
     }
 }
 
@@ -1339,10 +1065,273 @@ function allCamerasPresetLEDs(pressed)
 
 
 
-// console.dir (rcpCurrentLayout);
-// rcpCurrentLayout.func();
+
+
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //  RCP  ????????????????????????????????
+                        //
+
+
+if (skaarhojRcp != undefined){
+
+    var rcpCurrentLayout = {};
+    var rcpDialUpscaleMap = [];               // Store Skaarhoj 'Press' state for each dial (only dials generate press events)
+
+
+    function paintRCP(layout)
+    {
+        rcpDialUpscaleMapClear();            // Clear any dials that are in "upScale" mode
+
+        var paintLayout = layout;
+
+        if (layout != rcpLayouts[screenShift]){          // Don't display "common" menu on shift key
+            rcpCurrentLayout = {};
+            Object.assign(rcpCurrentLayout, commonLayout, layout);         // rcpCurrentLayout tells us what is on the RCP excluding Shift.
+            paintLayout = rcpCurrentLayout;
+        }
+
+        Object.entries(paintLayout).forEach(item => {
+
+            var gvFuncNum = item[0];
+            var layEnt = item[1];
+            var cacheValue = grassValueCache[currentCamera()][gvFuncNum];
+
+            if (layEnt.led){            // Just light up an LED with color (not a display w/label)
+                if (cacheValue != undefined)
+                    skaarhojRcp.hwcMode(layEnt.led, layEnt[cacheValue]);
+            }
+            else if (layEnt.press){            // Just light up an LED with color (not a display w/label)
+
+                // console.log(layEnt.press);
+                // console.dir(layEnt);
+                // console.log(parseInt(cacheValue));
+
+                if(parseInt(cacheValue) == layEnt.on){
+                    console.log(layEnt.onColor);
+                    skaarhojRcp.hwcColor(layEnt.press, layEnt.onColor);
+                }
+                else if( cacheValue == layEnt.off){
+                    console.log(layEnt.offColor);
+                    skaarhojRcp.hwcColor(layEnt.press, layEnt.offColor);
+                }
+            }
+            else if(layEnt.dial){
+                // if(layEnt.toggle != undefined){
+                //     if (cacheValue === layEnt.on) 
+                //         skaarhojRcp.hwcColor(layEnt.dial, layEnt.onColor);
+                //     else if (cacheValue === layEnt.off)    
+                //         skaarhojRcp.hwcColor(layEnt.dial, layEnt.offColor);
+                // }
+                if (cacheValue == undefined){
+                    if (layEnt.label != undefined){
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, '-');    // Just a label - no value:)
+                    }
+                }
+                else{
+                    if (layEnt.displayScaling){
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
+                        if (layEnt.display_2 !=undefined)
+                            skaarhojRcp.hwcLabel(layEnt.display_2, layEnt.label, +Math.trunc( (cacheValue) *layEnt.displayScaling));  //???
+                    }
+                    else{
+                        if (layEnt.displayAdjust){
+                            skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +(parseInt(cacheValue) +layEnt.displayAdjust) );
+                        }
+                        else{
+                            skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, +cacheValue);
+                        }
+                    }
+                } 
+                if (layEnt.color){
+                    // console.log('calling hwcColor ' +layEnt[1].dial +' ' +layEnt[1].color +' ' +layEnt[1].label);
+                    skaarhojRcp.hwcColor(layEnt.dial, layEnt.color);
+                }
+            }
+            else if(layEnt.button){
+
+                if (layEnt.label)
+                    skaarhojRcp.hwcLabel(layEnt.button, layEnt.label);
+
+                skaarhojRcp.hwcColor(layEnt.button, layEnt.color);
+            }
+        });
+
+        skaarhojRcp.hwcLabel(buttonCamera, f1ButtonMap[f1ButtonLive].camera);
+
+    }
+
+
+    function rcpDialUpscaleMapClear()
+    {
+        Object.entries(rcpDialUpscaleMap).forEach(item => {  
+            if (item[0] != undefined)
+                skaarhojRcp.hwcColor(item[1], 129);     // Clear dial color ring
+        });
+        rcpDialUpscaleMap = [];
+    }
+
+                    
+    skaarhojRcp.on('press', (pressed) => {      // Dial press (toggle) logic for RCP
+
+        var layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'press');
+
+        if (layEnt == -1){
+            layEnt = getLayEntByHWC (rcpCurrentLayout, pressed, 'dial');
+            if (layEnt == -1)
+                return;             
+        }
+
+        var setter = layEnt[0];
+
+        if (layEnt[1].toggle){                       // toggle values come from GV and are sent
+
+            var oldValue = grassValueCache[currentCamera()][setter];
+            var newValue;
+
+            if (oldValue == layEnt[1].on){
+                newValue = layEnt[1].off;
+            }
+            else{
+                newValue = layEnt[1].on;
+            }
+
+            grassValley.sendFunctionValue(setter, currentCamera(), false, newValue);   // Send newValue to GV - allow GV camera to send update
+        }
+
+        else if (layEnt[1].setUpScale != undefined){            // UpScale indicating presses
+
+            console.log('rcpUpscale!');
+
+            if (rcpDialUpscaleMap[pressed] == true){
+                rcpDialUpscaleMap[pressed] = false;
+                skaarhojRcp.hwcColor(pressed, layEnt[1].color);
+            }
+            else{
+                rcpDialUpscaleMap[pressed] = true;
+                skaarhojRcp.hwcColor(pressed, colorAmber);
+            }
+        }
+    });
 
 
 
+    skaarhojRcp.on('dial', (dial, movement) => {
+        onDialFunction (rcpCurrentLayout, dial, movement);
+    });
+
+
+
+    var shiftSoloDepressed = false;
+    var shiftAllDepressed = false;
+
+
+    skaarhojRcp.on('button', (pressed, position) => {
+
+        if (pressed === buttonSoloShift){
+            if (position === 'Down'){
+                shiftSoloDepressed = true;
+                paintRCP (rcpLayouts[screenShift]);
+                return;
+            }
+            else{
+                shiftSoloDepressed = false;
+                paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
+                return;
+            }
+        }
+
+        if (pressed === buttonAllShift){
+            if (position === 'Down'){
+                shiftAllDepressed = true;
+                paintRCP (rcpLayouts[screenShift]);
+                return;
+            }
+            else{
+                shiftAllDepressed = false;
+                paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
+                return;
+            }
+        }
+
+        var layout;
+        if (shiftSoloDepressed || shiftAllDepressed)
+            layout = rcpLayouts[screenShift];
+        else
+            layout = rcpCurrentLayout;
+
+
+
+        Object.entries(layout).forEach(item => {        // loop through layout to find button
+
+            var gvFuncNum = item[0];
+            var layEnt = item[1];
+
+            if (pressed == layEnt.button){         // Is this currentLayout Button that was pressed?
+
+                if (position === 'Down'){
+
+                    skaarhojRcp.hwcMode(pressed, modeWhite);    // Light up the button skaarhojRcp.hwcColor(pressed, colorWhite); 
+
+                    if (layEnt.screen){
+                        paintRCP (rcpLayouts[layEnt.screen]);
+                    }
+
+                    var setter = false;
+
+                    if (!isNaN(gvFuncNum)){        // gvFuncNum is numeric So send GV something
+                        setter = gvFuncNum;
+                    }
+                    if (layEnt.setter){            // layout has a setter So send GV something
+                        setter = layEnt.setter;
+                    }
+
+                    if (setter){
+                        if (layEnt.range) {
+                            var newValue = parseInt(cacheValue);
+
+                            if (isNaN(newValue)){
+                                newValue = layEnt.rangeLow;
+                            }
+                            else{
+                                var inc = layEnt.rangeInc;
+                                if (inc == undefined)
+                                    inc =1;
+
+                                newValue = newValue +inc;
+                            }
+                            
+                            if (newValue > layEnt.rangeHi) // Range of values like 1-4
+                                newValue=layEnt.rangeLow;
+                            else if (newValue < layEnt.rangeLow)
+                                newValue=layEnt.rangeHi;
+
+                            console.log('button range!', 'newValue', newValue, 'layEnt', layEnt);
+                            grassValley.sendFunctionValue(setter, currentCamera(), false, newValue); 
+                        }
+                        else{
+                            if (shiftAllDepressed){
+                                cameraMap.forEach(camera =>{
+                                    grassValley.sendFunctionValue(setter, camera.cameraNum, false, layEnt.parm);  
+                                });
+                            }
+                            else{
+                                grassValley.sendFunctionValue(setter, currentCamera(), false, layEnt.parm);  
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+            // Let's head to Home screen at program startup
+    Object.assign(rcpCurrentLayout, commonLayout, rcpLayouts[screenHome]);  
+
+};  // End if (skaarhojRcp != undefined){
 
 

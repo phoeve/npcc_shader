@@ -240,7 +240,7 @@ const gvGainMaster  = 1026;
 const gvGainRed     =  513;
 const gvGainGreen   =  514;
 const gvGainBlue    =  515;
-const gvGammaMaster =  584;
+const gvGammaMaster = 9105;
 const gvGammaRed    =  583;
 const gvGammaGreen  =  586;
 const gvGammaBlue   =  585;
@@ -319,7 +319,7 @@ const commonLayout =
         [gvGain]:     {dial:   31, display: 31, label: 'Gain',        color: colorWhite,              setScale: 1, setUpScale: 10},
         'Solo':       {button: 32, display: 32, label: 'Solo',        color: colorOff}, 
         'All':        {button: 33, display: 33, label: 'All',         color: colorOff}, 
-        'Recall':     {button: 34,display: 34, label: 'Recall',      color: colorOff}, 
+        'Recall':     {button: 34, display: 34, label: '<Shift',      color: colorOff}, 
         [gvTally]:    {led:    30,                  0: modeOff, 1: modeRed},                         // Tally  1=red=colorRed  0=black=colorOff
 
         'CX001': {button:  1,     color: colorOff},     // Turn off small buttons at top of RCP
@@ -339,12 +339,12 @@ const rcpLayouts = {
         'H001':          {button: 17, label: 'Home',               color: colorWhite},      // Light up Menu button
         [gvDtlOnOff]:    {press:   9, toggle:true, on:3, off:1,    onColor: colorAmber, offColor: colorOff},
         [gvDtlLevel]:    {dial:    9, display:  9, label: 'Dtl',   displayScaling: x2562Pct},
-        [gvKneePoint]:   {dial:   10, display: 10, label: 'Knee',  color: colorWhite,    range:true, rangeLow:2, rangeHi:6},
         [gvKneeOnOff]:   {press:  10, toggle:true, on:3, off:1,    onColor: colorAmber, offColor: colorOff},
+        [gvKneePoint]:   {dial:   10, display: 10, label: 'Knee',  color: colorWhite,    range:true, rangeLow:2, rangeHi:6},
         [gvSaturation]:  {dial:   11, display: 11, label: 'Sat',   color: colorWhite,    },
         [gvTemp]:        {dial:   12, display: 12, label: 'Temp',  color: colorWhite,    },
-        [gvSkin]:        {dial:   13, display: 13, label: 'Skin',  setter: gvSkin},
         [gvSkinOnOff]:   {press:  13, toggle:true, on:3, off:1,    onColor: colorAmber, offColor: colorOff},
+        [gvSkin]:        {dial:   13, display: 13, label: 'Skin',  setter: gvSkin},
         [gvSensitivity]: {dial:   14, display: 14, label: 'Sens',  color: colorWhite,    range:true, rangeLow:1, rangeHi:2},
         [gvNDFilter]:    {dial:   15, display: 15, label: 'ND',    color: colorWhite,    range:true, rangeLow:1, rangeHi:4},
         [gvActiveScene]: {dial:   16, display: 16, label: 'Scene', color: colorWhite,    displayAdjust: -1, range:true, rangeLow:2, rangeHi:6, setter: 4098},
@@ -357,7 +357,7 @@ const rcpLayouts = {
         [gvGainRed]:      {dial: 10, display: 10, label: 'R',  color: colorRed,    displayScaling: x2562Pct},
         [gvGainGreen]:    {dial: 11, display: 11, label: 'G',  color: colorGreen,  displayScaling: x2562Pct},
         [gvGainBlue]:     {dial: 12, display: 12, label: 'B',  color: colorBlue,   displayScaling: x2562Pct},
-        [gvGammaMaster]:  {dial: 13, display: 13, label: 'M',  color: colorWhite,  displayScaling: x2562Pct},
+        [gvGammaMaster]:  {dial: 13, display: 13, label: 'M',  color: colorWhite},
         [gvGammaRed]:     {dial: 14, display: 14, label: 'R',  color: colorRed,    displayScaling: x2562Pct},
         [gvGammaGreen]:   {dial: 15, display: 15, label: 'G',  color: colorGreen,  displayScaling: x2562Pct},
         [gvGammaBlue]:    {dial: 16, display: 16, label: 'B',  color: colorBlue,   displayScaling: x2562Pct},
@@ -366,7 +366,8 @@ const rcpLayouts = {
     [screenFlarePed]:             // Flare / PED
     {
         'F001':           {button: 19, color: colorWhite},       // Light up Menu button 
-        [gvFlareOnOff]:   {dial:  9, display:  9, label: 'Flare OnOff',  color: colorWhite},
+        // [gvFlareOnOff]:   {dial:  9, display:  9, label: 'Flare OnOff',  color: colorWhite},
+        [gvFlareOnOff]:   {press: 9, display:  9, label: 'Flare', toggle:true, on:1, off:0,    onColor: colorAmber, offColor: colorOff},
         [gvFlareRed]:     {dial: 10, display: 10, label: 'Flare Red',  color: colorRed,   displayScaling: x2562Pct},
         [gvFlareGreen]:   {dial: 11, display: 11, label: 'Flare Green',  color: colorGreen, displayScaling: x2562Pct},
         [gvFlareBlue]:    {dial: 12, display: 12, label: 'Flare Blue',  color: colorBlue,  displayScaling: x2562Pct},
@@ -888,10 +889,15 @@ grassValleyEmitter.on('func', (func, camera, value) => {
             else if (layEnt.press != undefined){    // Dial on/off toggle set color
                 if (value == layEnt.on) {
                     skaarhojRcp.hwcColor(layEnt.press, layEnt.onColor);
+                    if (layEnt.label != undefined && layEnt.display != undefined)
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, 'On');    
                 }
                 else if (value == layEnt.off) {   
                     skaarhojRcp.hwcColor(layEnt.press, layEnt.offColor);
+                    if (layEnt.label != undefined && layEnt.display != undefined)
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, 'Off');    
                 }
+
             }
             else if (layEnt.led != undefined){            // LED Indicator
                 if (layEnt[value] != undefined){   // Is there a color corresponding to GV value?
@@ -1040,7 +1046,7 @@ function cameraPresetLEDs(pressed)
         skaarhojF1.hwcMode(i, 0);
 
     if (pressed){
-        skaarhojF1.hwcMode(pressed, 4);       //  Green is 3
+        skaarhojF1.hwcMode(pressed, 4);       //  White is 4
         cameraMap[currentCamera()].presetButton = pressed;
     }
 }
@@ -1108,12 +1114,21 @@ if (skaarhojRcp != undefined){
                 // console.log(parseInt(cacheValue));
 
                 if(parseInt(cacheValue) == layEnt.on){
-                    console.log(layEnt.onColor);
                     skaarhojRcp.hwcColor(layEnt.press, layEnt.onColor);
+                    if (layEnt.label != undefined && layEnt.display != undefined)
+                        skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, 'On');    
+
                 }
-                else if( cacheValue == layEnt.off){
-                    console.log(layEnt.offColor);
+                // else if( cacheValue == layEnt.off){
+                else {
                     skaarhojRcp.hwcColor(layEnt.press, layEnt.offColor);
+                    if (layEnt.label != undefined && layEnt.display != undefined){
+                        if (parseInt(cacheValue) == layEnt.off)
+                            skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, 'Off');   
+                        else 
+                            skaarhojRcp.hwcLabel(layEnt.display, layEnt.label, 'Off');  
+                    }
+
                 }
             }
             else if(layEnt.dial){

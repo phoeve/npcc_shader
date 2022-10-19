@@ -165,12 +165,6 @@ program.parse(process.argv);
 
 const options = program.opts();
 
-// console.dir(options);
-// console.log(options.F1);
-// console.log(options.Rcp);
-
-
-
         // Skaarhoj constants
         // for HWC#xx=yy mode calls (leds, buttons )
 const modeOff   = 0;
@@ -1032,7 +1026,8 @@ function resetButtonsNLabels()
     }
     else{        
         Object.entries(f1Lay).forEach(layEnt => { 
-            skaarhojF1.hwcLabel(layEnt[1].display, layEnt[1].label + grassValueCache[currentCamera()][layEnt[0]]);
+            if (grassValueCache[currentCamera()] != undefined)
+                skaarhojF1.hwcLabel(layEnt[1].display, layEnt[1].label + grassValueCache[currentCamera()][layEnt[0]]);
             if (layEnt[1].color)
                 skaarhojF1.hwcColor(layEnt[1].display, layEnt[1].color);
         });
@@ -1098,6 +1093,8 @@ if (skaarhojRcp != undefined){
 
             var gvFuncNum = item[0];
             var layEnt = item[1];
+            if (grassValueCache[currentCamera()] == undefined)
+                return;
             var cacheValue = grassValueCache[currentCamera()][gvFuncNum];
 
             if (layEnt.led){            // Just light up an LED with color (not a display w/label)

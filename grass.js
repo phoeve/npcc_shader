@@ -15,7 +15,7 @@ socketlib = require('net');
 var socket = socketlib.Socket();
 
 const port = 8080;
-const host = '10.1.44.210';
+// const host = '10.1.44.210';
 
 exports.sendFunctionValue = sendFunctionValue;
 
@@ -191,9 +191,9 @@ function subscribe2Camera(camera){
 
 
 // Functions to handle socket events
-function connect() {
-    console.log('Connecting to GrassValley ' + host + ':' + port + '...');
-    socket.connect(port, host);
+function connect(ip) {
+    console.log('Connecting to GrassValley ' + ip + ':' + port + '...');
+    socket.connect(port, ip);
 
     return myEmitter;
 }

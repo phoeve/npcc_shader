@@ -155,15 +155,6 @@
 // GV sent <== camera: 8 func: 762 value:1
 
 
-const { program } = require('commander');
-
-program
-  .requiredOption('-f1 [ip]')
-  .option('-rcp [ip]');
-
-program.parse(process.argv);
-
-const options = program.opts();
 
         // Skaarhoj constants
         // for HWC#xx=yy mode calls (leds, buttons )
@@ -613,17 +604,39 @@ var f1Lay = {
 }
 
 
-                //
-                // Grass Valley Calls
-                //
-grassValley = require('./grass.js');
-grassValleyEmitter = grassValley.connect();
+
 
                 //
-                // Birch calls
+                // ARGV Procerssing
+                //
+
+const { program } = require('commander');
+program
+    .option('-f1, --fusion1Ip [ip]')
+    .option('-f2, --fusion2Ip [ip]')
+    .option('-r,  --rcpIp [ip]')
+    .option('-m,  --monitor [monitorId]')
+    .requiredOption('-g,  --grassValleyIp [grassValleyIp]')
+    .requiredOption('-b,  --birchIp [birchIp]');
+program.parse(process.argv);
+const options = program.opts();
+
+if (options.fusion1Ip == undefined && options.fusion2Ip == undefined && options.rcpIp == undefined){
+    console.log('error: required option -f1, --fusion1Ip [ip] OR -f2, --fusion2Ip [ip] OR -r,  --rcpIp [ip] not specified');
+    process.exit(1);
+}
+
+                //
+                // Grass Valley connect
+                //
+grassValley = require('./grass.js');
+grassValleyEmitter = grassValley.connect(options.grassValleyIp);
+
+                //
+                // Birch init
                 //
 birch = require('./birch.js');
-birchEmitter = birch.init();
+birchEmitter = birch.init(options.birchIp);
 birchEmitter.on('initialized', () => {
     // console.log('birchEmitter.on(initialized)');
     serverInit();
@@ -636,10 +649,14 @@ birchEmitter.on('initialized', () => {
 const Skaarhoj = require('./skaarhoj.js');
                                             // skaarhojF1 = new Skaarhoj('10.1.43.37');
                                             // skaarhojRcp = new Skaarhoj('10.1.45.54');
-if (options.F1 != undefined)
-    var skaarhojF1 = new Skaarhoj(options.F1);
-if (options.Rcp != undefined)
-    var skaarhojRcp = new Skaarhoj(options.Rcp);
+if (options.fusion1Ip != undefined)
+    var skaarhojF1 = new Skaarhoj(options.fusion1Ip);
+
+if (options.rcpIp != undefined)
+    var skaarhojRcp = new Skaarhoj(options.rcpIp);
+
+if (options.fusion2Ip != undefined)
+    var skaarhojF1 = new Skaarhoj(options.fusion2Ip);       // Fusion 1 and 2 run same code for now
 
 
 

@@ -7,6 +7,7 @@ const axios = require('axios');
 exports.take = take;
 exports.init = init;
 
+var host;
 
 var isInitDone=0;
 
@@ -14,7 +15,8 @@ async function getBirchSources() {
   try {
     let response = await axios({
               method: 'get',
-              url: 'http://172.16.3.10:4396/api/sources/',
+              // url: 'http://172.16.3.10:4396/api/sources/',
+              url: 'http://' +host +':4396/api/sources/',
               auth: {
                 username: 'g8vpaQPS',
                 password: '-ePH98SfI0Y6NgBfCLn6U'
@@ -58,7 +60,8 @@ async function getBirchDestinations() {
   try {
     let response = await axios({
               method: 'get',
-              url: 'http://172.16.3.10:4396/api/destinations/',
+              // url: 'http://172.16.3.10:4396/api/destinations/',
+              url: 'http://' +host +':4396/api/destinations/',
               auth: {
                 username: 'g8vpaQPS',
                 password: '-ePH98SfI0Y6NgBfCLn6U'
@@ -84,8 +87,10 @@ async function getBirchDestinations() {
 }
 
 
-function init(){
-    // console.log('birch.init()');
+function init(ip){
+    console.log('birch.init('+ ip +')');
+
+    host = ip;
 
     isInitDone = 0;
 
@@ -104,7 +109,9 @@ function take(source, destination){
 
     axios({
       method: 'post',
-      url: 'http://172.16.3.10:4396/api/take/',
+      // url: 'http://172.16.3.10:4396/api/take/',
+      url: 'http://' +host +':4396/api/take/',
+
       auth: {
         username: 'g8vpaQPS',
         password: '-ePH98SfI0Y6NgBfCLn6U'

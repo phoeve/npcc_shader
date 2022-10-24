@@ -728,7 +728,8 @@ skaarhojF1.on('button', (pressed, position) => {
         grassValley.ocpSetCamera(f1ButtonMap[pressed].camera);
 
             // Send birch request route camera to shader monitor
-        birch.take(cameraMap[f1ButtonMap[pressed].camera].birchObj, birch.destinations[0]);
+        if (options.monitorId != undefined)
+            birch.take(cameraMap[f1ButtonMap[pressed].camera].birchObj, birch.destinations[0]);
 
         grassValley.subscribe2Camera(f1ButtonMap[pressed].camera);        // Subscribe to camera changes in iris, gain, nd, ...
 

@@ -20,6 +20,9 @@ class Skaarhoj extends EventEmitter{
             console.log('skaarhoj connected!');
             self.clear();
             self.socket.write('SleepTimer=0\n');
+            self.socket.write('Webserver=1\n');
+            self.socket.write('WakeUp!\n');
+            self.socket.write('PanelBrightness=6,6\n');     // Make sure LED's don't go dimm on sleep, etc.
             self.emit('connect');
         });
         this.socket.on('end', function () {

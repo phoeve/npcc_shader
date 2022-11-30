@@ -250,62 +250,64 @@ socket.on('data', function(data) {
 
         try {
 
-        parser.parseString(xmlBuf +splitStr, function (err, result) {       // Replace split string
+            parser.parseString(xmlBuf +splitStr, function (err, result) {       // Replace split string
 
-            if (err){
-                console.log('skipping xmlBuf b/c of error: ', err, xmlBuf);
-                return;     // Just skip this xml message
-            }
+                if (err){
+                    console.log('skipping xmlBuf b/c of error: ', err, xmlBuf);
+                    return;     // Just skip this xml message
+                }
 
-            switch (Object.keys(result)[0]){
-                
-                case 'request-response':
-                case 'application-authentication-indication':
-                case 'function-information-indication':
-                    console.log('GV sent <== ', result[Object.keys(result)[0]]['$'].message, ' ', result[Object.keys(result)[0]]['$'].result);
-                    // console.dir(result);
-                    // console.dir(Object.keys(result);
+                switch (Object.keys(result)[0]){
+                    
+                    case 'request-response':
+                    case 'application-authentication-indication':
+                    case 'function-information-indication':
+                        console.log('GV sent <== ', result[Object.keys(result)[0]]['$'].message, ' ', result[Object.keys(result)[0]]['$'].result);
+                        // console.dir(result);
+                        // console.dir(Object.keys(result));
+
+                        break;
+
+                    case 'function-value-indication':
+
+                        // console.log('# of functions: ' +result['function-value-indication'].device[0].function.length)
+
+                        switch(result['function-value-indication'].device[0].function[0]['$'].id){
+
+                            case '1039':        // Iris special processing
+                                var fstop = 
+                                    MapIris2Fstop( parseInt(result['function-value-indication'].device[0].function[0]['value']));
+                                var position = 
+                                    MapIris2FstopPosition( parseInt(result['function-value-indication'].device[0].function[0]['value']));
+                                myEmitter.emit('func', result['function-value-indication'].device[0].function[0]['$'].id,
+                                                        result['function-value-indication'].device[0].name, fstop, position);
+                            break;
+
+                            default:
+                                var val = 
+                                    result['function-value-indication'].device[0].function[0]['value'];
+                                //myEmitter.emit('gain', result['function-value-indication'].device[0].name, gain);
+                                myEmitter.emit('func', result['function-value-indication'].device[0].function[0]['$'].id,
+                                                            result['function-value-indication'].device[0].name, val);
+                            break;
+                        }
 
                     break;
-
-                case 'function-value-indication':
-
-                    // console.log('# of functions: ' +result['function-value-indication'].device[0].function.length)
-
-                    switch(result['function-value-indication'].device[0].function[0]['$'].id){
-
-                        case '1039':        // Iris special processing
-                            var fstop = 
-                                MapIris2Fstop( parseInt(result['function-value-indication'].device[0].function[0]['value']));
-                            var position = 
-                                MapIris2FstopPosition( parseInt(result['function-value-indication'].device[0].function[0]['value']));
-                            myEmitter.emit('func', result['function-value-indication'].device[0].function[0]['$'].id,
-                                                    result['function-value-indication'].device[0].name, fstop, position);
-                        break;
-
-                        default:
-                            var val = 
-                                result['function-value-indication'].device[0].function[0]['value'];
-                            //myEmitter.emit('gain', result['function-value-indication'].device[0].name, gain);
-                            myEmitter.emit('func', result['function-value-indication'].device[0].function[0]['$'].id,
-                                                        result['function-value-indication'].device[0].name, val);
-                        break;
-                    }
-
-                break;
-    
-                default:
-                    console.log('Unknown Message Type ' +Object.keys(result)[0]);
         
-            }
-        
-        });
+                    default:
+                        console.log('Unknown Message Type ' +Object.keys(result)[0]);
+            
+                }
+            
+            });
         }                   // End try
         catch (err) {
           // statements to handle any exceptions
           console.log('vvv parser threw error vvv');    // pass exception object to error handler
           console.dir(err);
           console.log('^^^ parser threw error ^^^');
+          console.log('skipping xmlBuf b/c of error: ', err, xmlBuf);
+          return;     // Just skip this xml message
         }
     });
     

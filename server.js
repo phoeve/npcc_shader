@@ -745,6 +745,8 @@ skaarhojF1.on('button', (pressed, position) => {
     if (f1ButtonMap[pressed]){      // Camera select button pressed ?
 
         f1FollowTally = false;    // No longer following LIVE camera
+        skaarhojF1.hwcMode(followTally, modeOff);
+
 
         f1CameraSelectedButton = pressed;            // save the live button
 
@@ -812,7 +814,8 @@ skaarhojF1.on('button', (pressed, position) => {
                 break;
 
             case followTally:
-                f1FollowTally = true;
+                // f1FollowTally = true;
+                // skaarhojF1.hwcMode(followTally, modeWhite);
                 break;
 
             case rebootF1:            // RESET ALL ... exit()
@@ -836,9 +839,10 @@ function onDialFunction(layout, dial, movement)
 
         var gvFuncNum = item[0];
         var layEnt = item[1];
-        var cacheValue = grassValueCache[currentCamera()][gvFuncNum];
+        var cacheValue = 0;
 
-
+        if (currentCamera())
+            cacheValue = grassValueCache[currentCamera()][gvFuncNum];
 
         if (dial === layEnt.dial){         // Is the Dial that was turned?
 
@@ -909,6 +913,9 @@ grassValleyEmitter.on('func', (func, camera, value) => {
 
 
     if (func == gvTally){           // GV sent tally change
+        if (f1FollowTally){
+            f1CameraSelectedButton = cameraMap[camera].button;
+        }
         if (value == 1){
             console.log('modeRed');
             skaarhojF1.hwcMode(cameraMap[camera].button, modeRed);
@@ -1085,7 +1092,7 @@ function resetButtonsNLabels()
     skaarhojF1.hwcLabel(25, 'Preset ALL Cams');
     skaarhojF1.hwcLabel(rebootF1, 'Reset Panels');            // Force program to exit
 
-    skaarhojF1.hwcLabel(followTally, 'Follow Tally');            // Follow Live tally
+    // skaarhojF1.hwcLabel(followTally, 'Follow Tally');            // Follow Live tally
 
     // if (f1FollowTally){
     //     console.log('modeWhite');

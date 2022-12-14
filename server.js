@@ -727,9 +727,7 @@ function switchCamera()
     grassValley.subscribe2Camera(f1ButtonMap[f1CameraSelectedButton].camera);        // Subscribe to camera changes in iris, gain, nd, ...
 
         // Set button colors   red=2, green=3
-    if (cameraMap[gvLiveCamera].button != f1CameraSelectedButton)
-        skaarhojF1.hwcMode(f1CameraSelectedButton, modeWhite);          // set "pushed" to white
-    skaarhojF1.hwcMode(cameraMap[gvLiveCamera].button, modeRed);          // set Live Camera to RED
+    skaarhojF1.hwcMode(f1CameraSelectedButton, modeWhite);          // set "pushed" to white
 
     paintRCP(rcpCurrentLayout);
 
@@ -896,7 +894,6 @@ var f1ButtonMap=[];     // Globals
 var f1CameraSelectedButton = 0;
 var cameraMap=[];
 var grassValueCache=[];
-var gvLiveCamera=0;
 
 function currentCamera()
 {
@@ -911,29 +908,16 @@ grassValleyEmitter.on('func', (func, camera, value) => {
     if (grassValueCache[camera] == undefined)
         grassValueCache[camera] = [];
 
+    grassValueCache[camera][func] = value;          // Save incoming GV values by camera/function code
+
 
     if (func == gvTally){           // GV sent tally change
-        if (f1FollowTally){
-            f1CameraSelectedButton = cameraMap[camera].button;
-        }
-        if (value == 1){
-            console.log('modeRed');
-            skaarhojF1.hwcMode(cameraMap[camera].button, modeRed);
-            gvLiveCamera = camera;
-        } 
-        else if (value == 0){
-                if (f1CameraSelectedButton && f1ButtonMap[f1CameraSelectedButton].camera == camera){
-                    console.log('modeWhite');
-                    skaarhojF1.hwcMode(cameraMap[camera].button, modeWhite);
-                }
-                else{
-                    console.log('modeOff');
-                    skaarhojF1.hwcMode(cameraMap[camera].button, modeOff); 
-                }
-        }  
+        if (value == 1)
+            skaarhojF1.hwcMode(cameraMap[camera].button+6, modeRed);
+        else
+            skaarhojF1.hwcMode(cameraMap[camera].button+6, modeOff);
     }
 
-    grassValueCache[camera][func] = value;          // Save incoming GV values by camera/function code
 
     layEnt = rcpCurrentLayout[func];
 
@@ -1078,7 +1062,7 @@ function resetButtonsNLabels()
     for(i=0;i<f1ButtonMap.length;i++){
         if(f1ButtonMap[i]){
             skaarhojF1.hwcMode(i, modeOff);      // set all to off
-            skaarhojF1.hwcMode(i+6, modeOff);      // set flags to off
+            // skaarhojF1.hwcMode(i+6, modeOff);      // set flags to off
             skaarhojF1.hwcLabel(i, f1ButtonMap[i].camera);
         }
     }

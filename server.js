@@ -1,159 +1,3 @@
-// 
- // 4K camera diff detail
-
- // Camera # instead of name
-
-
-
-
-
-        // Color width, hue, and saturation   4 dials for cc
-
-// GV sent <== camera: 10 func: 745 value:2048
-// hwcLabel()HWCt#10=|||PHASE ||2048||||||||||||
-
-// GV sent <== camera: 10 func: 1240 value:0
-// GV sent <== camera: 10 func: 1242 value:4
-// GV sent <== camera: 10 func: 741 value:169
-// GV sent <== camera: 10 func: 742 value:67
-// GV sent <== camera: 10 func: 744 value:2168
-// hwcLabel()HWCt#9=|||SAT ||52||||||||||||
-
-// GV sent <== camera: 10 func: 1240 value:1
-// GV sent <== camera: 10 func: 1242 value:7
-// GV sent <== camera: 10 func: 741 value:236
-// GV sent <== camera: 10 func: 744 value:2128
-// hwcLabel()HWCt#9=|||SAT ||51||||||||||||
-
-// GV sent <== camera: 10 func: 1240 value:2
-// GV sent <== camera: 10 func: 1242 value:10
-// GV sent <== camera: 10 func: 741 value:292
-// GV sent <== camera: 10 func: 742 value:44
-// GV sent <== camera: 10 func: 744 value:2248
-// hwcLabel()HWCt#9=|||SAT ||54||||||||||||
-
-// GV sent <== camera: 10 func: 1240 value:3
-// GV sent <== camera: 10 func: 1242 value:13
-// GV sent <== camera: 10 func: 741 value:348
-// GV sent <== camera: 10 func: 742 value:67
-// GV sent <== camera: 10 func: 744 value:2288
-// hwcLabel()HWCt#9=|||SAT ||55||||||||||||
-
-
-
-
-
-        // Detail
-
-// GV sent <== camera: 1 func: 8377 value:1   <<<<<<<<   on/OFf
-// GV sent <== camera: 1 func: 8833 value:7
-// GV sent <== camera: 1 func: 8378 value:104      // Detail Amount !!!!
-// GV sent <== camera: 1 func: 8379 value:26
-// GV sent <== camera: 1 func: 8380 value:129
-// GV sent <== camera: 1 func: 8381 value:129
-// GV sent <== camera: 1 func: 8382 value:129
-// GV sent <== camera: 1 func: 8835 value:1
-// GV sent <== camera: 1 func: 8834 value:129
-
-
-// GV sent <== camera: 1 func: 8377 value:3   <<<<<<<
-// GV sent <== camera: 1 func: 8833 value:7
-// GV sent <== camera: 1 func: 8378 value:104     // Detail Amount
-// GV sent <== camera: 1 func: 8379 value:26
-// GV sent <== camera: 1 func: 8380 value:129
-// GV sent <== camera: 1 func: 8381 value:129
-// GV sent <== camera: 1 func: 8382 value:129
-// GV sent <== camera: 1 func: 8835 value:1
-// GV sent <== camera: 1 func: 8834 value:129
-
-
-
-// // Knee off
-
-// GV sent <== camera: 2 func: 1027 value:1   <<<<
-// GV sent <== camera: 2 func: 654 value:0   Knee point
-// GV sent <== camera: 2 func: 541 value:0   Knee slope
-
-
-
-// // Knee On
-
-// GV sent <== camera: 2 func: 1027 value:3    <<<<<<
-// GV sent <== camera: 2 func: 654 value:0
-// GV sent <== camera: 2 func: 541 value:0
-
-
-
-// Detail over Skin and Knee   press and then amount
-
-
-// Skin Detail
-
-// GV sent <== camera: 8 func: 1025 value:2   On
-// GV sent <== camera: 8 func: 762 value:0
-// GV sent <== camera: 8 func: 775 value:0
-// GV sent <== camera: 8 func: 525 value:75
-// GV sent <== camera: 8 func: 526 value:103
-// GV sent <== camera: 8 func: 527 value:96
-// GV sent <== camera: 8 func: 528 value:16
-// GV sent <== camera: 8 func: 8192 value:undefined
-// GV sent <== camera: 8 func: 776 value:0
-// hwcLabel()HWCt#10=|||Skin ||0||||||||||||
-
-// GV sent <== camera: 8 func: 8325 value:1
-
-
-
-// GV sent <== camera: 8 func: 1025 value:1  Off
-// GV sent <== camera: 8 func: 762 value:0
-// GV sent <== camera: 8 func: 775 value:0
-// GV sent <== camera: 8 func: 525 value:75
-// GV sent <== camera: 8 func: 526 value:103
-// GV sent <== camera: 8 func: 527 value:96
-// GV sent <== camera: 8 func: 528 value:16
-// GV sent <== camera: 8 func: 8192 value:undefined
-// GV sent <== camera: 8 func: 776 value:0
-// hwcLabel()HWCt#10=|||Skin ||0||||||||||||
-
-// GV sent <== camera: 8 func: 8325 value:0
-
-
-
-
-// Skin Detail**********************
-
-// GV sent <== camera: 8 func: 1025 value:1
-// GV sent <== camera: 8 func: 762 value:5
-// GV sent <== camera: 8 func: 775 value:0
-// GV sent <== camera: 8 func: 525 value:75
-// GV sent <== camera: 8 func: 526 value:103
-// GV sent <== camera: 8 func: 527 value:96
-// GV sent <== camera: 8 func: 528 value:16
-// GV sent <== camera: 8 func: 8192 value:undefined
-// GV sent <== camera: 8 func: 776 value:0
-// GV sent <== camera: 8 func: 8325 value:0
-
-
-
-
-// GV sent <== camera: 8 func: 1025 value:2
-// GV sent <== camera: 8 func: 762 value:5
-// GV sent <== camera: 8 func: 775 value:0
-// GV sent <== camera: 8 func: 525 value:75
-// GV sent <== camera: 8 func: 526 value:103
-// GV sent <== camera: 8 func: 527 value:96
-// GV sent <== camera: 8 func: 528 value:16
-// GV sent <== camera: 8 func: 8192 value:undefined
-// GV sent <== camera: 8 func: 776 value:0
-// GV sent <== camera: 8 func: 8325 value:1
-
-
-
-// GV sent <== camera: 8 func: 762 value:4
-// GV sent <== camera: 8 func: 762 value:3
-// GV sent <== camera: 8 func: 762 value:2
-// GV sent <== camera: 8 func: 762 value:1
-
 
 
         // Skaarhoj constants
@@ -272,21 +116,6 @@ const gvCCSat       =   744;
 const gvCCLum       =   745;
 
 
-                // GV Function Code Excepions Table    assumed default -> "functionCode: {setter: functionCode},"
-
-// const gvFuncCodeDef = {   
-//     [gvFlareOnOff]:   {toggle:true, on:1, off:0},
-//     [gvDtlOnOff]:     {toggle:true, on:3, off:1},
-//     [gvSkinOnOff]:    {toggle:true, on:2, off:1},
-//     [gvKneeOnOff]:    {toggle:true, on:3, off:1},  
-
-//     [gvKneePoint]:    {range:true, rangeLow:2, rangeHi:6},
-//     [gvKneeSlope]:    {range:true, rangeLow:2, rangeHi:6},
-//     [gvSensitivity]:  {range:true, rangeLow:1, rangeHi:2},
-//     [gvNDFilter]:     {range:true, rangeLow:1, rangeHi:4},
-//     [gvActiveScene]:  {range:true, rangeLow:2, rangeHi:6},
-//     [gvHdrStd]:       {range:true, rangeLow:0, rangeHi:3},
-// }
 
 
 const x2562Pct = 100/255;           //  Scaling factor for 0-255  => 0-100%
@@ -584,18 +413,10 @@ const rcpLayouts = {
     },
 };
 
-var f1Lay = {
-    'F001':          {button: 1, display: 'NP CAM 1', camera: 1},
-    'F002':          {button: 2, display: 'NP CAM 2', camera: 2},
-    'F003':          {button: 3, display: 'NP CAM 3', camera: 3},
-    'F004':          {button: 4, display: 'NP CAM 4', camera: 4},
-    'F005':          {button: 5, display: 'NP CAM 5', camera: 5},
-    'F006':          {button: 6, display: 'NP CAM 6', camera: 6},
+const f1Layout = {
 
-    'F013':          {button: 13, display: 'NP CAM 10', camera: 10},
-    'F014':          {button: 14, display: 'NP CAM 11', camera: 11},
-    'F015':          {button: 15, display: 'NP CAM 12', camera: 12},
-    'F016':          {button: 16, display: 'NP CAM 13', camera: 13},
+    'F017':          {button: 18, display: 'Reset Panel(s)'},
+    'F018':          {button: 25, display: 'Preset ALL Cams'},
 
     [gvFstop]:       {dial: 53, display: 53, label: 'F',      color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine / coarse
     [gvGain]:        {dial: 54, display: 54, label: 'Gain ',  color: colorWhite, setScale: 1, setUpScale: 10},    
@@ -603,8 +424,27 @@ var f1Lay = {
     [gvNDFilter]:    {dial: 56, display: 56, label: 'ND ',    color: colorWhite, range:true, rangeLow:1, rangeHi:4},
 }
 
+const f2Layout = {
 
 
+    'F017':          {button: 18, label: 'Reset Panel(s)'},
+    'F018':          {button: 25, label: 'ALL'},
+    'F030':          {button: 26, label: 'Preset 1'},
+    'F031':          {button: 27, label: 'Preset 2'},
+    'F032':          {button: 28, label: 'Preset 3'},
+    'F033':          {button: 29, label: 'Preset 4'},
+
+
+    [gvFstop]:       {dial: 37, display: 37, label: 'F',      color: colorWhite, setter: gvIris, setScale: 10, setUpScale: 100},      // Iris fine / coarse
+    [gvGain]:        {dial: 38, display: 38, label: 'Gain ',  color: colorWhite, setScale: 1, setUpScale: 10},    
+    [gvSensitivity]: {dial: 39, display: 39, label: 'Sens ',  color: colorWhite, range:true, rangeLow:1, rangeHi:2},            
+    [gvNDFilter]:    {dial: 40, display: 40, label: 'ND ',    color: colorWhite, range:true, rangeLow:1, rangeHi:4},
+}
+
+
+const recallSinglePresetF1 = 49;
+const recallAllPresetF1 = 28;
+const rebootF1 = 18;
 
                 //
                 // ARGV Procerssing
@@ -631,6 +471,10 @@ if (options.fusion1Ip == undefined && options.fusion2Ip == undefined && options.
                 //
 grassValley = require('./grass.js');
 grassValleyEmitter = grassValley.connect(options.grassValleyIp);
+grassValley.cameraMap = [];
+grassValley.cameraCache=[];
+
+
 
                 //
                 // Birch init
@@ -640,6 +484,15 @@ birchEmitter = birch.init(options.birchIp);
 birchEmitter.on('initialized', () => {
     // console.log('birchEmitter.on(initialized)');
     serverInit();
+
+    birch.destinations.forEach (obj => {        
+        if (options.monitorId == obj.name)
+            birch.myMonitor = obj;    // Save the object that refers to monitor from command line.
+    });
+
+    if (birch.myMonitor == undefined){
+        console.log('*** Monitor NOT found: ', options.monitorId )
+    }
 });
 
 
@@ -647,32 +500,36 @@ birchEmitter.on('initialized', () => {
                 // Skaarhoj init
                 //
 const Skaarhoj = require('./skaarhoj.js');
-                                            // skaarhojF1 = new Skaarhoj('10.1.43.37');
+
+                                            // skaarhojFusion = new Skaarhoj('10.1.43.37');
                                             // skaarhojRcp = new Skaarhoj('10.1.45.54');
-if (options.fusion1Ip != undefined)
-    var skaarhojF1 = new Skaarhoj(options.fusion1Ip);
+if (options.fusion1Ip != undefined){
+    var skaarhojFusion = new Skaarhoj(options.fusion1Ip);
+    skaarhojFusion.panelVersion = 1;
+    skaarhojFusion.panelLayout = f1Layout;
+}
 
-if (options.rcpIp != undefined)
+if (options.rcpIp != undefined){
     var skaarhojRcp = new Skaarhoj(options.rcpIp);
+    skaarhojRcp.shiftSoloDepressed = false;
+    skaarhojRcp.shiftAllDepressed = false;
+}
 
-if (options.fusion2Ip != undefined)
-    var skaarhojF1 = new Skaarhoj(options.fusion2Ip);       // Fusion 1 and 2 run same code for now
+if (options.fusion2Ip != undefined){
+    var skaarhojFusion = new Skaarhoj(options.fusion2Ip);       // Fusion 1 and 2 run same code for now
+    skaarhojFusion.panelVersion = 2;
+    skaarhojFusion.panelLayout = f2Layout;
+}
 
+if (skaarhojFusion != undefined){
+    skaarhojFusion.on('dial', (dial, movement) => {
+        onDialFunction (skaarhojFusion.panelLayout, dial, movement);
+    });
 
-
-                //
-                //  Fusion 1
-                //
-
-skaarhojF1.on('dial', (dial, movement) => {
-    onDialFunction (f1Lay, dial, movement);
-});
-
-const recallSinglePresetF1 = 49;
-const recallAllPresetF1 = 28;
-const rebootF1 = 18;
-const followTally = 17;
-
+    skaarhojFusion.panelDialUpscaleMap = [];
+    skaarhojFusion.fusionButtonMap = [];
+    skaarhojFusion.fusionCamSelectButton = 0;
+}
 
 function getLayEntByHWC (layout, pressed, hwc)
 {
@@ -689,139 +546,144 @@ function getLayEntByHWC (layout, pressed, hwc)
     return layEnt;
 }
 
-var f1DialUpscaleMap = [];                   // Dial press (toggle) logic for Fusion 1      
-skaarhojF1.on('press', (pressed) => {
 
-    var layEnt = getLayEntByHWC (f1Lay, pressed, 'dial');
+skaarhojFusion.on('press', (pressed) => {           // "pressed" verb ONLY pertains to dials!
+
+    var layEnt = getLayEntByHWC (skaarhojFusion.panelLayout, pressed, 'dial');
 
     if (layEnt == -1)
         return;             // Dial not found
 
-    if (layEnt[1].setUpScale != undefined){ // UpScale Press !!!!
-        if (f1DialUpscaleMap[pressed] == true ){
-            f1DialUpscaleMap[pressed] = false;
-            skaarhojF1.hwcColor(pressed, layEnt[1].color);
+    if (layEnt[1].setUpScale != undefined){ // UpScale Press !!!!  Amber!
+        if (skaarhojFusion.panelDialUpscaleMap[pressed] == true ){
+            skaarhojFusion.panelDialUpscaleMap[pressed] = false;
+            skaarhojFusion.hwcColor(pressed, layEnt[1].color);
         }
         else{
-            f1DialUpscaleMap[pressed] = true;
-            skaarhojF1.hwcColor(pressed, colorAmber);
+            skaarhojFusion.panelDialUpscaleMap[pressed] = true;
+            skaarhojFusion.hwcColor(pressed, colorAmber);
         }
     }
 });
 
 
-var f1FollowTally = false;
 
 function switchCamera()
 {
         // Send GV OCP camera name to shade
-        // console.log('GV OCP ' +f1ButtonMap[pressed].camera);
-    grassValley.ocpSetCamera(f1ButtonMap[f1CameraSelectedButton].camera);
+        // console.log('GV OCP ' +fusionButtonMap[pressed].camera);
+    grassValley.ocpSetCamera(skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera);
 
         // Send birch request route camera to shader monitor
-    if (options.monitorId != undefined){
-        // console.log('birch.take(', cameraMap[f1ButtonMap[f1CameraSelectedButton].camera].birchObj, ', ', birch.destinations[0]);
-        birch.take(cameraMap[f1ButtonMap[f1CameraSelectedButton].camera].birchObj, birch.destinations[0]);
+    if (birch.myMonitor != undefined){
+        birch.take(grassValley.cameraMap[skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera].birchObj, birch.myMonitor);
     }
 
-    grassValley.subscribe2Camera(f1ButtonMap[f1CameraSelectedButton].camera);        // Subscribe to camera changes in iris, gain, nd, ...
+    grassValley.subscribe2Camera(skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera);        // Subscribe to camera changes in iris, gain, nd, ...
 
         // Set button colors   red=2, green=3
-    skaarhojF1.hwcMode(f1CameraSelectedButton, modeWhite);          // set "pushed" to white
-
-    paintRCP(rcpCurrentLayout);
+    skaarhojFusion.hwcMode(skaarhojFusion.fusionCamSelectButton, modeWhite);          // set "pushed" to white
+    
+    if (skaarhojRcp != undefined)
+        paintRCP(rcpCurrentLayout);
 
 
 }
 
-skaarhojF1.on('button', (pressed, position) => {
-
-    if (position == 'Up'){          // Ignore button Up's on Fusion One
-        return;                 
-    }
-
-    if (f1ButtonMap[pressed]){      // Camera select button pressed ?
-
-        f1FollowTally = false;    // No longer following LIVE camera
-        skaarhojF1.hwcMode(followTally, modeOff);
+skaarhojFusion.on('button', (pressed, position) => {
 
 
-        f1CameraSelectedButton = pressed;            // save the live button
+            // skaarhojFusion.fusionCamSelectButton =1;
+            // paintFusion(); 
 
-        resetButtonsNLabels(); 
+
+    if (skaarhojFusion.fusionButtonMap[pressed]){      // Camera select button pressed ?
+
+        if (position == 'Up'){          // Ignore button Up's on Fusion One
+            return;                 
+        }
+
+        skaarhojFusion.fusionCamSelectButton = pressed;            // save the live button
+
+        paintFusion(); 
 
         switchCamera();
 
     }
     else
     {
-        switch (pressed){          
-                                // Recall Single Camera Preset
-            case recallSinglePresetF1:
-                if (f1CameraSelectedButton){
-                    grassValley.sendPresetRecall(currentCamera(), 2);      // 2 => File 1
-                    cameraPresetLEDs(pressed);
-                }
-                break;
-            case recallSinglePresetF1 +1:
-                if (f1CameraSelectedButton){
-                    grassValley.sendPresetRecall(currentCamera(), 3);      // 3 => File 2
-                    cameraPresetLEDs(pressed);
-                }
-                break;
-            case recallSinglePresetF1 +2:
-                if (f1CameraSelectedButton){
-                    grassValley.sendPresetRecall(currentCamera(), 4);      // 4 => File 3
-                    cameraPresetLEDs(pressed);
-                }
-                break;
-            case recallSinglePresetF1 +3:
-                if (f1CameraSelectedButton){
-                    grassValley.sendPresetRecall(currentCamera(), 5);      // 5 => File 4
-                    cameraPresetLEDs(pressed);
-                }
-                break;
-                                // Recall All CamerasPreset
-            case recallAllPresetF1:
-                cameraMap.forEach(function(obj){
-                    grassValley.sendPresetRecall(obj.cameraNum, 2);   // 2 => File 1
-                    obj.presetButton = 0;                           // Clear the camera's individual Preset
-                });
-                allCamerasPresetLEDs(pressed)
-                break;
-            case recallAllPresetF1 +1:
-                cameraMap.forEach(function(obj){
-                    grassValley.sendPresetRecall(obj.cameraNum, 3);   // 3 => File 2
-                    obj.presetButton = 0;
-                });
-                allCamerasPresetLEDs(pressed)
-                break;
-            case recallAllPresetF1 +2:
-                cameraMap.forEach(function(obj){
-                    grassValley.sendPresetRecall(obj.cameraNum, 4);   // 4 => File 3
-                    obj.presetButton = 0;
-                });
-                allCamerasPresetLEDs(pressed)
-                break;
-            case recallAllPresetF1 +3:
-                cameraMap.forEach(function(obj){
-                    grassValley.sendPresetRecall(obj.cameraNum, 5);   // 5 => File 4
-                    obj.presetButton = 0;
-                });
-                allCamerasPresetLEDs(pressed)
-                break;
+        if (skaarhojFusion.panelVersion == 1){
 
-            case followTally:
-                // f1FollowTally = true;
-                // skaarhojF1.hwcMode(followTally, modeWhite);
-                break;
+            if (position == 'Up'){          // Ignore button Up's on Fusion One
+                return;                 
+            }
 
-            case rebootF1:            // RESET ALL ... exit()
-                process.exit(1);    // program exit will cause docker to restart this
-                break;
+            switch (pressed){          
+                                    // Recall Single Camera Preset
+                case recallSinglePresetF1:
+                case recallSinglePresetF1 +1:
+                case recallSinglePresetF1 +2:
+                case recallSinglePresetF1 +3:
 
-            default:
-                console.log('Unmapped button pressed: ' +pressed);
+                    if (skaarhojFusion.fusionCamSelectButton){
+                        grassValley.sendPresetRecall(currentCamera(), pressed -recallSinglePresetF1 +2);      // 2 => File 1
+                        cameraPresetLEDs(pressed);
+                    }
+                    break;
+                                    // Recall All CamerasPreset
+                case recallAllPresetF1:
+                case recallAllPresetF1 +1:
+                case recallAllPresetF1 +2:
+                case recallAllPresetF1 +3:
+
+                    grassValley.cameraMap.forEach(function(obj){
+                        grassValley.sendPresetRecall(obj.cameraNum, pressed -recallAllPresetF1 +2);   // 2 => File 1
+                        obj.presetButton = 0;                           // Clear the camera's individual Preset
+                    });
+                    allCamerasPresetLEDs(pressed)
+                    break;
+
+                case rebootF1:            // RESET ALL ... exit()
+                    process.exit(1);    // program exit will cause docker to restart this
+                    break;
+
+                default:
+                    console.log('Unmapped button pressed: ' +pressed);
+            }
+        }
+        else {          // skaarhojFusion.panelVersion != 1  ==> Version 2 !
+            
+            switch (pressed){
+
+                case 25:
+                    if (position === 'Down'){
+                        skaarhojFusion.shiftAllDepressed = true;
+                        skaarhojFusion.hwcMode(pressed,modeWhite);
+                    }
+                    else{
+                        skaarhojFusion.shiftAllDepressed = false;
+                        skaarhojFusion.hwcMode(pressed,modeOff);
+                    }
+                    break;
+
+                case 26:
+                case 27:
+                case 28:
+                case 29:
+                    break;
+                    if (skaarhojFusion.shiftAllDepressed){
+                        grassValley.cameraMap.forEach(function(obj){
+                            grassValley.sendPresetRecall(obj.cameraNum, 26 -pressed +2);   // 2 => File 1
+                        });
+                    }
+                    else{
+                        grassValley.sendPresetRecall(currentCamera(), 26 -pressed +2);      // 2 => File 1
+                    }
+                    break;
+                
+                default:
+                    console.log('Unmapped button pressed: ' +pressed);
+            }
         }
     }
 });
@@ -830,7 +692,7 @@ skaarhojF1.on('button', (pressed, position) => {
 function onDialFunction(layout, dial, movement)
 {
 
-    if (!f1CameraSelectedButton)    // No camera selected ?
+    if (!skaarhojFusion.fusionCamSelectButton)    // No camera selected ?
         return;
 
     Object.entries(layout).forEach(item => {  // Loop through currentLayout looking for this dial #
@@ -840,7 +702,7 @@ function onDialFunction(layout, dial, movement)
         var cacheValue = 0;
 
         if (currentCamera())
-            cacheValue = grassValueCache[currentCamera()][gvFuncNum];
+            cacheValue = grassValley.cameraCache[currentCamera()][gvFuncNum];
 
         if (dial === layEnt.dial){         // Is the Dial that was turned?
 
@@ -849,7 +711,7 @@ function onDialFunction(layout, dial, movement)
                 var setter = layEnt.setter;
 
             mult = 1;                   // default to "no" multiplier                                
-            if ( ((layout === f1Lay && f1DialUpscaleMap[dial]) || (layout != f1Lay && rcpDialUpscaleMap[dial]))  && layEnt.setUpScale){   // If operator pushes dial while turning - setUpScale!
+            if ( ((layout === skaarhojFusion.panelLayout && skaarhojFusion.panelDialUpscaleMap[dial]) || (layout != skaarhojFusion.panelLayout && rcpDialUpscaleMap[dial]))  && layEnt.setUpScale){   // If operator pushes dial while turning - setUpScale!
                 if (layEnt.setUpScale)
                     mult = layEnt.setUpScale;
             }
@@ -888,16 +750,9 @@ function onDialFunction(layout, dial, movement)
 }
 
 
-
-
-var f1ButtonMap=[];     // Globals
-var f1CameraSelectedButton = 0;
-var cameraMap=[];
-var grassValueCache=[];
-
 function currentCamera()
 {
-    return f1ButtonMap[f1CameraSelectedButton].camera;
+    return skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera;
 }
 
 
@@ -905,27 +760,28 @@ grassValleyEmitter.on('func', (func, camera, value) => {
     if (func == gvTally)
         console.log('GV sent <== camera: ' +camera +' func: ' +func + ' value:' +value);
 
-    if (grassValueCache[camera] == undefined)
-        grassValueCache[camera] = [];
+    if (grassValley.cameraCache[camera] == undefined)
+        grassValley.cameraCache[camera] = [];
 
-    grassValueCache[camera][func] = value;          // Save incoming GV values by camera/function code
+    grassValley.cameraCache[camera][func] = value;          // Save incoming GV values by camera/function code
 
 
     if (func == gvTally){           // GV sent tally change
         if (value == 1)
-            skaarhojF1.hwcMode(cameraMap[camera].button+6, modeRed);
+            skaarhojFusion.hwcMode(grassValley.cameraMap[camera].button+6, modeRed);
         else
-            skaarhojF1.hwcMode(cameraMap[camera].button+6, modeOff);
+            skaarhojFusion.hwcMode(grassValley.cameraMap[camera].button+6, modeOff);
     }
 
 
-    layEnt = rcpCurrentLayout[func];
+    if (skaarhojRcp != undefined)
+        layEnt = rcpCurrentLayout[func];
 
-    if (f1CameraSelectedButton && camera == currentCamera()){     // If this pertains to the "live" camera ...
+    if (skaarhojFusion.fusionCamSelectButton && camera == currentCamera()){     // If this pertains to the "live" camera ...
 
-        // console.log ('grassValleyEmitter.on', 'func', func, 'f1Lay', f1Lay);
-        if (f1Lay[func] != undefined){           // Update the Fusion 1 panel if this function is defined there
-            skaarhojF1.hwcLabel(f1Lay[func].display, f1Lay[func].label +value);
+        // console.log ('grassValleyEmitter.on', 'func', func, 'skaarhojFusion.panelLayout', skaarhojFusion.panelLayout);
+        if (skaarhojFusion.panelLayout[func] != undefined){           // Update the Fusion 1 panel if this function is defined there
+            skaarhojFusion.hwcLabel(skaarhojFusion.panelLayout[func].display, skaarhojFusion.panelLayout[func].label +value);
         }
         if (skaarhojRcp != undefined && layEnt != undefined){           // RCP - Does this GV function code have an entry on this screen layout?
 
@@ -982,7 +838,8 @@ function serverInit()
     var button;
     var camera;
 
-    // console.dir(birch.sources.length);
+    console.log('birch sources');
+    console.dir(birch.sources.length);
     
     for(i=0; i<birch.sources.length; i++){
                             // Initial Camera to Button Mapping - Naming driven by Birch
@@ -1017,7 +874,6 @@ function serverInit()
                 camera=10;
                 break;
 
-                        // Not yet in Birch ??
             case 'NP CAM 11i':
                 button=14;
                 camera=11;
@@ -1033,102 +889,104 @@ function serverInit()
 
         }
 
-        cameraMap[camera] = new Object();
-        cameraMap[camera].button = button;
-        cameraMap[camera].birchObj = birch.sources[i];
-        cameraMap[camera].ndFilter = 1;    // ND filters 1-4 on GrassValley
-        cameraMap[camera].cameraNum = camera;
-        cameraMap[camera].presetButton = 0;
+        grassValley.cameraMap[camera] = new Object();
+        grassValley.cameraMap[camera].button = button;
+        grassValley.cameraMap[camera].birchObj = birch.sources[i];
+        grassValley.cameraMap[camera].ndFilter = 1;    // ND filters 1-4 on GrassValley
+        grassValley.cameraMap[camera].cameraNum = camera;
+        grassValley.cameraMap[camera].presetButton = 0;
 
-        f1ButtonMap[button] = new Object();
-        f1ButtonMap[button].camera = camera;
-        f1ButtonMap[button].name = birch.sources[i].name;
+        skaarhojFusion.fusionButtonMap[button] = new Object();
+        skaarhojFusion.fusionButtonMap[button].camera = camera;
+        skaarhojFusion.fusionButtonMap[button].name = birch.sources[i].name;
 
         grassValley.subscribe2Camera(camera);        // Subscribe to camera changes in iris, gain, nd, ...
 
-        console.log('Subscribing to: ', camera)
-        console.dir(birch.destinations[0]);
-
-
     } // for loop
 
-    resetButtonsNLabels();
+
+    console.log('birch.destinations');
+    console.dir(birch.destinations);
+
+    paintFusion();
 
 }
 
 
-function resetButtonsNLabels()
+function paintFusion()
 {
-    for(i=0;i<f1ButtonMap.length;i++){
-        if(f1ButtonMap[i]){
-            skaarhojF1.hwcMode(i, modeOff);      // set all to off
-            // skaarhojF1.hwcMode(i+6, modeOff);      // set flags to off
-            skaarhojF1.hwcLabel(i, f1ButtonMap[i].camera);
+    for(i=0;i<skaarhojFusion.fusionButtonMap.length;i++){
+        if(skaarhojFusion.fusionButtonMap[i]){
+            skaarhojFusion.hwcMode(i, modeOff);      // set all to off
+            // skaarhojFusion.hwcMode(i+6, modeOff);      // set flags to off
+            skaarhojFusion.hwcLabel(i, skaarhojFusion.fusionButtonMap[i].camera);
         }
     }
-    skaarhojF1.hwcLabel(47, 'Preset');
-    if (f1CameraSelectedButton){
+
+    // 'F017':          {button: 18, display: 'Reset Panel(s)'},
+    // 'F018':          {button: 25, display: 'Preset ALL Cams'},
+
+    skaarhojFusion.hwcLabel(18, 'Reset Panel(s)');
+    skaarhojFusion.hwcLabel(25, 'Preset ALL Cams');
+    skaarhojFusion.hwcLabel(47, 'Preset');
+    if (skaarhojFusion.fusionCamSelectButton){
         cameraPresetLEDs(0);    // Clear all 4 then light single below
-        skaarhojF1.hwcLabel(48, f1ButtonMap[f1CameraSelectedButton].name);
-        if (cameraMap[currentCamera()].presetButton)
-            skaarhojF1.hwcMode(cameraMap[currentCamera()].presetButton, modeWhite);       //  White is 4
+        skaarhojFusion.hwcLabel(48, skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].name);
+        if (grassValley.cameraMap[currentCamera()].presetButton)
+            skaarhojFusion.hwcMode(grassValley.cameraMap[currentCamera()].presetButton, modeWhite);       //  White is 4
     }
-    skaarhojF1.hwcLabel(25, 'Preset ALL Cams');
-    skaarhojF1.hwcLabel(rebootF1, 'Reset Panels');            // Force program to exit
 
-    // skaarhojF1.hwcLabel(followTally, 'Follow Tally');            // Follow Live tally
-
-    // if (f1FollowTally){
-    //     console.log('modeWhite');
-    //     skaarhojF1.hwcMode(followTally, modeWhite); 
-    // }
-    // else{   
-    //     console.log('modeOff');
-    //     skaarhojF1.hwcMode(followTally, modeOff); 
-    // }
-
-
-
-    if (!f1CameraSelectedButton){    // We just started up - no camera selected
+    if (!skaarhojFusion.fusionCamSelectButton){    // We just started up - no camera selected
         allCamerasPresetLEDs(0);     // Clear "All Camera" preset buttons
         cameraPresetLEDs(0);        // Clear individual camera preset buttons
     }
     else{        
-        Object.entries(f1Lay).forEach(layEnt => { 
-            if (grassValueCache[currentCamera()] != undefined)
-                skaarhojF1.hwcLabel(layEnt[1].display, layEnt[1].label + grassValueCache[currentCamera()][layEnt[0]]);
+        Object.entries(skaarhojFusion.panelLayout).forEach(layEnt => { 
+            if (grassValley.cameraCache[currentCamera()] != undefined)
+                skaarhojFusion.hwcLabel(layEnt[1].display, layEnt[1].label + grassValley.cameraCache[currentCamera()][layEnt[0]]);
             if (layEnt[1].color)
-                skaarhojF1.hwcColor(layEnt[1].display, layEnt[1].color);
+                skaarhojFusion.hwcColor(layEnt[1].display, layEnt[1].color);
         });
     }
 }
 
 function cameraPresetLEDs(pressed)
 {
-    for (i=49;i<53;i++)                 // Individual Camera Preset LEDs
-        skaarhojF1.hwcMode(i, modeOff);
+    if (skaarhojFusion.panelVersion == 1){
 
-    if (pressed){
-        skaarhojF1.hwcMode(pressed, modeWhite);       
-        cameraMap[currentCamera()].presetButton = pressed;
+        for (i=49;i<53;i++)                 // Individual Camera Preset LEDs
+            skaarhojFusion.hwcMode(i, modeOff);
+
+        if (pressed){
+            skaarhojFusion.hwcMode(pressed, modeWhite);       
+            grassValley.cameraMap[currentCamera()].presetButton = pressed;
+        }
+    } 
+    else{
+        for (i=26;i<30;i++)                 // Individual Camera Preset LEDs
+            skaarhojFusion.hwcMode(i, modeOff);
+
+        if (pressed){
+            skaarhojFusion.hwcMode(pressed, modeWhite);       
+            grassValley.cameraMap[currentCamera()].presetButton = pressed;
+        }
     }
 }
 
 function allCamerasPresetLEDs(pressed)
 {
-    for (i=28;i<32;i++){                 // All Cameras Preset LEDs
-        skaarhojF1.hwcMode(i, modeOff);
+    if (skaarhojFusion.panelVersion == 1){
+
+        for (i=28;i<32;i++){                 // All Cameras Preset LEDs
+            skaarhojFusion.hwcMode(i, modeOff);
+        }
+
+        if (pressed)
+            skaarhojFusion.hwcMode(pressed, modeWhite);
+
+        cameraPresetLEDs(0);   // All cameras Profile ... clear this cameras individual Profile LEDs
     }
-
-    if (pressed)
-        skaarhojF1.hwcMode(pressed, modeWhite);
-
-    cameraPresetLEDs(0);   // All cameras Profile ... clear this cameras individual Profile LEDs
 }
-
-
-
-
 
 
                         //
@@ -1162,9 +1020,9 @@ if (skaarhojRcp != undefined){
 
             var gvFuncNum = item[0];
             var layEnt = item[1];
-            if (grassValueCache[currentCamera()] == undefined)
+            if (grassValley.cameraCache[currentCamera()] == undefined)
                 return;
-            var cacheValue = grassValueCache[currentCamera()][gvFuncNum];
+            var cacheValue = grassValley.cameraCache[currentCamera()][gvFuncNum];
 
             if (layEnt.led){            // Just light up an LED with color (not a display w/label)
                 if (cacheValue != undefined)
@@ -1235,7 +1093,7 @@ if (skaarhojRcp != undefined){
             }
         });
 
-        skaarhojRcp.hwcLabel(buttonCamera, f1ButtonMap[f1CameraSelectedButton].camera);
+        skaarhojRcp.hwcLabel(buttonCamera, skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera);
 
     }
 
@@ -1264,7 +1122,7 @@ if (skaarhojRcp != undefined){
 
         if (layEnt[1].toggle){                       // toggle values come from GV and are sent
 
-            var oldValue = grassValueCache[currentCamera()][setter];
+            var oldValue = grassValley.cameraCache[currentCamera()][setter];
             var newValue;
 
             if (oldValue == layEnt[1].on){
@@ -1299,21 +1157,16 @@ if (skaarhojRcp != undefined){
     });
 
 
-
-    var shiftSoloDepressed = false;
-    var shiftAllDepressed = false;
-
-
     skaarhojRcp.on('button', (pressed, position) => {
 
         if (pressed === buttonSoloShift){
             if (position === 'Down'){
-                shiftSoloDepressed = true;
+                skaarhojRcp.shiftSoloDepressed = true;
                 paintRCP (rcpLayouts[screenShift]);
                 return;
             }
             else{
-                shiftSoloDepressed = false;
+                skaarhojRcp.shiftSoloDepressed = false;
                 paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
                 return;
             }
@@ -1321,19 +1174,19 @@ if (skaarhojRcp != undefined){
 
         if (pressed === buttonAllShift){
             if (position === 'Down'){
-                shiftAllDepressed = true;
+                skaarhojRcp.shiftAllDepressed = true;
                 paintRCP (rcpLayouts[screenShift]);
                 return;
             }
             else{
-                shiftAllDepressed = false;
+                skaarhojRcp.shiftAllDepressed = false;
                 paintRCP(rcpCurrentLayout);     // Shift key does not alter rcpCurrentLayout (see paintRCP)
                 return;
             }
         }
 
         var layout;
-        if (shiftSoloDepressed || shiftAllDepressed)
+        if (skaarhojRcp.shiftSoloDepressed || skaarhojRcp.shiftAllDepressed)
             layout = rcpLayouts[screenShift];
         else
             layout = rcpCurrentLayout;
@@ -1388,8 +1241,8 @@ if (skaarhojRcp != undefined){
                             grassValley.sendFunctionValue(setter, currentCamera(), false, newValue); 
                         }
                         else{
-                            if (shiftAllDepressed){
-                                cameraMap.forEach(camera =>{
+                            if (skaarhojRcp.shiftAllDepressed){
+                                grassValley.cameraMap.forEach(camera =>{
                                     grassValley.sendFunctionValue(setter, camera.cameraNum, false, layEnt.parm);  
                                 });
                             }

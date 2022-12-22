@@ -443,6 +443,7 @@ const f2Layout = {
 
 
 const recallSinglePresetF1 = 49;
+const recallSinglePresetF2 = 26;
 const recallAllPresetF1 = 28;
 const rebootF1 = 18;
 
@@ -482,7 +483,7 @@ grassValley.cameraCache=[];
 birch = require('./birch.js');
 birchEmitter = birch.init(options.birchIp);
 birchEmitter.on('initialized', () => {
-    // console.log('birchEmitter.on(initialized)');
+
     serverInit();
 
     birch.destinations.forEach (obj => {        
@@ -572,7 +573,9 @@ function switchCamera()
 {
         // Send GV OCP camera name to shade
         // console.log('GV OCP ' +fusionButtonMap[pressed].camera);
-    grassValley.ocpSetCamera(skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera);
+
+    if (skaarhojRcp != undefined)
+        grassValley.ocpSetCamera(skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].camera);
 
         // Send birch request route camera to shader monitor
     if (birch.myMonitor != undefined){
@@ -666,21 +669,24 @@ skaarhojFusion.on('button', (pressed, position) => {
                     }
                     break;
 
-                case 26:
-                case 27:
-                case 28:
-                case 29:
-                    break;
+                case recallSinglePresetF2:
+                case recallSinglePresetF2 +1:
+                case recallSinglePresetF2 +2:
+                case recallSinglePresetF2 +3:
                     if (skaarhojFusion.shiftAllDepressed){
                         grassValley.cameraMap.forEach(function(obj){
-                            grassValley.sendPresetRecall(obj.cameraNum, 26 -pressed +2);   // 2 => File 1
+                            grassValley.sendPresetRecall(obj.cameraNum, pressed -recallSinglePresetF2 +2);   // 2 => File 1
                         });
                     }
                     else{
-                        grassValley.sendPresetRecall(currentCamera(), 26 -pressed +2);      // 2 => File 1
+                        grassValley.sendPresetRecall(currentCamera(), pressed -recallSinglePresetF2 +2);      // 2 => File 1
                     }
                     break;
                 
+                case rebootF1:            // RESET ALL ... exit()
+                    process.exit(1);    // program exit will cause docker to restart this
+                    break;
+
                 default:
                     console.log('Unmapped button pressed: ' +pressed);
             }
@@ -772,6 +778,25 @@ grassValleyEmitter.on('func', (func, camera, value) => {
         else
             skaarhojFusion.hwcMode(grassValley.cameraMap[camera].button+6, modeOff);
     }
+
+    if (func == gvActiveScene && camera == currentCamera()){        // Light up Active Scene (Preset) for displayed camera
+        if (skaarhojFusion.panelVersion == 2){
+            skaarhojFusion.hwcMode(recallSinglePresetF2, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF2 +1, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF2 +2, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF2 +3, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF2 + value -2, modeWhite);
+        }
+
+        if (skaarhojFusion.panelVersion == 1){
+            skaarhojFusion.hwcMode(recallSinglePresetF1, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF1 +1, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF1 +2, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF1 +3, modeOff);
+            skaarhojFusion.hwcMode(recallSinglePresetF1 + value -2, modeWhite);
+        }
+    }
+
 
 
     if (skaarhojRcp != undefined)
@@ -918,17 +943,26 @@ function paintFusion()
     for(i=0;i<skaarhojFusion.fusionButtonMap.length;i++){
         if(skaarhojFusion.fusionButtonMap[i]){
             skaarhojFusion.hwcMode(i, modeOff);      // set all to off
-            // skaarhojFusion.hwcMode(i+6, modeOff);      // set flags to off
             skaarhojFusion.hwcLabel(i, skaarhojFusion.fusionButtonMap[i].camera);
         }
     }
 
-    // 'F017':          {button: 18, display: 'Reset Panel(s)'},
-    // 'F018':          {button: 25, display: 'Preset ALL Cams'},
 
-    skaarhojFusion.hwcLabel(18, 'Reset Panel(s)');
-    skaarhojFusion.hwcLabel(25, 'Preset ALL Cams');
-    skaarhojFusion.hwcLabel(47, 'Preset');
+    skaarhojFusion.hwcLabel(18, 'Reset Panel');
+
+    if (skaarhojFusion.panelVersion == 1){
+        skaarhojFusion.hwcLabel(25, 'Preset ALL Cams');
+        skaarhojFusion.hwcLabel(47, 'Preset');
+    }
+
+    if (skaarhojFusion.panelVersion == 2){
+        skaarhojFusion.hwcLabel(25, 'Shift ALL');
+        skaarhojFusion.hwcLabel(recallSinglePresetF2, 'Preset 1');
+        skaarhojFusion.hwcLabel(recallSinglePresetF2 +1, 'Preset 2');
+        skaarhojFusion.hwcLabel(recallSinglePresetF2 +2, 'Preset 3');
+        skaarhojFusion.hwcLabel(recallSinglePresetF2 +3, 'Preset 4');
+    }
+
     if (skaarhojFusion.fusionCamSelectButton){
         cameraPresetLEDs(0);    // Clear all 4 then light single below
         skaarhojFusion.hwcLabel(48, skaarhojFusion.fusionButtonMap[skaarhojFusion.fusionCamSelectButton].name);
@@ -963,7 +997,7 @@ function cameraPresetLEDs(pressed)
         }
     } 
     else{
-        for (i=26;i<30;i++)                 // Individual Camera Preset LEDs
+        for (i=recallSinglePresetF2;i<recallSinglePresetF2 +4;i++)                 // Individual Camera Preset LEDs
             skaarhojFusion.hwcMode(i, modeOff);
 
         if (pressed){

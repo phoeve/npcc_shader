@@ -1,5 +1,3 @@
-
-
         // Skaarhoj constants
         // for HWC#xx=yy mode calls (leds, buttons )
 const modeOff   = 0;
@@ -547,6 +545,10 @@ function getLayEntByHWC (layout, pressed, hwc)
     return layEnt;
 }
 
+skaarhojFusion.on('error', () => {           // "pressed" verb ONLY pertains to dials!
+    console.log('skaarhojFusion threw error ... exiting');
+    process.exit(1);        // Docker will restart this process
+});
 
 skaarhojFusion.on('press', (pressed) => {           // "pressed" verb ONLY pertains to dials!
 

@@ -27,25 +27,25 @@ class Skaarhoj extends EventEmitter{
         });
         this.socket.on('end', function () {
             console.log('end');
-            self.emit('end');
+            self.emit('error');
         });
         this.socket.on('timeout', function () {
             console.log('skaarhoj timeout');
-            self.emit('timeout');
+            self.emit('error');
         });
         this.socket.on('drain', function () {
             console.log('drain');
-            self.emit('drain');
+            self.emit('error');
         });
         this.socket.on('error', function () {
             console.log('error');
-            // self.emit('error');
-            console.log('ReConnecting to Skaarhoj ' + host + ':' + port + '...');
-            socket.connect(port, host);
+            self.emit('error');
+            // console.log('ReConnecting to Skaarhoj ' + host + ':' + port + '...');
+            // socket.connect(port, host);
         });
         this.socket.on('close', function () {
             console.log('close');
-            self.emit('close');
+            self.emit('error');
         });
 
 

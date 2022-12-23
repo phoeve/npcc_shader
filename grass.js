@@ -214,8 +214,8 @@ socket.on('drain', function () {
     console.log('drain');
 });
 socket.on('error', function () {
-    console.log('error');
-    connect();
+    console.log('Grass Valley connection error ... exiting');
+    process.exit(1);
 });
 socket.on('close', function () {
     console.log('close');
